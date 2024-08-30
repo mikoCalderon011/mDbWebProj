@@ -2,8 +2,6 @@ import React from 'react'
 import IgopImg from '../../assets/Image/Igop.jpg'
 
 const SearchResult = ({ data }) => {
-   console.log(data)
-
    return (
       <a 
          href='' 

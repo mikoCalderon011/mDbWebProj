@@ -16,7 +16,7 @@ const fetchResults = async (value, setResults) => {
 			}
 		});
 
-		const topResults = response.data.results.slice(0, 6)
+		const topResults = response.data.results.slice(0, 6);
 		setResults(topResults);
 	} catch (error) {
 		console.error('Error fetching data:', error);
