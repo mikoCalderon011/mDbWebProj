@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import StarIcon from '../../../assets/Icons/StarIcon';
 import WatchlistIconTwo from '../../../assets/Icons/WatchlistIconTwo';
+import { WatchTrailerButton } from '../../Button/Buttons';
 
 const HighlightedShow = ({ movieData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,11 +58,7 @@ const HighlightedShow = ({ movieData }) => {
                 </div>
               </div>
               <div className='flex gap-[1.0625rem] mt-[0.8375rem]'>
-                <button className='w-[9.5rem] h-[2.5rem] border-[1px] border-white rounded-full'>
-                  <span className='text-[0.875rem]'>
-                    Watch the trailer
-                  </span>
-                </button>
+                <WatchTrailerButton movieId={data.id}  />
                 <button className='w-[2.5rem] h-[2.5rem] bg-[#5e5858] rounded-full flex justify-center items-center'>
                   <WatchlistIconTwo />
                 </button>

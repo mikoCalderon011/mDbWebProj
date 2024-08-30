@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <main className='flex flex-col items-center'>
+      <main className='h-screen flex flex-col items-center bg-[#fff1e6] dark:bg-[#111111] transition-bg-color duration-500'>
         <NowShowing />
       </main>
     </>
