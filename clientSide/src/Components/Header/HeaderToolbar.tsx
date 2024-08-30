@@ -6,7 +6,7 @@ import Account from './Account'
 
 const HeaderToolbar = () => {
   return (
-    <div className='flex items-center gap-[1.75rem]'>
+    <div className='flex items-center gap-[1.75rem] ml-[1.75rem]'>
       <Watchlist />
       <LightModeSwitch />
       <Translation />
