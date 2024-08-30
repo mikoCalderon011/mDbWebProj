@@ -1,5 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import LeftIcon from '../../assets/Icons/LeftIcon';
+import RightIcon from '../../assets/Icons/RightIcon';
+import PlusIcon from '../../assets/Icons/PlusIcon';
 
 export function WatchTrailerButton({ movieId }) {
    const SPECIFIC_MOVIE_DATA_API = `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`
@@ -59,13 +62,13 @@ export function FreshPickSelector({ selectedPeriod, onPeriodChange }) {
 
    return (
       <div className='h-[1.75rem] w-auto border-[1px] rounded-md flex text-[0.875rem] font-bold items-center text-white'>
-         <div 
+         <div
             className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedPeriod === 1 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
             onClick={() => changePeriod(1)}
          >
             <span>Today</span>
          </div>
-         <div 
+         <div
             className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedPeriod === 2 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
             onClick={() => changePeriod(2)}
          >
@@ -73,4 +76,24 @@ export function FreshPickSelector({ selectedPeriod, onPeriodChange }) {
          </div>
       </div>
    );
+}
+
+export function CarouselButtons({ direction, slideDirection }) {
+   return (
+      <button 
+         className={`w-[3rem] h-[3rem] bg-[#1C252F] rounded-full opacity-70 absolute top-[30%] ${direction === 'left' ? 'left-[-1.5rem]' : 'right-[-1.5rem]'}`}
+         onClick={slideDirection}   
+      >
+         {direction === "left" ? <LeftIcon /> : <RightIcon />}
+      </button>
+   )
+}
+
+export function WatchlistButton() {
+   return (
+      <button className='flex justify-center items-center gap-[0.5rem] bg-[#1C252F] h-[2.25rem] rounded-md'>
+         <PlusIcon />
+         <span className='text-[#3D81E7] text-[0.875rem]'>Watchlist</span>
+      </button>
+   )
 }
