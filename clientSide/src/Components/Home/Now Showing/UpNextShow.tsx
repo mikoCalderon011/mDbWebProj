@@ -39,7 +39,7 @@ const UpNextShow = ({ movieData }) => {
               className='w-[24.25rem] h-[7rem] object-cover rounded-lg'
             />
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 rounded-lg"
               style={{
                 backgroundImage:
                   'linear-gradient(245deg, rgba(70,46,27,0) 0%, rgba(35,29,24,0) 47%, rgba(23,23,23,1) 100%)'

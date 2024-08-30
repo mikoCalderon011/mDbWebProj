@@ -31,8 +31,6 @@ export function WatchTrailerButton({ movieId }) {
       fetchMovies();
    }, [movieId, SPECIFIC_MOVIE_DATA_API])
 
-   console.log(movieTrailer);
-
    return (
       <>
          <a
@@ -49,5 +47,30 @@ export function WatchTrailerButton({ movieId }) {
          </a>
 
       </>
+   );
+}
+
+export function FreshPickSelector({ selectedPeriod, onPeriodChange }) {
+   const changePeriod = (value) => {
+      if (selectedPeriod !== value) {
+         onPeriodChange(value);
+      }
+   };
+
+   return (
+      <div className='h-[1.75rem] w-auto border-[1px] rounded-md flex text-[0.875rem] font-bold items-center text-white'>
+         <div 
+            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedPeriod === 1 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
+            onClick={() => changePeriod(1)}
+         >
+            <span>Today</span>
+         </div>
+         <div 
+            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedPeriod === 2 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
+            onClick={() => changePeriod(2)}
+         >
+            <span>Week</span>
+         </div>
+      </div>
    );
 }

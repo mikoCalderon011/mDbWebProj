@@ -33,7 +33,7 @@ const HighlightedShow = ({ movieData }) => {
             className="absolute inset-0"
             style={{
               backgroundImage:
-                'linear-gradient(180deg, rgba(70,46,27,0) 0%, rgba(35,29,24,0) 60%, rgba(23,23,23,1) 95%)'
+                'linear-gradient(180deg, rgba(70,46,27,0) 0%, rgba(35,29,24,0) 60%, rgba(17,17,17,1) 95%)'
             }}
           ></div>
           <div className='absolute flex bottom-0 left-[1.875rem] gap-[1rem] items-center'>
