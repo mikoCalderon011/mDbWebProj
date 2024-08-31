@@ -1,0 +1,42 @@
+.fresh-picks--container {
+   width: 66.625rem;
+   height: auto;
+   font-family: 'Roboto', sans-serif;
+   display: flex;
+   flex-direction: column;
+   gap: 1.125rem;
+   color: #ffffff;
+
+   // Dark mode styles
+   .dark & {
+      color: #ffffff;
+   }
+
+   .header {
+      display: flex;
+      gap: 1.1rem;
+      align-items: center;
+
+      .title {
+         font-size: 1.5rem;
+         font-weight: bold;
+         color: #000000;
+
+         // Dark mode styles
+         .dark & {
+            color: #fff1e6;
+         }
+      }
+
+   }
+
+   .description {
+      font-size: 0.875rem;
+      color: #000000;
+
+      // Dark mode styles
+      .dark & {
+         color: #fff1e6;
+      }
+   }
+}

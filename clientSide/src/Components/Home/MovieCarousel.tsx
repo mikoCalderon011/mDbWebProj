@@ -51,38 +51,33 @@ const MovieCarousel = ({ section, query }) => {
    };
 
    return (
-      <div className='relative flex gap-[1.375rem] font-roboto'>
+      <div className='carousel-container'>
          {slideCard !== 0 ? <CarouselButtons direction="left" slideDirection={prevSlide} /> : null}
-         {movieTrend.slice(slideCard, slideCard + cardsToShow).map((data, index) => {
-            return (
-               <div 
-                  className='w-[9.9375rem] flex flex-col bg-[#1a1a1a] rounded-md' 
-                  key={index}
-               >
-                  <img
-                     src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
-                     alt={data.title || data.name}
-                     className='w-[10.1375rem] h-[14.1875rem] rounded-md object-cover'
-                  />
-                  <figcaption className='flex flex-col py-[0.9375rem] px-[0.625rem] gap-[0.9375rem]'>
-                     <div className='flex justify-around'>
-                        <div className='flex gap-[0.39875rem]'>
-                           <StarIcon />
-                           <span>{data.vote_average.toFixed(1)}</span>
-                        </div>
-                        <div className='flex gap-[0.39875rem]'>
-                           <StarOutline />
-                           <span>0</span>
-                        </div>
+         {movieTrend.slice(slideCard, slideCard + cardsToShow).map((data, index) => (
+            <div className='card' key={index}>
+               <img
+                  src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+                  alt={data.title || data.name}
+                  className='card-image'
+               />
+               <figcaption className='card-info'>
+                  <div className='card-rating'>
+                     <div className='rating-item'>
+                        <StarIcon />
+                        <span>{data.vote_average.toFixed(1)}</span>
                      </div>
-                     <span className='text-[1rem] block truncate'>
-                        {slideCard + 1 + index}. {data.title || data.name}
-                     </span>
-                     <WatchlistButton />
-                  </figcaption>
-               </div>
-            )
-         })}
+                     <div className='rating-item'>
+                        <StarOutline />
+                        <span>0</span>
+                     </div>
+                  </div>
+                  <span className='card-title'>
+                     {slideCard + 1 + index}. {data.title || data.name}
+                  </span>
+                  <WatchlistButton />
+               </figcaption>
+            </div>
+         ))}
          {slideCard !== movieTrend.length - 6 ? <CarouselButtons direction="right" slideDirection={nextSlide} /> : null}
       </div>
    )

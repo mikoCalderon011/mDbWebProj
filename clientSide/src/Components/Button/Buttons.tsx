@@ -61,12 +61,12 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
    };
 
    return (
-      <div className='h-[1.75rem] w-auto border-[1px] rounded-md flex text-[0.875rem] font-bold items-center text-white border-black dark:border-[#fff1e6]'>
+      <div className='tab-switch'>
          <div
-            className={`h-full px-[1.25rem] flex items-center rounded cursor-pointer 
+            className={`tab
             ${selectedTab === 1
-                  ? "bg-black text-white dark:bg-[#FFF1E6] dark:text-black" // Selected Tab Style
-                  : "bg-transparent text-black dark:text-white" // Unselected Tab Style
+                  ? "selected" 
+                  : "unselected"
                }`}
             onClick={() => changePeriod(1)}
          >
@@ -76,10 +76,10 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
             </span>
          </div>
          <div
-            className={`h-full px-[1.25rem] flex items-center rounded-md cursor-pointer 
+            className={`tab
              ${selectedTab === 2
-                  ? "bg-black text-white dark:bg-[#FFF1E6] dark:text-black" // Selected Tab Style
-                  : "bg-transparent text-black dark:text-white" // Unselected Tab Style
+                  ? "selected" 
+                  : "unselected"
                }`}
             onClick={() => changePeriod(2)}
          >
