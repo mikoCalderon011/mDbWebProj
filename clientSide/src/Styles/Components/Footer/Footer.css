@@ -1,10 +1,97 @@
-.arsenal-title {
-  font-size: 1rem;
-  line-height: 2.5rem;
+/* Footer */
+.footer {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF8731;
+  color: #ffffff;
+}
+.dark .footer {
+  background-color: #070707;
 }
 
-.arsenal {
+/* Footer Container */
+.footer-container {
+  width: 66.625rem;
+  display: flex;
+  padding: 5.9375rem 0;
+  justify-content: space-between;
+  /* API Section */
+  /* Contact Information */
+}
+.footer-container .footer-section {
+  display: flex;
+  gap: 3rem;
+}
+.footer-container .footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-container .footer-section ul .footer-title {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1rem;
+  line-height: 2.5rem;
+  color: #ffffff;
+}
+.dark .footer-container .footer-section ul .footer-title {
+  color: #707070;
+}
+.footer-container .footer-section ul .footer-item {
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 2rem;
+  color: #ffffff;
+}
+.dark .footer-container .footer-section ul .footer-item {
+  color: #ffffff;
+}
+.footer-container .footer-api {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.footer-container .footer-api a {
+  filter: brightness(100%);
+}
+.footer-container .footer-api a:hover {
+  filter: brightness(150%);
+}
+.footer-container .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.footer-container .contact-info .contact-item {
+  display: flex;
+  flex-direction: column;
+  line-height: 2.5rem;
+}
+.footer-container .contact-info .contact-item .footer-title {
+  font-family: "Roboto Condensed", sans-serif;
+  color: #ffffff;
+}
+.dark .footer-container .contact-info .contact-item .footer-title {
+  color: #707070;
+}
+.footer-container .contact-info .contact-item .footer-item {
+  color: #ffffff;
+}
+.dark .footer-container .contact-info .contact-item .footer-item {
+  color: #ffffff;
+}
+.footer-container .contact-info .social-media {
+  display: flex;
+  gap: 2.1625rem;
+  padding-bottom: 1rem;
+}
+.footer-container .contact-info .social-media a {
+  display: flex;
+}
+.footer-container .contact-info .footer-copy {
+  color: #ffffff;
+}
+.dark .footer-container .contact-info .footer-copy {
+  color: #ffffff;
 }/*# sourceMappingURL=Footer.css.map */

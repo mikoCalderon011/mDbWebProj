@@ -1,10 +1,124 @@
-.arsenal-title {
-   font-size: 1rem;
-   line-height: 2.5rem;
+/* Footer */
+.footer {
+   height: auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #FF8731;
+   color: #ffffff;
+
+   // Dark mode styles
+   .dark & {
+      background-color: #070707;
+   }
 }
 
-.arsenal {
-   font-size: 1rem;
-   font-weight: 500;
-   line-height: 2rem;
+/* Footer Container */
+.footer-container {
+   width: 66.625rem;
+   display: flex;
+   padding: 5.9375rem 0;
+   justify-content: space-between;
+
+   // Footer Sections
+   .footer-section {
+      display: flex;
+      gap: 3rem;
+
+      ul {
+         list-style: none;
+         padding: 0;
+
+         .footer-title {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1rem;
+            line-height: 2.5rem;
+            color: #ffffff;
+
+            // Dark mode styles
+            .dark & {
+               color: #707070;
+            }
+         }
+
+         .footer-item {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 2rem;
+            color: #ffffff;
+
+            // Dark mode styles
+            .dark & {
+               color: #ffffff;
+            }
+         }
+      }
+   }
+
+   /* API Section */
+   .footer-api {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      a {
+         filter: brightness(100%);
+
+         &:hover {
+            filter: brightness(150%);
+         }
+      }
+   }
+
+   /* Contact Information */
+   .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .contact-item {
+         display: flex;
+         flex-direction: column;
+         line-height: 2.5rem;
+
+         .footer-title {
+            font-family: 'Roboto Condensed', sans-serif;
+            color: #ffffff;
+
+            // Dark mode styles
+            .dark & {
+               color: #707070;
+            }
+         }
+
+         .footer-item {
+            color: #ffffff;
+
+            // Dark mode styles
+            .dark & {
+               color: #ffffff;
+            }
+         }
+      }
+
+      .social-media {
+         display: flex;
+         gap: 2.1625rem;
+         padding-bottom: 1rem;
+
+         a {
+            display: flex;
+         }
+      }
+
+      .footer-copy {
+         color: #ffffff;
+
+         // Dark mode styles
+         .dark & {
+            color: #ffffff;
+         }
+      }
+   }
 }
