@@ -13,6 +13,9 @@ const MovieCarousel = ({ section, query }) => {
    else if (section === 1) {
       MOVIE_API = `https://api.themoviedb.org/3/${query}/popular?language=en-US&page=1`
    }
+   else if (section === 2) {
+      MOVIE_API = 'https://api.themoviedb.org/3/movie/upcoming?language=fil-PH&page=1'
+   }
 
    const [movieTrend, setMovieTrend] = useState([]);
    const [slideCard, setSlideCard] = useState(0);
@@ -73,7 +76,7 @@ const MovieCarousel = ({ section, query }) => {
                         </div>
                      </div>
                      <span className='text-[1rem] block truncate'>
-                        {index + 1}. {data.title || data.name}
+                        {slideCard + 1 + index}. {data.title || data.name}
                      </span>
                      <WatchlistButton />
                   </figcaption>

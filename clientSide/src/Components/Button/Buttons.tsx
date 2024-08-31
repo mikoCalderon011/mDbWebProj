@@ -61,9 +61,13 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
    };
 
    return (
-      <div className='h-[1.75rem] w-auto border-[1px] rounded-md flex text-[0.875rem] font-bold items-center text-white'>
+      <div className='h-[1.75rem] w-auto border-[1px] rounded-md flex text-[0.875rem] font-bold items-center text-white border-black dark:border-[#fff1e6]'>
          <div
-            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedTab === 1 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
+            className={`h-full px-[1.25rem] flex items-center rounded cursor-pointer 
+            ${selectedTab === 1
+                  ? "bg-black text-white dark:bg-[#FFF1E6] dark:text-black" // Selected Tab Style
+                  : "bg-transparent text-black dark:text-white" // Unselected Tab Style
+               }`}
             onClick={() => changePeriod(1)}
          >
             <span>
@@ -72,7 +76,11 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
             </span>
          </div>
          <div
-            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedTab === 2 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
+            className={`h-full px-[1.25rem] flex items-center rounded-md cursor-pointer 
+             ${selectedTab === 2
+                  ? "bg-black text-white dark:bg-[#FFF1E6] dark:text-black" // Selected Tab Style
+                  : "bg-transparent text-black dark:text-white" // Unselected Tab Style
+               }`}
             onClick={() => changePeriod(2)}
          >
             <span>
@@ -86,9 +94,9 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
 
 export function CarouselButtons({ direction, slideDirection }) {
    return (
-      <button 
+      <button
          className={`w-[3rem] h-[3rem] bg-[#1C252F] rounded-full opacity-70 absolute top-[30%] ${direction === 'left' ? 'left-[-1.5rem]' : 'right-[-1.5rem]'}`}
-         onClick={slideDirection}   
+         onClick={slideDirection}
       >
          {direction === "left" ? <LeftIcon /> : <RightIcon />}
       </button>
