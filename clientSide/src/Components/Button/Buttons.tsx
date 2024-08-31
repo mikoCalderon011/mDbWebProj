@@ -53,26 +53,32 @@ export function WatchTrailerButton({ movieId }) {
    );
 }
 
-export function FreshPickSelector({ selectedPeriod, onPeriodChange }) {
+export function TabSwitch({ section, selectedTab, onTabChange }) {
    const changePeriod = (value) => {
-      if (selectedPeriod !== value) {
-         onPeriodChange(value);
+      if (selectedTab !== value) {
+         onTabChange(value);
       }
    };
 
    return (
       <div className='h-[1.75rem] w-auto border-[1px] rounded-md flex text-[0.875rem] font-bold items-center text-white'>
          <div
-            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedPeriod === 1 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
+            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedTab === 1 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
             onClick={() => changePeriod(1)}
          >
-            <span>Today</span>
+            <span>
+               {section === 0 && 'Today'}
+               {section === 1 && 'Movies'}
+            </span>
          </div>
          <div
-            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedPeriod === 2 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
+            className={`h-full px-[1.25rem] flex items-center rounded-sm cursor-pointer ${selectedTab === 2 ? "bg-[#FFF1E6] text-black" : "bg-transparent"}`}
             onClick={() => changePeriod(2)}
          >
-            <span>Week</span>
+            <span>
+               {section === 0 && 'Week'}
+               {section === 1 && 'On TV'}
+            </span>
          </div>
       </div>
    );

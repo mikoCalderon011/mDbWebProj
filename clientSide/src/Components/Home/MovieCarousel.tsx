@@ -4,8 +4,16 @@ import { CarouselButtons, WatchlistButton } from '../Button/Buttons';
 import StarOutline from '../../assets/Icons/StarOutline';
 import StarIcon from '../../assets/Icons/StarIcon';
 
-const MovieCarousel = ({ period }) => {
-   const MOVIE_TREND_API = `https://api.themoviedb.org/3/trending/movie/${period}?language=en-US`;
+const MovieCarousel = ({ section, query }) => {
+   let MOVIE_API = ``;
+
+   if (section === 0) {
+      MOVIE_API = `https://api.themoviedb.org/3/trending/movie/${query}?language=en-US`
+   }
+   else if (section === 1) {
+      MOVIE_API = `https://api.themoviedb.org/3/${query}/popular?language=en-US&page=1`
+   }
+
    const [movieTrend, setMovieTrend] = useState([]);
    const [slideCard, setSlideCard] = useState(0);
    const cardsToShow = 6;
@@ -13,7 +21,7 @@ const MovieCarousel = ({ period }) => {
    useEffect(() => {
       const fetchMovieTrends = async () => {
          try {
-            const response = await axios.get(MOVIE_TREND_API, {
+            const response = await axios.get(MOVIE_API, {
                headers: {
                   'Authorization': `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_KEY}`,
                   'Content-Type': 'application/json'
@@ -29,7 +37,7 @@ const MovieCarousel = ({ period }) => {
       }
 
       fetchMovieTrends();
-   }, [MOVIE_TREND_API])
+   }, [MOVIE_API])
 
    const nextSlide = () => {
       setSlideCard(slideCard === movieTrend.length - 1 ? 0 : slideCard + 6);
@@ -38,8 +46,6 @@ const MovieCarousel = ({ period }) => {
    const prevSlide = () => {
       setSlideCard(slideCard === 0 ? movieTrend.length - 1 : slideCard - 6);
    };
-
-   console.log(movieTrend)
 
    return (
       <div className='relative flex gap-[1.375rem] font-roboto'>
@@ -52,7 +58,7 @@ const MovieCarousel = ({ period }) => {
                >
                   <img
                      src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
-                     alt={data.title}
+                     alt={data.title || data.name}
                      className='w-[10.1375rem] h-[14.1875rem] rounded-md object-cover'
                   />
                   <figcaption className='flex flex-col py-[0.9375rem] px-[0.625rem] gap-[0.9375rem]'>
@@ -67,7 +73,7 @@ const MovieCarousel = ({ period }) => {
                         </div>
                      </div>
                      <span className='text-[1rem] block truncate'>
-                        {index + 1}. {data.title}
+                        {index + 1}. {data.title || data.name}
                      </span>
                      <WatchlistButton />
                   </figcaption>
