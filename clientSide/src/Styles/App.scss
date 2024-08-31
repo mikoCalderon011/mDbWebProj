@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    @apply transition-colors duration-[50ms];
+    transition-property: color;
+    transition-duration: 50ms;
 }
 
 body, html {

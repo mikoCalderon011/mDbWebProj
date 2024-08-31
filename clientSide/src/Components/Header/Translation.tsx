@@ -3,7 +3,7 @@ import ArrowIcon from '../../assets/Icons/ArrowIcon'
 
 const Translation = () => {
   return (
-    <div className='flex items-center gap-[0.375rem]'>
+    <div className='translation'>
       <span>EN</span>
       <ArrowIcon />
     </div>

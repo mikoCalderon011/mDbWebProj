@@ -1,3 +1,4 @@
+// Header
 header {
    width: 100%;
    height: 3.5rem;
@@ -10,9 +11,217 @@ header {
    font-size: 0.875rem;
    position: relative;
    transition: background-color 0.5s;
+
+   // Dark mode styles
+   .dark & {
+      color: white;
+      background-color: #070707;
+   }
 }
 
-header.dark {
-   color: white;
-   background-color: #070707;
- }
+// Icons
+.icon {
+   fill: black;
+
+   // Dark mode styles
+   .dark & {
+      fill: white;
+   }
+}
+
+// Navigation Menu
+.navigation-menu {
+   display: flex;
+   gap: 1.75rem;
+   align-items: center;
+   margin-right: 1.75rem;
+}
+
+// Search Bar
+.search-bar--container {
+   position: relative;
+
+   .search-bar--wrapper {
+      min-height: 2rem;
+      width: 24.9375rem;
+      background-color: #D9D9D9;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      // Dark mode styles
+      .dark & {
+         background-color: #1C252F;
+      }
+   }
+}
+
+// Search
+.search {
+   width: 100%;
+   font-family: 'Roboto', sans-serif;
+   font-size: 0.875rem;
+   background-color: transparent;
+   outline: none;
+   color: black;
+
+   // Dark mode styles
+   .dark & {
+      color: white;
+   }
+}
+
+// Search Result List
+.search-result-list {
+   width: 100%;
+   height: auto;
+   background-color: #D9D9D9;
+   color: black;
+   border-radius: 0.125rem;
+   position: absolute;
+   margin-top: 0.3rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   z-index: 50;
+
+   // Dark mode styles
+   .dark & {
+      background-color: #1C252F;
+   }
+}
+
+// Search Result 
+.search-result {
+   display: flex;
+   height: 7.8125rem;
+   border-bottom: 1px solid #9D9D9D;
+   color: black;
+   transition: background-color 0.3s;
+
+   &:hover {
+      background-color: #C0C0C0;
+   }
+
+   &:active {
+      background-color: #AFAFAF;
+   }
+
+   .dark & {
+      color: white;
+      border-bottom: 1px solid #c9c9c9;
+
+      &:hover {
+         background-color: #141c27;
+      }
+
+      &:active {
+         background-color: #0f161e;
+      }
+   }
+}
+
+.search-result-content {
+   display: flex;
+   gap: 1.0625rem;
+   padding: 0.875rem 0.8125rem 0;
+}
+
+.search-result-image {
+   width: 3.941875rem;
+   height: 5.9375rem;
+   object-fit: cover;
+}
+
+.search-result-details {
+   width: 17.3125rem;
+   display: flex;
+   flex-direction: column;
+}
+
+.search-result-title {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 500;
+   font-size: 1rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.search-result-subtitle {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 300;
+   font-size: 0.875rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.search-result-description {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 400;
+   font-size: 0.75rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: normal;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+}
+
+// Header Toolbar
+.header-toolbar {
+   display: flex;
+   align-items: center;
+   gap: 1.75rem;
+   margin-left: 1.75rem;
+}
+
+// Watchlist 
+.watchlist {
+   display: flex;
+   gap: 0.4375rem;
+}
+
+// Light Mode Switch
+.light-mode-switch {
+   height: 2rem;
+  width: 2rem;
+  background-color: #d8d8d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s; 
+
+  &:hover {
+    background-color: #b0b0b0;
+  }
+
+  &:active {
+    background-color: #8a8a8a;
+  }
+
+  // Dark mode styles
+  .dark & {
+    background-color: #1C252F;
+
+    &:hover {
+      background-color: #141c27;
+    }
+
+    &:active {
+      background-color: #0f161e;
+    }
+  }
+}
+
+// Translation
+.translation {
+   display: flex;
+   align-items: center;
+   gap: 0.375rem;
+}
+
+// Button

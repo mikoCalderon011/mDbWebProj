@@ -9,8 +9,8 @@ const SearchBar = () => {
 	// console.log(results)
 
 	return (
-		<div className='relative' >
-			<div className='min-h-[2rem] w-[24.9375rem] bg-[#D9D9D9] rounded-[2px] flex items-center dark:bg-[#1C252F]'>
+		<div className='search-bar--container' >
+			<div className='search-bar--wrapper'>
 				<SearchIcon />
 				<Search setResults={setResults} />
 			</div>

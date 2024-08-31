@@ -3,7 +3,7 @@ import WatchlistIcon from '../../assets/Icons/WatchlistIcon'
 
 const Watchlist = () => {
   return (
-    <a className='flex gap-[0.4375rem]' href=''>
+    <a className='watchlist' href=''>
       <WatchlistIcon />
       <span>Watchlist</span>
     </a>

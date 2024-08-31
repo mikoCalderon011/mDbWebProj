@@ -3,7 +3,7 @@ import SearchResult from './SearchResult';
 
 const SearchResultList = ({ results }) => {
   return (
-    <div className='w-full h-auto bg-[#D9D9D9] text-black rounded-sm absolute mt-[0.3rem] flex flex-col justify-center dark:bg-[#1C252F] z-50'>
+    <div className='search-result-list'>
       {results.map((result, id) => {
         let searchData = {};
 

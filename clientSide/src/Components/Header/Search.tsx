@@ -33,7 +33,7 @@ const Search = ({ setResults }) => {
 
 	return (
 		<input
-			className='w-full font-roboto text-[0.875rem] bg-transparent focus:outline-none text-black dark:text-white' type="text"
+			className='search' type="text"
 			placeholder='Search for movies, tv shows, or actors...'
 			value={search}
 			onChange={(e) => handleChange(e.target.value)}
