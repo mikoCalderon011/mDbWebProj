@@ -35,21 +35,16 @@ export function WatchTrailerButton({ movieId }) {
    }, [movieId, SPECIFIC_MOVIE_DATA_API])
 
    return (
-      <>
-         <a
-            className='w-[9.5rem] h-[2.5rem] border-[1px] border-white rounded-full flex justify-center items-center 
-              text-white hover:text-gray-200 active:text-gray-400
-              hover:border-gray-200 active:border-gray-400'
-            href={`https://www.youtube.com/watch?v=${movieTrailer}`}
-            target="_blank"
-            rel="noopener noreferrer"
-         >
-            <span className='text-[0.875rem]'>
-               Watch the trailer
-            </span>
-         </a>
-
-      </>
+      <a
+         className='watch-trailer-button'
+         href={`https://www.youtube.com/watch?v=${movieTrailer}`}
+         target="_blank"
+         rel="noopener noreferrer"
+      >
+         <span className='watch-trailer-text'>
+            Watch the trailer
+         </span>
+      </a>
    );
 }
 
@@ -65,7 +60,7 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
          <div
             className={`tab
             ${selectedTab === 1
-                  ? "selected" 
+                  ? "selected"
                   : "unselected"
                }`}
             onClick={() => changePeriod(1)}
@@ -78,7 +73,7 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
          <div
             className={`tab
              ${selectedTab === 2
-                  ? "selected" 
+                  ? "selected"
                   : "unselected"
                }`}
             onClick={() => changePeriod(2)}
@@ -95,7 +90,7 @@ export function TabSwitch({ section, selectedTab, onTabChange }) {
 export function CarouselButtons({ direction, slideDirection }) {
    return (
       <button
-         className={`w-[3rem] h-[3rem] bg-[#1C252F] rounded-full opacity-70 absolute top-[30%] ${direction === 'left' ? 'left-[-1.5rem]' : 'right-[-1.5rem]'}`}
+         className={`carousel-button ${direction === 'left' ? 'carousel-button-left' : 'carousel-button-right'}`}
          onClick={slideDirection}
       >
          {direction === "left" ? <LeftIcon /> : <RightIcon />}
@@ -105,9 +100,9 @@ export function CarouselButtons({ direction, slideDirection }) {
 
 export function WatchlistButton() {
    return (
-      <button className='flex justify-center items-center gap-[0.5rem] bg-[#1C252F] h-[2.25rem] rounded-md'>
+      <button className='watchlist-button'>
          <PlusIcon />
-         <span className='text-[#3D81E7] text-[0.875rem]'>Watchlist</span>
+         <span className='watchlist-button-text'>Watchlist</span>
       </button>
    )
 }

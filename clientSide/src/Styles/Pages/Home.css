@@ -1,0 +1,15 @@
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.3125rem;
+  background-color: #fff1e6;
+  padding-top: 3.3125rem;
+  padding-bottom: 5.3125rem;
+  transition: background-color 0.5s;
+}
+
+.dark main {
+  background-color: #111111;
+}/*# sourceMappingURL=Home.css.map */

@@ -9,7 +9,7 @@ const NowShowing = () => {
   const [showingMovies, setShowingMovies] = useState([]);
 
   useEffect(() => {
-    const fetchMovies = async() => {
+    const fetchMovies = async () => {
       try {
         const response = await axios.get(NOW_SHOWING_MOVIES_API, {
           params: {
@@ -18,7 +18,7 @@ const NowShowing = () => {
           },
           headers: {
             'Authorization': `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_KEY}`,
-				    'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
           }
         })
 
@@ -34,15 +34,19 @@ const NowShowing = () => {
   }, [])
 
   return (
-    <div className='w-[66.625rem] h-auto flex flex-col gap-[0.9375rem] '>
-      <h1 className='font-roboto font-extrabold text-[2.25rem] text-[#FF8731]'>NOW SHOWING</h1>
-      <p className='font-roboto font-medium text-[1rem] dark:text-[#9b9b9b]'>Catch the latest blockbusters and must-see films currently lighting up the big screen in theaters near you.</p>
-      <div className='flex gap-[1.75rem]'>
+    <div class="now-showing-container">
+      <h1 class="now-showing-title">NOW SHOWING</h1>
+      <p class="now-showing-description">
+        Catch the latest blockbusters and must-see films currently lighting up the big screen in theaters near you.
+      </p>
+      <div class="now-showing-content">
         <HighlightedShow movieData={showingMovies} />
         <UpNextShow movieData={showingMovies} />
       </div>
     </div>
   )
 }
+
+
 
 export default NowShowing

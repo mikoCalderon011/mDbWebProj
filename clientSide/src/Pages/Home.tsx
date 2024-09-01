@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <main className='h-full flex flex-col items-center gap-[4.3125rem] bg-[#fff1e6] pt-[3.3125rem]  pb-[5.3125rem] dark:bg-[#111111] transition-bg-color duration-500'>
+      <main className='page-container'>
         <NowShowing />
         <FreshPicks />
         <Popular />

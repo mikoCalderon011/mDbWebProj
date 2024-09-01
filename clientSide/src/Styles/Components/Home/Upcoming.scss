@@ -1,0 +1,28 @@
+.upcoming-container {
+   width: 66.625rem;
+   height: auto;
+   font-family: 'Roboto', sans-serif;
+   display: flex;
+   flex-direction: column;
+   gap: 1.125rem;
+   color: white;
+}
+
+.upcoming-title {
+   font-size: 1.5rem;
+   font-weight: bold;
+   color: black;
+}
+
+.dark .upcoming-title {
+   color: #fff1e6;
+}
+
+.upcoming-description {
+   font-size: 0.875rem;
+   color: black;
+}
+
+.dark .upcoming-description {
+   color: #fff1e6;
+}

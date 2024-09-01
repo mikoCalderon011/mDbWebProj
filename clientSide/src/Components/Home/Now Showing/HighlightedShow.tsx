@@ -18,48 +18,44 @@ const HighlightedShow = ({ movieData }) => {
   }, [slideCount]);
 
   return (
-    <div className="w-[40.625rem] h-[28.125rem] relative flex justify-center items-center text-white font-roboto">
+    <div className="highlighted-show-container">
       {movieData.map((data, index) => (
         <div
           key={index}
-          className={`w-full h-full absolute ${currentSlide === index ? 'block' : 'hidden'}`}
+          className={`highlighted-show-slide ${currentSlide === index ? 'active' : 'inactive'}`}
         >
           <img
             src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
-            alt={data.title} 
-            className={`w-full h-full absolute object-cover rounded-t-xl ${currentSlide === index ? 'block' : 'hidden'}`}
+            alt={data.title}
+            className="highlighted-show-backdrop"
           />
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                'linear-gradient(180deg, rgba(70,46,27,0) 0%, rgba(35,29,24,0) 60%, rgba(17,17,17,1) 95%)'
-            }}
-          ></div>
-          <div className='absolute flex bottom-0 left-[1.875rem] gap-[1rem] items-center'>
+          <div className="highlighted-show-gradient"></div>
+          <div className="highlighted-show-content">
             <img
               src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
               alt={data.title}
-              className={`w-[8.4375rem] h-[12.1875rem] object-fill rounded-t-lg ${currentSlide === index ? 'block' : 'hidden'}`}
+              className="highlighted-show-poster"
             />
-            <figcaption className='flex flex-col'>
-              <span className='text-[1.5rem] font-bold'>{data.title}</span>
-              <div className='flex items-center gap-[1.3125rem]'>
-                <span className='font-light'>
+            <figcaption className="highlighted-show-details">
+              <span className="highlighted-show-title">{data.title}</span>
+              <div className="highlighted-show-meta">
+                <span className="highlighted-show-release-date">
                   {new Date(data.release_date).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
-                    year: 'numeric'
+                    year: 'numeric',
                   })}
                 </span>
-                <div className='flex items-center gap-[0.4375rem]'>
+                <div className="highlighted-show-rating">
                   <StarIcon />
-                  <span className='font-medium'>{data.vote_average.toFixed(1)}</span>
+                  <span className="highlighted-show-score">
+                    {data.vote_average.toFixed(1)}
+                  </span>
                 </div>
               </div>
-              <div className='flex gap-[1.0625rem] mt-[0.8375rem]'>
-                <WatchTrailerButton movieId={data.id}  />
-                <button className='w-[2.5rem] h-[2.5rem] bg-[#5e5858] rounded-full flex justify-center items-center'>
+              <div className="highlighted-show-actions">
+                <WatchTrailerButton movieId={data.id} />
+                <button className="add-to-watchlist-button">
                   <WatchlistIconTwo />
                 </button>
               </div>
