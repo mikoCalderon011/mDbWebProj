@@ -44,7 +44,6 @@ const SearchResultList = ({ results }) => {
 
         return <SearchResult data={searchData} key={id} />
       })}
-      
     </div>
   )
 }

@@ -11,7 +11,7 @@ const marquee = {
    animate: {
       x: "-100%",
       transition: {
-         duration: 40,
+         duration: 30,
          ease: "linear",
          repeat: Infinity,
       }
@@ -38,15 +38,15 @@ const Marquee = ({ display }) => {
    }, []);
 
    return (
-      <section className='w-[66.5625rem] h-[6.125rem] overflow-hidden relative border-t-[1px] border-b-[1px]'>
-         <div className='absolute inset-0 z-20' style={{
+      <section className='flex w-[66.5625rem] h-[6.125rem] overflow-hidden relative border-t-[1px] border-b-[1px]'>
+         <div className='absolute inset-0 z-[4]' style={{
             background: 'linear-gradient(90deg, rgba(17,17,17,1) 0%, rgba(35,29,24,0) 25%, rgba(30,25,22,0) 75%, rgba(17,17,17,1) 100%)'
          }} />
-         <div className='font-robotoFlex text-[3.75rem] font-extrabold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50'>
+         <div className='font-robotoFlex text-[3.75rem] font-extrabold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[4]'>
             {display}<span className='text-[#FF8731]'>!</span>
          </div>
          <motion.div
-            className='flex'
+            className='flex '
             initial="initial"
             animate="animate"
             variants={marquee}
@@ -54,7 +54,7 @@ const Marquee = ({ display }) => {
             {marqueeSlide.map((data, index) => {
                return (
                   <div className='h-full min-w-[22.1875rem] brightness-50' key={index}>
-                     <img className='h-full w-full object-cover translate-y-[-3rem]' src={`${imageURL}${data.backdrop_path}`} alt={data.original_title} />
+                     <img className='h-full w-full object-cover' src={`${imageURL}${data.backdrop_path}`} alt={data.original_title} />
                   </div>
                )
             })}
@@ -68,11 +68,12 @@ const Marquee = ({ display }) => {
             {marqueeSlide.map((data, index) => {
                return (
                   <div className='h-full min-w-[22.1875rem] brightness-50' key={index}>
-                     <img className='h-full w-full object-cover translate-y-[-3rem] ' src={`${imageURL}${data.backdrop_path}`} alt={data.original_title} />
+                     <img className='h-full w-full object-cover' src={`${imageURL}${data.backdrop_path}`} alt={data.original_title} />
                   </div>
                )
             })}
          </motion.div>
+
       </section>
    )
 }
