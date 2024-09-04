@@ -18,7 +18,7 @@ const marquee = {
    }
 }
 
-const Marquee = () => {
+const Marquee = ({ display }) => {
    const [marqueeSlide, setMarqueeSlide] = useState([]);
 
    useEffect(() => {
@@ -43,7 +43,7 @@ const Marquee = () => {
             background: 'linear-gradient(90deg, rgba(17,17,17,1) 0%, rgba(35,29,24,0) 25%, rgba(30,25,22,0) 75%, rgba(17,17,17,1) 100%)'
          }} />
          <div className='font-robotoFlex text-[3.75rem] font-extrabold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50'>
-            movies<span className='text-[#FF8731]'>!</span>
+            {display}<span className='text-[#FF8731]'>!</span>
          </div>
          <motion.div
             className='flex'

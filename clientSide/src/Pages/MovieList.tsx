@@ -8,6 +8,9 @@ const MovieList = () => {
       <Header />
       <main className='text-white'>
         <Marquee display={"movies"} />
+        <div>
+          
+        </div>
       </main>
     </>
   )
