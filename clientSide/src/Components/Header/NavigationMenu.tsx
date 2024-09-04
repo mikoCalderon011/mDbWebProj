@@ -1,16 +1,17 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const NavigationMenu = () => {
 	return (
 		<ul className='navigation-menu'>
 			<li>
-				<a href="">Movies</a>
+				<NavLink to="/movies">Movies</NavLink>
 			</li>
 			<li>
-				<a href="">TV Shows</a>
+				<NavLink to="/tv">TV Shows</NavLink>
 			</li>
 			<li>
-				<a href="">People</a>
+				<NavLink to="/people">People</NavLink>
 			</li>
 		</ul>
 	)

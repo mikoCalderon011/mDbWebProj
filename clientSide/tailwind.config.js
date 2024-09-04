@@ -9,7 +9,8 @@ export default {
       fontFamily: {
         'passionOne': ["Passion One"],
         'roboto': ["Roboto"],
-        'robotoCondensed': ["Roboto Condensed"]
+        'robotoCondensed': ["Roboto Condensed"],
+        'robotoFlex': ["Roboto Flex"]
       }
     },
   },

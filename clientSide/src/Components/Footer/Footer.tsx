@@ -24,7 +24,7 @@ const Footer = () => {
           <ul>
             <span class="footer-title">Tools</span>
             <li class="footer-item">VS Code</li>
-            <li class="footer-item">Vite</li>
+            <li class="footer-item">Insomnia</li>
             <li class="footer-item">Figma</li>
           </ul>
           <ul>
