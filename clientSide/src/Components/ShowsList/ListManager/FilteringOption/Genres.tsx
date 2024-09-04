@@ -23,39 +23,35 @@ const genres = [
 ];
 
 
-const Genres = ({ onGenreChange }) => {
-  const [selectedGenres, setSelectedGenres] = useState([]);
+const Genres = ({ selectedGenres, onGenreChange }) => {
+  const [localGenres, setLocalGenres] = useState(selectedGenres || []);
 
-  function passSelectedGenres(genreId) {
-    let updatedGenres;
+  function handleGenreToggle(genreId) {
+    const updatedGenres = localGenres.includes(genreId)
+      ? localGenres.filter(id => id !== genreId)
+      : [...localGenres, genreId];
 
-    if (selectedGenres.includes(genreId)) {
-      updatedGenres = selectedGenres.filter(id => id !== genreId);
-    } 
-    else {
-      updatedGenres = [...selectedGenres, genreId];
-    }
-    setSelectedGenres(updatedGenres);
+    setLocalGenres(updatedGenres);
     onGenreChange(updatedGenres);
   }
 
   return (
-    <div className='py-[2rem] px-[2.8125rem] text-white font-roboto flex flex-col gap-[0.875rem]'>
+    <div className='text-white font-roboto flex flex-col gap-[0.875rem]'>
       <span className='text-[#ff8731] font-bold text-[.75rem]'>GENRES</span>
       <div className='flex flex-wrap gap-[0.6875rem]'>
-        {genres.map((data) => {
-          const isSelected = selectedGenres.includes(data.id);
-          
+        {genres.map((genre) => {
+          const isSelected = selectedGenres.includes(genre.id);
+
           return (
             <button
-              key={data.id}
-              className={`px-[1rem] py-[0.4375rem] rounded-full text-[.75rem] ${
-                isSelected ? 'bg-[#ff8731]' : 'bg-[#1C252F]'
-              }`}
-              onClick={() => passSelectedGenres(data.id)}
+              key={genre.id}
+              className={`px-[1rem] py-[0.4375rem] rounded-full text-[.75rem] ${isSelected ? 'bg-[#ff8731]' : 'bg-[#1C252F] hover:bg-[#2d3748]'
+                } hover:scale-105 transition-transform`}
+              onClick={() => handleGenreToggle(genre.id)}
             >
-              {data.name}
+              {genre.name}
             </button>
+
           );
         })}
       </div>

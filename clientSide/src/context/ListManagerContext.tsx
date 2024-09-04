@@ -1,11 +1,4 @@
-import React from 'react'
+import { createContext } from 'react'
 
-const listManagerContext = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+export const ListManagerContext = createContext(undefined);
 
-export default listManagerContext
