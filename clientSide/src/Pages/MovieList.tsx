@@ -14,34 +14,66 @@ const MovieList = () => {
     watchProviders: {
       watchRegion: '',
       moviePlatform: []
-    }
+    },
+    releaseYear: {
+      gteYear: undefined,
+      lteYear: undefined
+    },
+    userScore: {
+      minScore: 0,
+      maxScore: 10
+    },
   });
 
   const handleFilterChange = (filterName, value) => {
-    if (filterName === 'watchProviders') {
-      setFilters(prevFilters => ({
-        ...prevFilters,
-        watchProviders: {
-          ...prevFilters.watchProviders,
-          ...value 
-        }
-      }));
-    } else {
-      setFilters(prevFilters => ({
-        ...prevFilters,
-        [filterName]: value
-      }));
-    }
+    setFilters(prevFilters => {
+      if (filterName === 'watchProviders') {
+        return {
+          ...prevFilters,
+          watchProviders: {
+            ...prevFilters.watchProviders,
+            ...value
+          }
+        };
+      } else if (filterName === 'userScore') {
+        return {
+          ...prevFilters,
+          userScore: {
+            ...prevFilters.userScore,
+            ...value
+          }
+        };
+      } else {
+        return {
+          ...prevFilters,
+          [filterName]: value
+        };
+      }
+    });
   };
+
 
   useEffect(() => {
     const selectedGenres = filters.genres.join(',')
     const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
 
+    const params = new URLSearchParams({
+      include_adult: 'false',
+      include_video: 'false',
+      language: 'en-US',
+      page: '1',
+      sort_by: 'popularity.desc',
+      with_genres: selectedGenres || '',
+      watch_region: filters.watchProviders.watchRegion || '',
+      with_watch_providers: selectedWatchProviders || '',
+      'vote_average.gte': filters.userScore.minScore || 0,
+      'vote_average.lte': filters.userScore.maxScore || 10,
+    }).toString();
+
     const fetchMovieList = async () => {
       try {
-        const data = await apiFetch(`/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${selectedGenres}&watch_region=${filters.watchProviders.watchRegion}&with_watch_providers=${selectedWatchProviders}`)
-
+        const data = await apiFetch(`/discover/movie?${params}`);
+        console.log(`/discover/movie?${params}`);
         setMovies(data)
       }
       catch (error) {
@@ -51,7 +83,7 @@ const MovieList = () => {
 
     fetchMovieList();
 
-  }, [filters.genres, filters.watchProviders.watchRegion, filters.watchProviders.moviePlatform])
+  }, [filters])
 
   console.log(movies)
 

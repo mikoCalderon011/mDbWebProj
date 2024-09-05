@@ -51,7 +51,6 @@ const Genres = ({ selectedGenres, onGenreChange }) => {
             >
               {genre.name}
             </button>
-
           );
         })}
       </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { countryListApi, watchProviderApi } from '../../../../api/api';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
+import CheckIcon from '../../../../assets/Icons/CheckIcon';
 
 const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
    const [countries, setCountries] = useState([]);
@@ -45,7 +46,7 @@ const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
 
       const updatedProviders = {
          moviePlatform: updatedMoviePlatforms,
-         watchRegion: selectedCountry.iso_3166_1     
+         watchRegion: selectedCountry.iso_3166_1
       };
 
       onProvidersChange(updatedProviders);
@@ -64,7 +65,7 @@ const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
                   <ArrowIcon />
                </div>
                {isDropdownOpen && (
-                  <div className='w-[12.125rem] max-h-[12rem] bg-[#1C252F] rounded-[5px] mt-[0.5rem] absolute overflow-auto'>
+                  <div className='w-[12.125rem] max-h-[12rem] bg-[#1C252F] rounded-[5px] mt-[0.5rem] absolute overflow-auto z-[3]'>
                      {countries.map((country) => {
                         return (
                            <div
@@ -80,19 +81,28 @@ const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
                )}
             </div>
          </div>
-         <ul className='flex gap-[0.9375rem] flex-wrap'>
+         <ul className='flex gap-[1.375rem] flex-wrap'>
             {watchProvider.map((data) => {
+               const isSelected = selectedProviders.moviePlatform.includes(data.provider_id);
+
                return (
                   <li
                      key={data.provider_id}
-                     className='w-[3.125rem] h-[3.125rem] cursor-pointer'
-                     onClick={() => handleMovieProviderToggle(data)}
+                     className={`w-[3.125rem] h-[3.125rem] cursor-pointer rounded-[0.625rem] select-none ${isSelected ? 'bg-[#ff8731] border-2 border-[#ff8731]' : 'bg-[#1C252F]'} transition duration-300 ease-in-out`}
+                     onClick={() => handleMovieProviderToggle(data, selectedCountry.iso_3166_1)}
                   >
-                     <img
-                        src={`https://image.tmdb.org/t/p/original${data.logo_path}`}
-                        alt=""
-                        className='rounded-[0.625rem]'
-                     />
+                     <div className={`relative w-full h-full flex items-center justify-center ${isSelected ? 'opacity-100' : 'opacity-50'}`}>
+                        <img
+                           src={`https://image.tmdb.org/t/p/original${data.logo_path}`}
+                           alt=""
+                           className='rounded-[0.625rem]'
+                        />
+                        {isSelected && (
+                           <div className='absolute inset-0 flex items-center justify-center'>
+                              <CheckIcon />
+                           </div>
+                        )}
+                     </div>
                   </li>
                )
             })}
