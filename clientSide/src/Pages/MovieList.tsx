@@ -26,6 +26,10 @@ const MovieList = () => {
     runtime: {
       gteRuntime: '',
       lteRuntime: ''
+    },
+    certification: {
+      rating: [],
+      certCountry: 'PH'
     }
   });
 
@@ -66,6 +70,15 @@ const MovieList = () => {
           }
         };
       }
+      else if (filterName === 'certification') {
+        return {
+          ...prevFilters,
+          certification: {
+            ...prevFilters.certification,
+            ...value
+          }
+        };
+      }
       else {
         return {
           ...prevFilters,
@@ -75,10 +88,10 @@ const MovieList = () => {
     });
   };
 
-
   useEffect(() => {
     const selectedGenres = filters.genres.join(',')
     const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
+    const selectedCertification = filters.certification.rating.join('|')
 
     const params = new URLSearchParams({
       include_adult: 'false',
@@ -94,13 +107,15 @@ const MovieList = () => {
       'release_date.gte': filters.releaseYear.gteYear || '',
       'release_date.lte': filters.releaseYear.lteYear || '',
       'with_runtime.gte': filters.runtime.gteRuntime || '',
-      'with_runtime.lte': filters.runtime.lteRuntime || ''
+      'with_runtime.lte': filters.runtime.lteRuntime || '',
+      certification: selectedCertification,
+      certification_country: filters.certification.certCountry
     }).toString();
 
     const fetchMovieList = async () => {
       try {
         const data = await apiFetch(`/discover/movie?${params}`);
-        console.log(`/discover/movie?${params}`);
+        // console.log(`/discover/movie?${params}`);
         setMovies(data)
       }
       catch (error) {

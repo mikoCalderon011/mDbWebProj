@@ -7,6 +7,7 @@ import WatchProvider from './FilteringOption/WatchProvider';
 import UserRating from './FilteringOption/UserRating';
 import ReleaseYear from './FilteringOption/ReleaseYear';
 import Runtime from './FilteringOption/Runtime';
+import Certification from './FilteringOption/Certification';
 
 
 const FilteringOption = ({ filters, onFilterChange }) => {
@@ -31,7 +32,7 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                <div className='w-[41.5rem] h-[45rem] bg-[#1b1b1b] z-[10] relative rounded-[5px] overflow-auto'>
                   <div className='h-full w-full relative py-[2rem] px-[2.8125rem]'>
                      <button
-                        className='w-9 h-9 bg-[#9b9b9b] rounded-full flex items-center justify-center absolute right-[.5rem] top-[.5rem]'
+                        className='w-9 h-9 bg-[#414141] rounded-full flex items-center justify-center absolute top-[1rem] right-[1rem] z-10'
                         onClick={openModal}
                      >
                         <XIcon />
@@ -42,6 +43,10 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                      <Divider />
                      <WatchProvider selectedProviders={filters.watchProviders} onProvidersChange={
                         providers => onFilterChange('watchProviders', providers)
+                     } />
+                     <Divider />
+                     <Certification selectedCertification={filters.certification} onCertificationChange={
+                        certifaction => onFilterChange('certification', certifaction)
                      } />
                      <Divider />
                      <ReleaseYear selectedReleaseYear={filters.releaseYear} onReleaseYearChange={
@@ -55,6 +60,7 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                      <Runtime selectedRuntime={filters.runtime} onRuntimeChange={
                         runtime => onFilterChange('runtime', runtime)
                      } />
+                     <Divider />
                   </div>
                </div>
             </div>

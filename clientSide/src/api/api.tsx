@@ -46,3 +46,17 @@ export const watchProviderApi = async (code) => {
       console.log('Error during fetching of data', error);
    }
 }
+
+// Certification Country
+export const certificationList= async () => {
+   try {
+      const response = await apiClient({
+         url: "https://api.themoviedb.org/3/certification/movie/list"
+      })
+
+      return response.data.certifications
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}

@@ -89,7 +89,7 @@ const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
                   <li
                      key={data.provider_id}
                      className={`w-[3.125rem] h-[3.125rem] cursor-pointer rounded-[0.625rem] select-none ${isSelected ? 'bg-[#ff8731] border-2 border-[#ff8731]' : 'bg-[#1C252F]'} transition duration-300 ease-in-out`}
-                     onClick={() => handleMovieProviderToggle(data, selectedCountry.iso_3166_1)}
+                     onClick={() => handleMovieProviderToggle(data)}
                   >
                      <div className={`relative w-full h-full flex items-center justify-center ${isSelected ? 'opacity-100' : 'opacity-50'}`}>
                         <img
