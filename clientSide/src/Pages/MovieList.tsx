@@ -11,7 +11,10 @@ const MovieList = () => {
 
   const [filters, setFilters] = useState({
     genres: [],
-
+    watchProviders: {
+      watchRegion: '',
+      moviePlatform: ''
+    }
   });
 
   const handleFilterChange = (filterName, value) => {
@@ -34,10 +37,12 @@ const MovieList = () => {
         console.log('Encounted an error while fetching movie data', error)
       }
     }
-
+    
     fetchMovieList();
 
   }, [filters.genres])
+
+  // console.log(movies)
 
   return (
     <>

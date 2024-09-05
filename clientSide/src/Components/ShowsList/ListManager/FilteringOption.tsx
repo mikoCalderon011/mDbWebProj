@@ -3,6 +3,7 @@ import FilterIcon from '../../../assets/Icons/FilterIcon'
 import XIcon from '../../../assets/Icons/XIcon';
 import Genres from './FilteringOption/Genres';
 import Divider from '../Divider';
+import WatchProvider from './FilteringOption/WatchProvider';
 
 const FilteringOption = ({ filters, onFilterChange }) => {
    const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -23,7 +24,7 @@ const FilteringOption = ({ filters, onFilterChange }) => {
          {openFilterModal &&
             <div className='w-screen h-screen top-0 left-0 right-0 bottom-0 fixed z-[10] flex items-center justify-center'>
                <div className='w-screen h-screen top-0 left-0 right-0 bottom-0 fixed bg-[#111111] opacity-50'></div>
-               <div className='w-[41.5rem] h-[45rem] bg-[#333333] z-[10] relative rounded-[5px]'>
+               <div className='w-[41.5rem] h-[45rem] bg-[#1b1b1b] z-[10] relative rounded-[5px] overflow-auto'>
                   <div className='h-full w-full relative py-[2rem] px-[2.8125rem]'>
                      <button
                         className='w-9 h-9 bg-[#9b9b9b] rounded-full flex items-center justify-center absolute right-[.5rem] top-[.5rem]'
@@ -32,6 +33,8 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                         <XIcon />
                      </button>
                      <Genres selectedGenres={filters.genres} onGenreChange={genres => onFilterChange('genres', genres)} />
+                     <Divider />
+                     <WatchProvider />
                      <Divider />
                   </div>
                </div>
