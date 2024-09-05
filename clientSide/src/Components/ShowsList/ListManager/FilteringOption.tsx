@@ -6,6 +6,7 @@ import Divider from '../Divider';
 import WatchProvider from './FilteringOption/WatchProvider';
 import UserRating from './FilteringOption/UserRating';
 import ReleaseYear from './FilteringOption/ReleaseYear';
+import Runtime from './FilteringOption/Runtime';
 
 
 const FilteringOption = ({ filters, onFilterChange }) => {
@@ -50,7 +51,10 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                      <UserRating selectedUserScore={filters.userScore} onUserScoreChange={
                         userScore => onFilterChange('userScore', userScore)
                      } />
-                     {/* <Divider /> */}
+                     <Divider />
+                     <Runtime selectedRuntime={filters.runtime} onRuntimeChange={
+                        runtime => onFilterChange('runtime', runtime)
+                     } />
                   </div>
                </div>
             </div>

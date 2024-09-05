@@ -23,6 +23,10 @@ const MovieList = () => {
       minScore: 0,
       maxScore: 10
     },
+    runtime: {
+      gteRuntime: '',
+      lteRuntime: ''
+    }
   });
 
   const handleFilterChange = (filterName, value) => {
@@ -53,6 +57,15 @@ const MovieList = () => {
           }
         };
       }
+      else if (filterName === 'runtime') {
+        return {
+          ...prevFilters,
+          runtime: {
+            ...prevFilters.runtime,
+            ...value
+          }
+        };
+      }
       else {
         return {
           ...prevFilters,
@@ -79,7 +92,9 @@ const MovieList = () => {
       'vote_average.gte': filters.userScore.minScore || 0,
       'vote_average.lte': filters.userScore.maxScore || 10,
       'release_date.gte': filters.releaseYear.gteYear || '',
-      'release_date.lte': filters.releaseYear.lteYear || ''
+      'release_date.lte': filters.releaseYear.lteYear || '',
+      'with_runtime.gte': filters.runtime.gteRuntime || '',
+      'with_runtime.lte': filters.runtime.lteRuntime || ''
     }).toString();
 
     const fetchMovieList = async () => {
@@ -98,7 +113,7 @@ const MovieList = () => {
   }, [filters])
 
   // console.log(filters.releaseYear);
-  console.log(movies)
+  console.log(movies);
 
   return (
     <>

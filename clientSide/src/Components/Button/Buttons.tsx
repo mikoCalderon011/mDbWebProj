@@ -22,7 +22,7 @@ export function WatchTrailerButton({ movieId }) {
             })
 
             const officialTrailerVideos = response.data.videos.results.filter(
-               video => video.name === 'Official Trailer'
+               video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
             );
             setMovieTrailer(officialTrailerVideos[0].key);
          }
