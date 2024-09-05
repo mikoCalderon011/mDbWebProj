@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { countryListApi, watchProviderApi } from '../../../../api/api';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
 
-const WatchProvider = () => {
+const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
    const [countries, setCountries] = useState([]);
    const [selectedCountry, setSelectedCountry] = useState({
       name: 'Philippines',
@@ -36,7 +36,20 @@ const WatchProvider = () => {
       setIsDropdownOpen(false);
    }
 
-   console.log(watchProvider)
+   function handleMovieProviderToggle(providerData) {
+      const { provider_id } = providerData;
+
+      const updatedMoviePlatforms = selectedProviders.moviePlatform.includes(provider_id)
+         ? selectedProviders.moviePlatform.filter(id => id !== provider_id)
+         : [...selectedProviders.moviePlatform, provider_id];
+
+      const updatedProviders = {
+         moviePlatform: updatedMoviePlatforms,
+         watchRegion: selectedCountry.iso_3166_1     
+      };
+
+      onProvidersChange(updatedProviders);
+   }
 
    return (
       <div className='text-white font-roboto flex flex-col gap-[0.875rem]'>
@@ -70,7 +83,11 @@ const WatchProvider = () => {
          <ul className='flex gap-[0.9375rem] flex-wrap'>
             {watchProvider.map((data) => {
                return (
-                  <li key={data.provider_id} className='w-[3.125rem] h-[3.125rem] '>
+                  <li
+                     key={data.provider_id}
+                     className='w-[3.125rem] h-[3.125rem] cursor-pointer'
+                     onClick={() => handleMovieProviderToggle(data)}
+                  >
                      <img
                         src={`https://image.tmdb.org/t/p/original${data.logo_path}`}
                         alt=""

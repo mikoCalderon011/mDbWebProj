@@ -13,23 +13,34 @@ const MovieList = () => {
     genres: [],
     watchProviders: {
       watchRegion: '',
-      moviePlatform: ''
+      moviePlatform: []
     }
   });
 
   const handleFilterChange = (filterName, value) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [filterName]: value
-    }));
+    if (filterName === 'watchProviders') {
+      setFilters(prevFilters => ({
+        ...prevFilters,
+        watchProviders: {
+          ...prevFilters.watchProviders,
+          ...value 
+        }
+      }));
+    } else {
+      setFilters(prevFilters => ({
+        ...prevFilters,
+        [filterName]: value
+      }));
+    }
   };
 
   useEffect(() => {
     const selectedGenres = filters.genres.join(',')
+    const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
 
     const fetchMovieList = async () => {
       try {
-        const data = await apiFetch(`/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${selectedGenres}`)
+        const data = await apiFetch(`/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${selectedGenres}&watch_region=${filters.watchProviders.watchRegion}&with_watch_providers=${selectedWatchProviders}`)
 
         setMovies(data)
       }
@@ -37,12 +48,12 @@ const MovieList = () => {
         console.log('Encounted an error while fetching movie data', error)
       }
     }
-    
+
     fetchMovieList();
 
-  }, [filters.genres])
+  }, [filters.genres, filters.watchProviders.watchRegion, filters.watchProviders.moviePlatform])
 
-  // console.log(movies)
+  console.log(movies)
 
   return (
     <>
@@ -52,7 +63,7 @@ const MovieList = () => {
         <div className='w-[66.5625rem] flex'>
           <div className='flex'>
             <FilteringOption filters={filters} onFilterChange={handleFilterChange} />
-            <SortByOption />
+            <SortByOption providers={filters} onProviderChange={handleFilterChange} />
           </div>
           <DisplayViewOption />
         </div>

@@ -34,7 +34,7 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                      </button>
                      <Genres selectedGenres={filters.genres} onGenreChange={genres => onFilterChange('genres', genres)} />
                      <Divider />
-                     <WatchProvider />
+                     <WatchProvider selectedProviders={filters.watchProviders} onProvidersChange={providers => onFilterChange('watchProviders', providers)} />
                      <Divider />
                   </div>
                </div>
