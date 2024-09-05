@@ -35,11 +35,17 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                      >
                         <XIcon />
                      </button>
-                     <Genres selectedGenres={filters.genres} onGenreChange={genres => onFilterChange('genres', genres)} />
+                     <Genres selectedGenres={filters.genres} onGenreChange={
+                        genres => onFilterChange('genres', genres)
+                     } />
                      <Divider />
-                     <WatchProvider selectedProviders={filters.watchProviders} onProvidersChange={providers => onFilterChange('watchProviders', providers)} />
+                     <WatchProvider selectedProviders={filters.watchProviders} onProvidersChange={
+                        providers => onFilterChange('watchProviders', providers)
+                     } />
                      <Divider />
-                     <ReleaseYear />
+                     <ReleaseYear selectedReleaseYear={filters.releaseYear} onReleaseYearChange={
+                        releaseYear => onFilterChange('releaseYear', releaseYear)
+                     } />
                      <Divider />
                      <UserRating selectedUserScore={filters.userScore} onUserScoreChange={
                         userScore => onFilterChange('userScore', userScore)

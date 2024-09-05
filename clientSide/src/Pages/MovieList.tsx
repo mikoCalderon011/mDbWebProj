@@ -16,8 +16,8 @@ const MovieList = () => {
       moviePlatform: []
     },
     releaseYear: {
-      gteYear: undefined,
-      lteYear: undefined
+      gteYear: '',
+      lteYear: ''
     },
     userScore: {
       minScore: 0,
@@ -43,7 +43,17 @@ const MovieList = () => {
             ...value
           }
         };
-      } else {
+      } 
+      else if (filterName === 'releaseYear') {
+        return {
+          ...prevFilters,
+          releaseYear: {
+            ...prevFilters.releaseYear,
+            ...value
+          }
+        };
+      }
+      else {
         return {
           ...prevFilters,
           [filterName]: value
@@ -68,6 +78,8 @@ const MovieList = () => {
       with_watch_providers: selectedWatchProviders || '',
       'vote_average.gte': filters.userScore.minScore || 0,
       'vote_average.lte': filters.userScore.maxScore || 10,
+      'release_date.gte': filters.releaseYear.gteYear || '',
+      'release_date.lte': filters.releaseYear.lteYear || ''
     }).toString();
 
     const fetchMovieList = async () => {
@@ -85,6 +97,7 @@ const MovieList = () => {
 
   }, [filters])
 
+  // console.log(filters.releaseYear);
   console.log(movies)
 
   return (

@@ -32,7 +32,7 @@ const UserRating = ({ selectedUserScore, onUserScoreChange }) => {
                   max="10"
                   placeholder="0"
                   className="w-full h-full text-[.75rem] bg-transparent text-white placeholder-gray-500 focus:outline-none"
-                  onChange={(e) => handleUserScoreChange(e, 'minScore')}
+                  onBlur={(e) => handleUserScoreChange(e, 'minScore')}
                />
             </div>
             <span className='text-[.75rem]'>to</span>
@@ -43,7 +43,7 @@ const UserRating = ({ selectedUserScore, onUserScoreChange }) => {
                   max="10"
                   placeholder="10"
                   className="w-full h-full text-[.75rem] bg-transparent text-white placeholder-gray-500 focus:outline-none"
-                  onChange={(e) => handleUserScoreChange(e, 'maxScore')}
+                  onBlur={(e) => handleUserScoreChange(e, 'maxScore')}
                />
             </div>
          </div>
