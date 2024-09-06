@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Context } from '../../../../pages/MovieList';
 
-const UserRating = ({ selectedUserScore, onUserScoreChange }) => {
+const UserRating = () => {
+   const { filters, handleFilterChange } = useContext(Context);
    const [userScore, setUserScore] = useState({
-      minScore: selectedUserScore.minScore,
-      maxScore: selectedUserScore.maxScore
+      minScore: filters.userScore.minScore,
+      maxScore: filters.userScore.maxScore
    })
 
    const handleUserScoreChange = (e, type) => {
@@ -11,14 +13,13 @@ const UserRating = ({ selectedUserScore, onUserScoreChange }) => {
       const parsedValue = parseInt(inputValue, 10);
       const validValue = !isNaN(parsedValue) ? parsedValue : (type === 'minScore' ? 0 : 10);
 
-      setUserScore(prevState => ({
-         ...prevState,
-         [type]: validValue
-      }));
-      onUserScoreChange({
+      const updatedUserScore = {
          ...userScore,
          [type]: validValue
-      });
+      };
+
+      setUserScore(updatedUserScore);
+      handleFilterChange('userScore', updatedUserScore);
    };
 
    return (

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import ArrowIcon from '../../../../assets/Icons/ArrowIcon'
-import { certificationList } from '../../../../api/api'
+import React, { useContext, useEffect, useState } from 'react';
+import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
+import { certificationList } from '../../../../api/api';
+import { Context } from '../../../../pages/MovieList';
 
-const Certification = ({ selectedCertification, onCertificationChange }) => {
+const Certification = () => {
+  const { filters, handleFilterChange } = useContext(Context);
   const [certifications, setCertifications] = useState({});
-  const [certCountry, setCertCountry] = useState(selectedCertification?.certCountry || 'PH');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [certCountry, setCertCountry] = useState(filters.certCountry || 'PH');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const fetchCertifications = async () => {
@@ -15,31 +17,34 @@ const Certification = ({ selectedCertification, onCertificationChange }) => {
       } catch (error) {
         console.log('Error during fetching of data', error);
       }
-    }
+    };
 
     fetchCertifications();
-  }, [])
+  }, []);
 
   function handleCertCountry(countryCode) {
     setCertCountry(countryCode);
-    onCertificationChange({
-      ...selectedCertification,
+
+    const updatedCertifications = {
+      ...filters.certification,
       certCountry: countryCode
-    });
+    };
+
+    handleFilterChange('certification', updatedCertifications);
     setIsDropdownOpen(false);
   }
 
   function handleCertifications(rating) {
-    const updatedRatings = selectedCertification?.rating?.includes(rating)
-      ? selectedCertification.rating.filter(cert => cert !== rating)
-      : [...(selectedCertification?.rating || []), rating];
+    const updatedRatings = filters.certification?.rating?.includes(rating)
+      ? filters.certification.rating.filter(cert => cert !== rating)
+      : [...(filters.certification?.rating || []), rating];
 
     const updatedCertifications = {
       rating: updatedRatings,
       certCountry: certCountry
-    }
+    };
 
-    onCertificationChange(updatedCertifications);
+    handleFilterChange('certification', updatedCertifications);
   }
 
   return (
@@ -71,7 +76,7 @@ const Certification = ({ selectedCertification, onCertificationChange }) => {
       </div>
       <div className='flex flex-wrap gap-[1.6875rem]'>
         {certifications[certCountry]?.map((cert, index) => {
-          const isSelected = selectedCertification?.rating?.includes(cert.certification);
+          const isSelected = filters.certification?.rating?.includes(cert.certification);
           return (
             <button
               key={index}
@@ -86,6 +91,6 @@ const Certification = ({ selectedCertification, onCertificationChange }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Certification;

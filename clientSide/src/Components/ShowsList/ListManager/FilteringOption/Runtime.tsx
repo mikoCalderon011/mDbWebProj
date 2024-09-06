@@ -1,24 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Context } from '../../../../pages/MovieList';
 
-const Runtime = ({ selectedRuntime, onRuntimeChange }) => {
+const Runtime = () => {
+  const { filters, handleFilterChange } = useContext(Context);
   const [runtime, setRuntime] = useState({
-    gteRuntime: selectedRuntime.gteRuntime,
-    lteRuntime: selectedRuntime.lteRuntime
+    gteRuntime: filters.runtime?.gteRuntime || 0,
+    lteRuntime: filters.runtime?.lteRuntime || 400
   });
 
   const handleRuntimeChange = (e, type) => {
     const inputValue = e.target.value;
     const parsedValue = parseInt(inputValue, 10);
-  
-    setRuntime(prevState => ({
-      ...prevState,
-      [type]: parsedValue
-    }));
-  
-    onRuntimeChange ({
+    const validValue = !isNaN(parsedValue) ? parsedValue : (type === 'gteRuntime' ? 0 : 300);
+
+    const updatedRuntime = {
       ...runtime,
-      [type]: parsedValue
-    });
+      [type]: validValue
+    };
+
+    setRuntime(updatedRuntime);
+    handleFilterChange('runtime', updatedRuntime);
   };
 
   return (

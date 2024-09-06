@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import Header from '../components/Header/Header'
 import Marquee from '../components/ShowsList/Marquee'
 import FilteringOption from '../components/ShowsList/ListManager/FilteringOption'
 import SortByOption from '../components/ShowsList/ListManager/SortByOption'
 import DisplayViewOption from '../components/ShowsList/ListManager/DisplayViewOption'
 import { apiFetch } from '../api/api'
+
+export const Context = createContext(undefined);
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -150,10 +152,12 @@ const MovieList = () => {
       <main className='text-white flex flex-col font-roboto'>
         <Marquee display={"movies"} />
         <div className='w-[66.5625rem] flex'>
-          <div className='flex'>
-            <FilteringOption filters={filters} onFilterChange={handleFilterChange} />
-            <SortByOption providers={filters} onProviderChange={handleFilterChange} />
-          </div>
+          <Context.Provider value={{ filters, handleFilterChange }}>
+            <div className='flex'>
+              <FilteringOption />
+              <SortByOption />
+            </div>
+          </Context.Provider>
           <DisplayViewOption />
         </div>
       </main>

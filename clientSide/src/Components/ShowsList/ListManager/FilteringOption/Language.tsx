@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon'
 import { originalLanguageList } from '../../../../api/api';
+import { Context } from '../../../../pages/MovieList';
 
-const Language = ({ selectedLanguage, onLanguageChange }) => {
+const Language = () => {
+  const { filters, handleFilterChange } = useContext(Context);
   const [languages, setLanguages] = useState([]);
   const [originalLanguage, setOriginalLanguage] = useState(
-    selectedLanguage.english_name !== ''
-      ? selectedLanguage
-      : 'None selected'
+    filters.originalLanguage?.english_name || 'None selected'
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchLanguages = async () => {
-      try {
-        const results = await originalLanguageList();
-        setLanguages(results);
-      }
-      catch (error) {
-        console.log('Error during fetching of data', error);
-      }
+  const fetchLanguages = async () => {
+    try {
+      const results = await originalLanguageList();
+      setLanguages(results);
+    } catch (error) {
+      console.log('Error during fetching of data', error);
     }
+  };
 
+  useEffect(() => {
     fetchLanguages();
-  }, [])
+  }, []);
 
   function handleLanguageSelect(langCode, langName) {
     const updatedLanguage = {
       iso_639_1: langCode,
       english_name: langName
-    }
+    };
 
     setOriginalLanguage(langName);
-    onLanguageChange(updatedLanguage)
-    setIsDropdownOpen(false)
+    handleFilterChange('originalLanguage', updatedLanguage); // Update context
+    setIsDropdownOpen(false);
   }
 
   return (

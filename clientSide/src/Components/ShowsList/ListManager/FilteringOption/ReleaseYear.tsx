@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Context } from '../../../../pages/MovieList';
 
-const ReleaseYear = ({ selectedReleaseYear, onReleaseYearChange }) => {
+const ReleaseYear = () => {
+  const { filters, handleFilterChange } = useContext(Context);
   const [releaseYear, setReleaseYear] = useState({
-    gteYear: selectedReleaseYear.gteYear,
-    lteYear: selectedReleaseYear.lteYear
+    gteYear: filters.releaseYear.gteYear,
+    lteYear: filters.releaseYear.lteYear
   })
 
   const handleReleaseYearChange = (e, type) => {
     const inputValue = e.target.value;
     const parsedValue = parseInt(inputValue, 10);
   
-    setReleaseYear(prevState => ({
-      ...prevState,
-      [type]: convertYearToDate(parsedValue)
-    }));
-  
-    onReleaseYearChange({
+    const updatedReleaseYear = {
       ...releaseYear,
       [type]: convertYearToDate(parsedValue)
-    });
+    };
+
+    setReleaseYear(updatedReleaseYear);
+    handleFilterChange('releaseYear', updatedReleaseYear);
   };
 
   function convertYearToDate(year) {

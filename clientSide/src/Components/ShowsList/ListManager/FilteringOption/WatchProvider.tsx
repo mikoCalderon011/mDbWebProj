@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { countryListApi, watchProviderApi } from '../../../../api/api';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
 import CheckIcon from '../../../../assets/Icons/CheckIcon';
+import { Context } from '../../../../pages/MovieList';
 
-const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
+const WatchProvider = () => {
+   const { filters, handleFilterChange } = useContext(Context);
    const [countries, setCountries] = useState([]);
    const [selectedCountry, setSelectedCountry] = useState({
       name: 'Philippines',
@@ -40,16 +42,14 @@ const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
    function handleMovieProviderToggle(providerData) {
       const { provider_id } = providerData;
 
-      const updatedMoviePlatforms = selectedProviders.moviePlatform.includes(provider_id)
-         ? selectedProviders.moviePlatform.filter(id => id !== provider_id)
-         : [...selectedProviders.moviePlatform, provider_id];
+      const updatedMoviePlatforms = filters.watchProviders.moviePlatform.includes(provider_id)
+         ? filters.watchProviders.moviePlatform.filter(id => id !== provider_id)
+         : [...filters.watchProviders.moviePlatform, provider_id];
 
-      const updatedProviders = {
+      handleFilterChange('watchProviders', {
          moviePlatform: updatedMoviePlatforms,
          watchRegion: selectedCountry.iso_3166_1
-      };
-
-      onProvidersChange(updatedProviders);
+      });
    }
 
    return (
@@ -83,7 +83,7 @@ const WatchProvider = ({ selectedProviders, onProvidersChange }) => {
          </div>
          <ul className='flex gap-[1.375rem] flex-wrap'>
             {watchProvider.map((data) => {
-               const isSelected = selectedProviders.moviePlatform.includes(data.provider_id);
+               const isSelected = filters.watchProviders.moviePlatform.includes(data.provider_id);
 
                return (
                   <li

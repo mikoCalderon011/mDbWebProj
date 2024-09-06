@@ -12,7 +12,7 @@ import Language from './FilteringOption/Language';
 import Keywords from './FilteringOption/Keywords';
 
 
-const FilteringOption = ({ filters, onFilterChange }) => {
+const FilteringOption = () => {
    const [openFilterModal, setOpenFilterModal] = useState(false);
 
    function openModal() {
@@ -39,35 +39,21 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                      >
                         <XIcon />
                      </button>
-                     <Genres selectedGenres={filters.genres} onGenreChange={
-                        genres => onFilterChange('genres', genres)
-                     } />
+                     <Genres />
                      <Divider />
-                     <WatchProvider selectedProviders={filters.watchProviders} onProvidersChange={
-                        providers => onFilterChange('watchProviders', providers)
-                     } />
+                     <WatchProvider />
                      <Divider />
-                     <Certification selectedCertification={filters.certification} onCertificationChange={
-                        certifaction => onFilterChange('certification', certifaction)
-                     } />
+                     <Certification />
                      <Divider />
-                     <ReleaseYear selectedReleaseYear={filters.releaseYear} onReleaseYearChange={
-                        releaseYear => onFilterChange('releaseYear', releaseYear)
-                     } />
+                     <ReleaseYear />
                      <Divider />
-                     <UserRating selectedUserScore={filters.userScore} onUserScoreChange={
-                        userScore => onFilterChange('userScore', userScore)
-                     } />
+                     <UserRating />
                      <Divider />
-                     <Runtime selectedRuntime={filters.runtime} onRuntimeChange={
-                        runtime => onFilterChange('runtime', runtime)
-                     } />
+                     <Runtime />
                      <Divider />
                      <div className='flex gap-[1.8rem] pb-[4rem]'>
-                        <Language selectedLanguage={filters.originalLanguage} onLanguageChange={
-                           language => onFilterChange('originalLanguage', language)
-                        } />
-                        <Keywords />
+                        <Language />
+                        {/* <Keywords /> */}
                      </div>
                   </div>
                </div>

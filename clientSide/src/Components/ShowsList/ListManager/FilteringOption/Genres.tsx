@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Context } from '../../../../pages/MovieList';
 
 const genres = [
   { "id": 28, "name": "Action" },
@@ -23,8 +24,9 @@ const genres = [
 ];
 
 
-const Genres = ({ selectedGenres, onGenreChange }) => {
-  const [localGenres, setLocalGenres] = useState(selectedGenres || []);
+const Genres = () => {
+  const { filters, handleFilterChange } = useContext(Context);
+  const [localGenres, setLocalGenres] = useState(filters.genres || []);
 
   function handleGenreToggle(genreId) {
     const updatedGenres = localGenres.includes(genreId)
@@ -32,7 +34,7 @@ const Genres = ({ selectedGenres, onGenreChange }) => {
       : [...localGenres, genreId];
 
     setLocalGenres(updatedGenres);
-    onGenreChange(updatedGenres);
+    handleFilterChange('genres', updatedGenres); 
   }
 
   return (
@@ -40,7 +42,7 @@ const Genres = ({ selectedGenres, onGenreChange }) => {
       <span className='text-[#ff8731] font-bold text-[.75rem]'>GENRES</span>
       <div className='flex flex-wrap gap-[0.6875rem]'>
         {genres.map((genre) => {
-          const isSelected = selectedGenres.includes(genre.id);
+          const isSelected = localGenres.includes(genre.id);
 
           return (
             <button
