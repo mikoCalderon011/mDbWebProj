@@ -7,7 +7,7 @@ const Language = () => {
   const { filters, handleFilterChange } = useContext(Context);
   const [languages, setLanguages] = useState([]);
   const [originalLanguage, setOriginalLanguage] = useState(
-    filters.originalLanguage?.english_name || 'None selected'
+    filters.originalLanguage?.english_name || 'No Language'
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 

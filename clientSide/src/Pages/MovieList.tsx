@@ -36,7 +36,8 @@ const MovieList = () => {
     originalLanguage: {
       iso_639_1: '',
       english_name: ''
-    }
+    },
+    keyword: []
   });
 
   const handleFilterChange = (filterName, value) => {
@@ -107,6 +108,10 @@ const MovieList = () => {
     const selectedGenres = filters.genres.join(',')
     const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
     const selectedCertification = filters.certification.rating.join('|')
+    const selectedKeywords = filters.keyword.join('|')
+    const selectedLanguage = filters.originalLanguage.iso_639_1 === "xx" 
+      ? ''
+      : filters.originalLanguage.iso_639_1
 
     const params = new URLSearchParams({
       include_adult: 'false',
@@ -125,13 +130,14 @@ const MovieList = () => {
       'with_runtime.lte': filters.runtime.lteRuntime || '',
       certification: selectedCertification,
       certification_country: filters.certification.certCountry,
-      with_original_language: filters.originalLanguage.iso_639_1
+      with_original_language: selectedLanguage ,
+      with_keywords: selectedKeywords
     }).toString();
 
     const fetchMovieList = async () => {
       try {
         const data = await apiFetch(`/discover/movie?${params}`);
-        console.log(`/discover/movie?${params}`);
+        // console.log(`/discover/movie?${params}`);
         setMovies(data)
       }
       catch (error) {
@@ -143,7 +149,7 @@ const MovieList = () => {
 
   }, [filters])
 
-  // console.log(filters.originalLanguage);
+  // console.log(filters.keyword);
   console.log(movies);
 
   return (

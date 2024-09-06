@@ -8,7 +8,7 @@ const apiClient = axios.create({
    },
 })
 
-export const apiFetch = async(endpoint) => {
+export const apiFetch = async (endpoint) => {
    try {
       const response = await apiClient({
          url: endpoint
@@ -48,7 +48,7 @@ export const watchProviderApi = async (code) => {
 }
 
 // Certification Country
-export const certificationList= async () => {
+export const certificationList = async () => {
    try {
       const response = await apiClient({
          url: "https://api.themoviedb.org/3/certification/movie/list"
@@ -66,6 +66,19 @@ export const originalLanguageList = async () => {
    try {
       const response = await apiClient({
          url: "https://api.themoviedb.org/3/configuration/languages"
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const keywordResults = async (query) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/search/keyword?query=${query}&page=1`
       })
 
       return response.data

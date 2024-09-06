@@ -53,7 +53,7 @@ const FilteringOption = () => {
                      <Divider />
                      <div className='flex gap-[1.8rem] pb-[4rem]'>
                         <Language />
-                        {/* <Keywords /> */}
+                        <Keywords />
                      </div>
                   </div>
                </div>
