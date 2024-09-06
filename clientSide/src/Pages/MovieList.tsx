@@ -30,6 +30,10 @@ const MovieList = () => {
     certification: {
       rating: [],
       certCountry: 'PH'
+    },
+    originalLanguage: {
+      iso_639_1: '',
+      english_name: ''
     }
   });
 
@@ -51,7 +55,7 @@ const MovieList = () => {
             ...value
           }
         };
-      } 
+      }
       else if (filterName === 'releaseYear') {
         return {
           ...prevFilters,
@@ -75,6 +79,15 @@ const MovieList = () => {
           ...prevFilters,
           certification: {
             ...prevFilters.certification,
+            ...value
+          }
+        };
+      }
+      else if (filterName === 'originalLanguage') {
+        return {
+          ...prevFilters,
+          originalLanguage: {
+            ...prevFilters.originalLanguage,
             ...value
           }
         };
@@ -109,13 +122,14 @@ const MovieList = () => {
       'with_runtime.gte': filters.runtime.gteRuntime || '',
       'with_runtime.lte': filters.runtime.lteRuntime || '',
       certification: selectedCertification,
-      certification_country: filters.certification.certCountry
+      certification_country: filters.certification.certCountry,
+      with_original_language: filters.originalLanguage.iso_639_1
     }).toString();
 
     const fetchMovieList = async () => {
       try {
         const data = await apiFetch(`/discover/movie?${params}`);
-        // console.log(`/discover/movie?${params}`);
+        console.log(`/discover/movie?${params}`);
         setMovies(data)
       }
       catch (error) {
@@ -127,7 +141,7 @@ const MovieList = () => {
 
   }, [filters])
 
-  // console.log(filters.releaseYear);
+  // console.log(filters.originalLanguage);
   console.log(movies);
 
   return (

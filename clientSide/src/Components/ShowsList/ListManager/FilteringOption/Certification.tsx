@@ -4,7 +4,7 @@ import { certificationList } from '../../../../api/api'
 
 const Certification = ({ selectedCertification, onCertificationChange }) => {
   const [certifications, setCertifications] = useState({});
-  const [certCountry, setCertCountry] = useState(selectedCertification?.certCountry || 'PH'); // Default country
+  const [certCountry, setCertCountry] = useState(selectedCertification?.certCountry || 'PH');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   useEffect(() => {

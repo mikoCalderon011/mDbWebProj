@@ -60,3 +60,17 @@ export const certificationList= async () => {
       console.log('Error during fetching of data', error);
    }
 }
+
+// Original Language
+export const originalLanguageList = async () => {
+   try {
+      const response = await apiClient({
+         url: "https://api.themoviedb.org/3/configuration/languages"
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}

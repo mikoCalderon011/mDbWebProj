@@ -8,6 +8,8 @@ import UserRating from './FilteringOption/UserRating';
 import ReleaseYear from './FilteringOption/ReleaseYear';
 import Runtime from './FilteringOption/Runtime';
 import Certification from './FilteringOption/Certification';
+import Language from './FilteringOption/Language';
+import Keywords from './FilteringOption/Keywords';
 
 
 const FilteringOption = ({ filters, onFilterChange }) => {
@@ -61,6 +63,12 @@ const FilteringOption = ({ filters, onFilterChange }) => {
                         runtime => onFilterChange('runtime', runtime)
                      } />
                      <Divider />
+                     <div className='flex gap-[1.8rem] pb-[4rem]'>
+                        <Language selectedLanguage={filters.originalLanguage} onLanguageChange={
+                           language => onFilterChange('originalLanguage', language)
+                        } />
+                        <Keywords />
+                     </div>
                   </div>
                </div>
             </div>
