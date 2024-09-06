@@ -22,7 +22,7 @@ const FilteringOption = () => {
    return (
       <>
          <button
-            className='w-[10.5rem] h-[2.25rem] flex justify-center items-center gap-[0.8125rem] text-white bg-[#1C252F] rounded-[0.625rem] text-[0.875rem]'
+            className='w-[10.5rem] h-[2.25rem] flex items-center justify-center gap-[0.8125rem] text-white bg-[#1C252F] rounded-[0.625rem] text-[0.875rem] transition-colors hover:bg-[#2C3E50] focus:outline-none'
             onClick={openModal}
          >
             <FilterIcon />

@@ -5,6 +5,9 @@ import FilteringOption from '../components/ShowsList/ListManager/FilteringOption
 import DisplayViewOption from '../components/ShowsList/ListManager/DisplayViewOption'
 import { apiFetch } from '../api/api'
 import SortByOption from '../components/ShowsList/ListManager/SortByOption'
+import CompactView from '../components/ShowsList/ListManager/ViewDisplay/CompactView'
+import GridView from '../components/ShowsList/ListManager/ViewDisplay/GridView'
+import Footer from '../components/Footer/Footer'
 
 export const Context = createContext(undefined);
 
@@ -107,9 +110,12 @@ const MovieList = () => {
 
   // SortByOption
   const [selectedSortBy, setSelectedSortBy] = useState({
-    value: 'popularity.asc',
-    label: 'Popularity Ascending'
+    value: 'popularity.desc',
+    label: 'Popularity Descending'
   })
+
+  // DisplayViewOption
+  const [selectedView, setSelectedView] = useState(0);
 
   useEffect(() => {
     const selectedGenres = filters.genres.join(',')
@@ -156,23 +162,28 @@ const MovieList = () => {
 
   }, [filters, selectedSortBy])
 
-  console.log(movies);
+  console.log(selectedView);
 
   return (
     <>
       <Header />
       <main className='text-white flex flex-col font-roboto'>
         <Marquee display={"movies"} />
-        <div className='w-[66.5625rem] flex'>
+        <div className='w-[66.5625rem] flex justify-between'>
           <Context.Provider value={{ filters, handleFilterChange }}>
             <div className='flex items-center gap-[2.5625rem]'>
               <FilteringOption />
               <SortByOption selectedSorting={selectedSortBy} setSelectedSorting={setSelectedSortBy} />
             </div>
+            <DisplayViewOption setSelectedView={setSelectedView} />
           </Context.Provider>
-          <DisplayViewOption />
         </div>
+        {selectedView === 0 
+          ? <CompactView movies={movies} /> 
+          : <GridView movies={movies} />
+        }
       </main>
+      <Footer />
     </>
   )
 }

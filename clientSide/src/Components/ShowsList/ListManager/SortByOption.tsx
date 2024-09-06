@@ -14,7 +14,7 @@ const sortBy = [
 
 const SortByOption = ({ selectedSorting, setSelectedSorting }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   function handleSelectedSortBy(value, label) {
     setSelectedSorting({
       value,
@@ -24,31 +24,31 @@ const SortByOption = ({ selectedSorting, setSelectedSorting }) => {
   }
 
   return (
-    <div className = 'flex items-center gap-[0.6875rem] font-roboto text-[1rem] text-white' >
-    <span className='font-bold'>Sort Results By</span>
-    <div className='relative'>
-      <button
-        className='w-[14.5rem] h-[2.25rem] flex justify-between items-center gap-[0.8125rem] text-white bg-[#1C252F] rounded-[0.625rem] text-[0.875rem] px-3'
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
-        <span>{selectedSorting.label}</span>
-        <ArrowIcon />
-      </button>
-      {isDropdownOpen && (
-        <div className='absolute top-full left-0 w-full mt-2 bg-[#1C252F] rounded-md shadow-lg'>
-          {sortBy.map((option) => (
-            <div
-              key={option.value}
-              className='px-4 py-2 text-white cursor-pointer hover:bg-[#2C3E50] transition-colors'
-              onClick={() => handleSelectedSortBy(option.value, option.label)}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
-      )}
+    <div className='flex items-center gap-[0.6875rem] font-roboto text-[1rem] text-white'>
+      <span className='font-bold'>Sort Results By</span>
+      <div className='relative'>
+        <button
+          className='w-[14.5rem] h-[2.25rem] flex justify-between items-center gap-[0.8125rem] text-white bg-[#1C252F] rounded-[0.625rem] text-[0.875rem] px-3 transition-colors hover:bg-[#2C3E50] focus:outline-none'
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        >
+          <span>{selectedSorting.label}</span>
+          <ArrowIcon />
+        </button>
+        {isDropdownOpen && (
+          <div className='absolute top-full left-0 w-full mt-2 bg-[#1C252F] rounded-md shadow-lg z-3'>
+            {sortBy.map((option) => (
+              <div
+                key={option.value}
+                className='px-4 py-2 text-white cursor-pointer hover:bg-[#2C3E50] transition-colors'
+                onClick={() => handleSelectedSortBy(option.value, option.label)}
+              >
+                {option.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
-  </div >
   )
 }
 
