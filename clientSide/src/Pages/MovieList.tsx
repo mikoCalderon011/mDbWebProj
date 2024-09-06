@@ -2,15 +2,16 @@ import React, { createContext, useEffect, useState } from 'react'
 import Header from '../components/Header/Header'
 import Marquee from '../components/ShowsList/Marquee'
 import FilteringOption from '../components/ShowsList/ListManager/FilteringOption'
-import SortByOption from '../components/ShowsList/ListManager/SortByOption'
 import DisplayViewOption from '../components/ShowsList/ListManager/DisplayViewOption'
 import { apiFetch } from '../api/api'
+import SortByOption from '../components/ShowsList/ListManager/SortByOption'
 
 export const Context = createContext(undefined);
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
 
+  // FilteringOption
   const [filters, setFilters] = useState({
     genres: [],
     watchProviders: {
@@ -104,6 +105,12 @@ const MovieList = () => {
     });
   };
 
+  // SortByOption
+  const [selectedSortBy, setSelectedSortBy] = useState({
+    value: 'popularity.asc',
+    label: 'Popularity Ascending'
+  })
+
   useEffect(() => {
     const selectedGenres = filters.genres.join(',')
     const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
@@ -118,7 +125,7 @@ const MovieList = () => {
       include_video: 'false',
       language: 'en-US',
       page: '1',
-      sort_by: 'popularity.desc',
+      sort_by: selectedSortBy.value,
       with_genres: selectedGenres || '',
       watch_region: filters.watchProviders.watchRegion || '',
       with_watch_providers: selectedWatchProviders || '',
@@ -147,9 +154,8 @@ const MovieList = () => {
 
     fetchMovieList();
 
-  }, [filters])
+  }, [filters, selectedSortBy])
 
-  // console.log(filters.keyword);
   console.log(movies);
 
   return (
@@ -159,9 +165,9 @@ const MovieList = () => {
         <Marquee display={"movies"} />
         <div className='w-[66.5625rem] flex'>
           <Context.Provider value={{ filters, handleFilterChange }}>
-            <div className='flex'>
+            <div className='flex items-center gap-[2.5625rem]'>
               <FilteringOption />
-              <SortByOption />
+              <SortByOption selectedSorting={selectedSortBy} setSelectedSorting={setSelectedSortBy} />
             </div>
           </Context.Provider>
           <DisplayViewOption />

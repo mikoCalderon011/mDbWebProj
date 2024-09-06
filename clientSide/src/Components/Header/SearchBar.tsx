@@ -6,8 +6,6 @@ import Search from './Search';
 const SearchBar = () => {
 	const [results, setResults] = useState([]);
 
-	// console.log(results)
-
 	return (
 		<div className='search-bar--container' >
 			<div className='search-bar--wrapper'>
