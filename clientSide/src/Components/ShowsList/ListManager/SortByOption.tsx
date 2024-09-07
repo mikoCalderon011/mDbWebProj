@@ -35,7 +35,7 @@ const SortByOption = ({ selectedSorting, setSelectedSorting }) => {
           <ArrowIcon />
         </button>
         {isDropdownOpen && (
-          <div className='absolute top-full left-0 w-full mt-2 bg-[#1C252F] rounded-md shadow-lg z-3'>
+          <div className='absolute top-full left-0 w-full mt-2 bg-[#1C252F] rounded-md shadow-lg z-[3]'>
             {sortBy.map((option) => (
               <div
                 key={option.value}

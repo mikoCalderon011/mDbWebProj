@@ -41,7 +41,7 @@ const Keywords = () => {
               <li
                 key={keyword.id}
                 onClick={() => handleSelectedKeywordsChange(keyword.id, keyword.name)}
-                className={`cursor-pointer p-2 hover:bg-[#ff8731] hover:text-white ${selectedKeywords.some(kw => kw.id === keyword.id) ? 'text-[#ff8731]' : 'text-white'}`}
+                className={`cursor-pointer p-2 hover:bg-[#ff8731] text-[0.875rem] hover:text-white ${selectedKeywords.some(kw => kw.id === keyword.id) ? 'text-[#ff8731]' : 'text-white'}`}
               >
                 {keyword.name}
               </li>

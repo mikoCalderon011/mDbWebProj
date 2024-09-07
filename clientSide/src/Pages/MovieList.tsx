@@ -18,7 +18,8 @@ const MovieList = () => {
   const [filters, setFilters] = useState({
     genres: [],
     watchProviders: {
-      watchRegion: '',
+      name: 'Philippines',
+      watchRegion: 'PH',
       moviePlatform: []
     },
     releaseYear: {
@@ -162,7 +163,7 @@ const MovieList = () => {
 
   }, [filters, selectedSortBy])
 
-  console.log(selectedView);
+  // console.log(filters.certification);
 
   return (
     <>

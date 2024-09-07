@@ -8,8 +8,8 @@ const WatchProvider = () => {
    const { filters, handleFilterChange } = useContext(Context);
    const [countries, setCountries] = useState([]);
    const [selectedCountry, setSelectedCountry] = useState({
-      name: 'Philippines',
-      iso_3166_1: "PH"
+      name: filters.watchProviders.name,
+      iso_3166_1: filters.watchProviders.watchRegion
    });
    const [watchProvider, setWatchProvider] = useState([])
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -36,8 +36,15 @@ const WatchProvider = () => {
          name: country.english_name,
          iso_3166_1: country.iso_3166_1
       });
+
+      handleFilterChange('watchProviders', {
+         name: country.english_name,
+         watchRegion: country.iso_3166_1,
+      });
       setIsDropdownOpen(false);
    }
+
+   // console.log(selectedCountry)
 
    function handleMovieProviderToggle(providerData) {
       const { provider_id } = providerData;
@@ -47,6 +54,7 @@ const WatchProvider = () => {
          : [...filters.watchProviders.moviePlatform, provider_id];
 
       handleFilterChange('watchProviders', {
+         name: selectedCountry.name,
          moviePlatform: updatedMoviePlatforms,
          watchRegion: selectedCountry.iso_3166_1
       });

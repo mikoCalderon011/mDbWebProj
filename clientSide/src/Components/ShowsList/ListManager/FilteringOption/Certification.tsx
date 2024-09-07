@@ -6,7 +6,7 @@ import { Context } from '../../../../pages/MovieList';
 const Certification = () => {
   const { filters, handleFilterChange } = useContext(Context);
   const [certifications, setCertifications] = useState({});
-  const [certCountry, setCertCountry] = useState(filters.certCountry || 'PH');
+  const [certCountry, setCertCountry] = useState(filters.certification.certCountry);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {

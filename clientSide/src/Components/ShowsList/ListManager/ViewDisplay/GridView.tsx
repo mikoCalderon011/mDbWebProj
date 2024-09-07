@@ -9,9 +9,7 @@ import DetailModal from './DetailModal'
 const GridView = ({ movies }) => {
    const [activeDetailModal, setActiveDetailModal] = useState(null);
 
-   // Todo-in-order: details modal , compact view, pumping more moviedata while scrolling down, tv-shows, people
-
-   // console.log(movies)
+   // Todo-in-order: compact view, keywords not saving, pumping more moviedata while scrolling down, tv-shows, people
 
    return (
       <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
@@ -38,17 +36,18 @@ const GridView = ({ movies }) => {
                   </div>
                   <span className='block w-[8.8125rem] overflow-hidden truncate text-center'>{movie.title}</span>
                   <button
-                     className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md'
+                     className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md hover:bg-[#2b3947] transition-colors duration-200'
                   >
                      <PlusIcon />
-                     <span className='text-[#3D81E7]'>Watchlist</span>
+                     <span className='text-[#3D81E7] hover:text-[#559ef5] transition-colors duration-200'>Watchlist</span>
                   </button>
+
                   <button
-                     className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md'
+                     className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md hover:bg-[#2b3947] transition-colors duration-200'
                      onClick={() => setActiveDetailModal(movie.id)}
                   >
                      <InfoIcon />
-                     Details
+                     <span className='hover:text-[#559ef5] transition-colors duration-200'>Details</span>
                   </button>
                </div>
             )
