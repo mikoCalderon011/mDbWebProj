@@ -122,7 +122,7 @@ const MovieList = () => {
     const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
     const selectedCertification = filters.certification.rating.join('|')
     const selectedKeywords = filters.keyword.join('|')
-    const selectedLanguage = filters.originalLanguage.iso_639_1 === "xx" 
+    const selectedLanguage = filters.originalLanguage.iso_639_1 === "xx"
       ? ''
       : filters.originalLanguage.iso_639_1
 
@@ -143,7 +143,7 @@ const MovieList = () => {
       'with_runtime.lte': filters.runtime.lteRuntime || '',
       certification: selectedCertification,
       certification_country: filters.certification.certCountry,
-      with_original_language: selectedLanguage ,
+      with_original_language: selectedLanguage,
       with_keywords: selectedKeywords
     }).toString();
 
@@ -178,10 +178,12 @@ const MovieList = () => {
             <DisplayViewOption setSelectedView={setSelectedView} />
           </Context.Provider>
         </div>
-        {selectedView === 0 
-          ? <CompactView movies={movies} /> 
-          : <GridView movies={movies} />
-        }
+        <Context.Provider value={{ filters }}>
+          {selectedView === 0
+            ? <CompactView movies={movies} />
+            : <GridView movies={movies} />
+          }
+        </Context.Provider>
       </main>
       <Footer />
     </>

@@ -15,7 +15,8 @@ const Language = () => {
     try {
       const results = await originalLanguageList();
       setLanguages(results);
-    } catch (error) {
+    } 
+    catch (error) {
       console.log('Error during fetching of data', error);
     }
   };

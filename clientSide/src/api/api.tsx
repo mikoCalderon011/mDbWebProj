@@ -87,3 +87,29 @@ export const keywordResults = async (query) => {
       console.log('Error during fetching of data', error);
    }
 }
+
+export const movieDetailModal = async (movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos,credits&language=en-US`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const certificationsDetail = async (movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/movie/${movieId}/release_dates?`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
