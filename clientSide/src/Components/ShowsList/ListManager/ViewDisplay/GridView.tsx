@@ -9,7 +9,7 @@ import DetailModal from './DetailModal'
 const GridView = ({ movies }) => {
    const [activeDetailModal, setActiveDetailModal] = useState(null);
 
-   // Todo-in-order: compact view, keywords not saving, pumping more moviedata while scrolling down, tv-shows, people
+   // Todo-in-order: keywords not saving, pumping more moviedata while scrolling down, tv-shows, people
 
    return (
       <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>

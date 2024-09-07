@@ -42,7 +42,10 @@ const MovieList = () => {
       iso_639_1: '',
       english_name: ''
     },
-    keyword: []
+    keyword: {
+      keywordIds: [],
+      keywords: []
+    }
   });
 
   const handleFilterChange = (filterName, value) => {
@@ -100,6 +103,15 @@ const MovieList = () => {
           }
         };
       }
+      else if (filterName === 'keyword') {
+        return {
+          ...prevFilters,
+          keyword: {
+            ...prevFilters.keyword,
+            ...value
+          }
+        };
+      }
       else {
         return {
           ...prevFilters,
@@ -122,7 +134,7 @@ const MovieList = () => {
     const selectedGenres = filters.genres.join(',')
     const selectedWatchProviders = filters.watchProviders.moviePlatform.join('|')
     const selectedCertification = filters.certification.rating.join('|')
-    const selectedKeywords = filters.keyword.join('|')
+    const selectedKeywords = filters.keyword.keywordIds.join('|')
     const selectedLanguage = filters.originalLanguage.iso_639_1 === "xx"
       ? ''
       : filters.originalLanguage.iso_639_1

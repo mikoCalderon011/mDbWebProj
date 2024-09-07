@@ -3,25 +3,30 @@ import SearchKeywords from './SearchKeywords';
 import { Context } from '../../../../pages/MovieList';
 
 const Keywords = () => {
-  const { handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange } = useContext(Context);
   const [keywordResult, setKeywordResult] = useState([]);
-  const [selectedKeywords, setSelectedKeywords] = useState([]);
+  const [selectedKeywords, setSelectedKeywords] = useState(filters.keyword.keywords);
 
   function handleSelectedKeywordsChange(id, name) {
     const updatedSelectedKeywords = [...selectedKeywords];
     const index = updatedSelectedKeywords.findIndex(kw => kw.id === id);
 
     if (index === -1) {
-      updatedSelectedKeywords.push({ id, name }); 
+      updatedSelectedKeywords.push({ id, name });
     } else {
-      updatedSelectedKeywords.splice(index, 1); 
+      updatedSelectedKeywords.splice(index, 1);
     }
 
     setSelectedKeywords(updatedSelectedKeywords);
 
     // Update global filters
-    handleFilterChange('keyword', updatedSelectedKeywords.map(kw => kw.id));
+    handleFilterChange('keyword', {
+      keywordIds: updatedSelectedKeywords.map(kw => kw.id),
+      keywords: updatedSelectedKeywords
+    });
   }
+
+  console.log(filters.keywords)
 
   return (
     <div className='text-white font-roboto flex flex-col gap-2'>
