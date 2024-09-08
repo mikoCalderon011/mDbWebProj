@@ -4,7 +4,7 @@ import { originalLanguageList } from '../../../../api/api';
 import { Context } from '../../../../pages/MovieList';
 
 const Language = () => {
-  const { filters, handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
   const [languages, setLanguages] = useState([]);
   const [originalLanguage, setOriginalLanguage] = useState(
     filters.originalLanguage?.english_name || 'No Language'
@@ -32,7 +32,8 @@ const Language = () => {
     };
 
     setOriginalLanguage(langName);
-    handleFilterChange('originalLanguage', updatedLanguage); // Update context
+    handleFilterChange('originalLanguage', updatedLanguage); 
+    setCurrentPage(1);
     setIsDropdownOpen(false);
   }
 

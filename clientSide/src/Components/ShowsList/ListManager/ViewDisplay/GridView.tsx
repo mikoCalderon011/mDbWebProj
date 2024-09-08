@@ -13,7 +13,7 @@ const GridView = ({ movies }) => {
 
    return (
       <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
-         {movies.results.map(movie => {
+         {movies.map(movie => {
             return (
                <div
                   key={movie.id}
@@ -27,7 +27,7 @@ const GridView = ({ movies }) => {
                   <div className='flex w-full justify-around'>
                      <div className='flex items-center gap-[4px]'>
                         <StarIcon />
-                        <span>{movie.vote_average.toFixed(1)}</span>
+                        <span>{movie.vote_average?.toFixed(1)}</span>
                      </div>
                      <div className='flex items-center gap-[4px]'>
                         <StarOutline />

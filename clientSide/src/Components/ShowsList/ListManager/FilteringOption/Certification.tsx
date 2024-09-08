@@ -4,7 +4,7 @@ import { certificationList } from '../../../../api/api';
 import { Context } from '../../../../pages/MovieList';
 
 const Certification = () => {
-  const { filters, handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
   const [certifications, setCertifications] = useState({});
   const [certCountry, setCertCountry] = useState(filters.certification.certCountry);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -45,6 +45,7 @@ const Certification = () => {
     };
 
     handleFilterChange('certification', updatedCertifications);
+    setCurrentPage(1);
   }
 
   return (

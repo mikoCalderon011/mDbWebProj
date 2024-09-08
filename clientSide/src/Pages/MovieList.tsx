@@ -8,11 +8,13 @@ import SortByOption from '../components/ShowsList/ListManager/SortByOption'
 import CompactView from '../components/ShowsList/ListManager/ViewDisplay/CompactView'
 import GridView from '../components/ShowsList/ListManager/ViewDisplay/GridView'
 import Footer from '../components/Footer/Footer'
+import _ from 'lodash'
 
 export const Context = createContext(undefined);
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // FilteringOption
   const [filters, setFilters] = useState({
@@ -143,7 +145,7 @@ const MovieList = () => {
       include_adult: 'false',
       include_video: 'false',
       language: 'en-US',
-      page: '1',
+      page: currentPage,
       sort_by: selectedSortBy.value,
       with_genres: selectedGenres || '',
       watch_region: filters.watchProviders.watchRegion || '',
@@ -164,7 +166,17 @@ const MovieList = () => {
       try {
         const data = await apiFetch(`/discover/movie?${params}`);
         // console.log(`/discover/movie?${params}`);
-        setMovies(data)
+        setMovies(prevMovies => {
+          if (currentPage === 1) {
+            return data.results
+          }
+          else {
+            const existingMovieIds = new Set(prevMovies.map(movie => movie.id));
+            const newMovies = data.results.filter(movie => !existingMovieIds.has(movie.id));
+            return [...prevMovies, ...newMovies];
+          }
+        });
+
       }
       catch (error) {
         console.log('Encounted an error while fetching movie data', error)
@@ -173,9 +185,24 @@ const MovieList = () => {
 
     fetchMovieList();
 
-  }, [filters, selectedSortBy])
+    const handleScroll = _.debounce(() => {
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const documentHeight = document.body.offsetHeight;
 
-  // console.log(filters.certification);
+      if (scrollPosition >= documentHeight) {
+        setCurrentPage(prevPage => prevPage + 1);  // Increase page number
+      }
+    }, 500);
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+
+  }, [filters, selectedSortBy, currentPage])
+
+  console.log(currentPage)
 
   return (
     <>
@@ -183,22 +210,22 @@ const MovieList = () => {
       <main className='text-white flex flex-col font-roboto'>
         <Marquee display={"movies"} />
         <div className='w-[66.5625rem] flex justify-between'>
-          <Context.Provider value={{ filters, handleFilterChange }}>
+          <Context.Provider value={{ filters, handleFilterChange, setCurrentPage }}>
             <div className='flex items-center gap-[2.5625rem]'>
               <FilteringOption />
-              <SortByOption selectedSorting={selectedSortBy} setSelectedSorting={setSelectedSortBy} />
+              <SortByOption selectedSorting={selectedSortBy} setSelectedSorting={setSelectedSortBy} resetCurrentPage={setCurrentPage} />
             </div>
-            <DisplayViewOption setSelectedView={setSelectedView} />
+            <DisplayViewOption setSelectedView={setSelectedView} resetCurrentPage={setCurrentPage} />
           </Context.Provider>
         </div>
         <Context.Provider value={{ filters }}>
           {selectedView === 0
-            ? <CompactView movies={movies} />
+            ? <CompactView movies={movies}  />
             : <GridView movies={movies} />
           }
         </Context.Provider>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

@@ -25,7 +25,7 @@ const genres = [
 
 
 const Genres = () => {
-  const { filters, handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
   const [localGenres, setLocalGenres] = useState(filters.genres || []);
 
   function handleGenreToggle(genreId) {
@@ -34,6 +34,7 @@ const Genres = () => {
       : [...localGenres, genreId];
 
     setLocalGenres(updatedGenres);
+    setCurrentPage(1);
     handleFilterChange('genres', updatedGenres); 
   }
 

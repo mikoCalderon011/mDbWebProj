@@ -10,7 +10,7 @@ const CompactView = ({ movies }) => {
 
   return (
     <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
-      {movies.results?.map(movie => {
+      {movies?.map(movie => {
         return (
           <div
             key={movie.id}
@@ -36,7 +36,7 @@ const CompactView = ({ movies }) => {
                     </span>
                     <div className='flex gap-[.5rem]'>
                       <StarIcon />
-                      <span>{movie.vote_average.toFixed(1)}</span>
+                      <span>{movie.vote_average?.toFixed(1)}</span>
                     </div>
                   </div>
                 </div>

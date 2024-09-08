@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../../../pages/MovieList';
 
 const ReleaseYear = () => {
-  const { filters, handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
   const [releaseYear, setReleaseYear] = useState({
     gteYear: filters.releaseYear.gteYear,
     lteYear: filters.releaseYear.lteYear
@@ -19,6 +19,7 @@ const ReleaseYear = () => {
 
     setReleaseYear(updatedReleaseYear);
     handleFilterChange('releaseYear', updatedReleaseYear);
+    setCurrentPage(1);
   };
 
   function convertYearToDate(year) {

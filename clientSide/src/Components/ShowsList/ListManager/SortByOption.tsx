@@ -12,7 +12,7 @@ const sortBy = [
   { value: "vote_count.desc", label: "Vote Count Descending" }
 ];
 
-const SortByOption = ({ selectedSorting, setSelectedSorting }) => {
+const SortByOption = ({ selectedSorting, setSelectedSorting, resetCurrentPage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   function handleSelectedSortBy(value, label) {
@@ -20,6 +20,7 @@ const SortByOption = ({ selectedSorting, setSelectedSorting }) => {
       value,
       label
     })
+    resetCurrentPage(1);
     setIsDropdownOpen(false);
   }
 

@@ -5,7 +5,7 @@ import CheckIcon from '../../../../assets/Icons/CheckIcon';
 import { Context } from '../../../../pages/MovieList';
 
 const WatchProvider = () => {
-   const { filters, handleFilterChange } = useContext(Context);
+   const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
    const [countries, setCountries] = useState([]);
    const [selectedCountry, setSelectedCountry] = useState({
       name: filters.watchProviders.name,
@@ -42,6 +42,7 @@ const WatchProvider = () => {
          watchRegion: country.iso_3166_1,
       });
       setIsDropdownOpen(false);
+      setCurrentPage(1);
    }
 
    // console.log(selectedCountry)
@@ -58,6 +59,7 @@ const WatchProvider = () => {
          moviePlatform: updatedMoviePlatforms,
          watchRegion: selectedCountry.iso_3166_1
       });
+      setCurrentPage(1);
    }
 
    return (

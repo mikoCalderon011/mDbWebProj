@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../../../pages/MovieList';
 
 const UserRating = () => {
-   const { filters, handleFilterChange } = useContext(Context);
+   const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
    const [userScore, setUserScore] = useState({
       minScore: filters.userScore.minScore,
       maxScore: filters.userScore.maxScore
@@ -20,6 +20,7 @@ const UserRating = () => {
 
       setUserScore(updatedUserScore);
       handleFilterChange('userScore', updatedUserScore);
+      setCurrentPage(1);
    };
 
    return (

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../../../pages/MovieList';
 
 const Runtime = () => {
-  const { filters, handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
   const [runtime, setRuntime] = useState({
     gteRuntime: filters.runtime?.gteRuntime || 0,
     lteRuntime: filters.runtime?.lteRuntime || 400
@@ -20,6 +20,7 @@ const Runtime = () => {
 
     setRuntime(updatedRuntime);
     handleFilterChange('runtime', updatedRuntime);
+    setCurrentPage(1);
   };
 
   return (

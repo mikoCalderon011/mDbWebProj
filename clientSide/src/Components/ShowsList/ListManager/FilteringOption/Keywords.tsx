@@ -3,7 +3,7 @@ import SearchKeywords from './SearchKeywords';
 import { Context } from '../../../../pages/MovieList';
 
 const Keywords = () => {
-  const { filters, handleFilterChange } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
   const [keywordResult, setKeywordResult] = useState([]);
   const [selectedKeywords, setSelectedKeywords] = useState(filters.keyword.keywords);
 
@@ -24,6 +24,7 @@ const Keywords = () => {
       keywordIds: updatedSelectedKeywords.map(kw => kw.id),
       keywords: updatedSelectedKeywords
     });
+    setCurrentPage(1);
   }
 
   console.log(filters.keywords)
