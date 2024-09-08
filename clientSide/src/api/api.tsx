@@ -113,3 +113,16 @@ export const certificationsDetail = async (movieId) => {
       console.log('Error during fetching of data', error);
    }
 }
+
+export const peopleList = async (pageNum) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/person/popular?language=en-US&page=${pageNum}`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}

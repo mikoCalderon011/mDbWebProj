@@ -225,7 +225,7 @@ const MovieList = () => {
           }
         </Context.Provider>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

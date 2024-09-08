@@ -13,6 +13,7 @@ import Home from './pages/Home'
 import MovieList from './pages/MovieList'
 import TvList from './pages/TvList'
 import PeopleList from './pages/PeopleList'
+import './styles/Components/Lists/GridView.css'
 
 const router = createBrowserRouter([
   {

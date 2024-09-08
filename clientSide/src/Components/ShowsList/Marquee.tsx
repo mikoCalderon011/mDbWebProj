@@ -24,7 +24,17 @@ const Marquee = ({ display }) => {
    useEffect(() => {
       const fetchMovieBackdropPoster = async () => {
          try {
-            const data = await apiFetch('/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
+            let data;
+
+            if (display === "movies") {
+               data = await apiFetch('/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
+            }
+            else if (display === "tv shows") {
+               data = await apiFetch('/tv/popular?language=en-US&page=1');
+            }
+            else if (display === "people") {
+               data = await apiFetch('/person/popular?language=en-US&page=1');
+            }
 
             const topTen = data.results.slice(0, 5);
             setMarqueeSlide(topTen);
@@ -35,7 +45,7 @@ const Marquee = ({ display }) => {
       }
 
       fetchMovieBackdropPoster();
-   }, []);
+   }, [display]);
 
    return (
       <section className='flex w-[66.5625rem] h-[6.125rem] overflow-hidden relative border-t-[1px] border-b-[1px]'>
@@ -54,7 +64,10 @@ const Marquee = ({ display }) => {
             {marqueeSlide.map((data, index) => {
                return (
                   <div className='h-full min-w-[22.1875rem] brightness-50' key={index}>
-                     <img className='h-full w-full object-cover' src={`${imageURL}${data.backdrop_path}`} alt={data.original_title} />
+                     <img 
+                        className='h-full w-full object-cover' 
+                        src={`${imageURL}${data.backdrop_path || data.profile_path}`}
+                        alt={data.original_title} />
                   </div>
                )
             })}
@@ -68,7 +81,10 @@ const Marquee = ({ display }) => {
             {marqueeSlide.map((data, index) => {
                return (
                   <div className='h-full min-w-[22.1875rem] brightness-50' key={index}>
-                     <img className='h-full w-full object-cover' src={`${imageURL}${data.backdrop_path}`} alt={data.original_title} />
+                     <img 
+                        className='h-full w-full object-cover' 
+                        src={`${imageURL}${data.backdrop_path || data.profile_path}`}
+                        alt={data.original_title} />
                   </div>
                )
             })}
