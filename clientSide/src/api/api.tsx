@@ -34,10 +34,12 @@ export const countryListApi = async () => {
    }
 }
 
-export const watchProviderApi = async (code) => {
+export const watchProviderApi = async (type, code) => {
+   console.log(`https://api.themoviedb.org/3/watch/providers/${type}?language=en-US&watch_region=${code}`)
+
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/watch/providers/movie?language=en-US&watch_region=${code}`
+         url: `https://api.themoviedb.org/3/watch/providers/${type}?language=en-US&watch_region=${code}`
       })
 
       return response.data
@@ -48,10 +50,10 @@ export const watchProviderApi = async (code) => {
 }
 
 // Certification Country
-export const certificationList = async () => {
+export const certificationList = async (type) => {
    try {
       const response = await apiClient({
-         url: "https://api.themoviedb.org/3/certification/movie/list"
+         url: `https://api.themoviedb.org/3/certification/${type}/list`
       })
 
       return response.data.certifications
@@ -88,10 +90,10 @@ export const keywordResults = async (query) => {
    }
 }
 
-export const movieDetailModal = async (movieId) => {
+export const movieDetailModal = async (type, id) => {
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos,credits&language=en-US`
+         url: `https://api.themoviedb.org/3/${type}/${id}?append_to_response=videos,credits&language=en-US`
       })
 
       return response.data
@@ -101,10 +103,10 @@ export const movieDetailModal = async (movieId) => {
    }
 }
 
-export const certificationsDetail = async (movieId) => {
+export const certificationsDetail = async (type, movieId) => {
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/movie/${movieId}/release_dates?`
+         url: `https://api.themoviedb.org/3/${type}/${movieId}/${type === "movie" ? "release_dates" : "content_ratings"}?`
       })
 
       return response.data

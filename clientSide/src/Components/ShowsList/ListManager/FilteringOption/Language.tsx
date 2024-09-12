@@ -2,9 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon'
 import { originalLanguageList } from '../../../../api/api';
 import { ContextMovies } from '../../../../pages/MovieList';
+import { ContextTvShows } from '../../../../pages/TvList';
 
 const Language = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
+  const moviesContext = useContext(ContextMovies);
+  const tvShowsContext = useContext(ContextTvShows);
+  const context = moviesContext || tvShowsContext;
+  const { filters, handleFilterChange, setCurrentPage } = context || {};
   const [languages, setLanguages] = useState([]);
   const [originalLanguage, setOriginalLanguage] = useState(
     filters.originalLanguage?.english_name || 'No Language'
@@ -15,7 +19,7 @@ const Language = () => {
     try {
       const results = await originalLanguageList();
       setLanguages(results);
-    } 
+    }
     catch (error) {
       console.log('Error during fetching of data', error);
     }
@@ -32,7 +36,7 @@ const Language = () => {
     };
 
     setOriginalLanguage(langName);
-    handleFilterChange('originalLanguage', updatedLanguage); 
+    handleFilterChange('originalLanguage', updatedLanguage);
     setCurrentPage(1);
     setIsDropdownOpen(false);
   }

@@ -3,9 +3,13 @@ import { countryListApi, watchProviderApi } from '../../../../api/api';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
 import CheckIcon from '../../../../assets/Icons/CheckIcon';
 import { ContextMovies } from '../../../../pages/MovieList';
+import { ContextTvShows } from '../../../../pages/TvList';
 
 const WatchProvider = () => {
-   const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
+   const moviesContext = useContext(ContextMovies);
+   const tvShowsContext = useContext(ContextTvShows);
+   const context = moviesContext || tvShowsContext;
+   const { streamType, filters, handleFilterChange, setCurrentPage } = context || {};
    const [countries, setCountries] = useState([]);
    const [selectedCountry, setSelectedCountry] = useState({
       name: filters.watchProviders.name,
@@ -20,7 +24,7 @@ const WatchProvider = () => {
             const countryListResults = await countryListApi();
             setCountries(countryListResults.results);
 
-            const watchProviderResults = await watchProviderApi(selectedCountry.iso_3166_1);
+            const watchProviderResults = await watchProviderApi(streamType, selectedCountry.iso_3166_1);
             setWatchProvider(watchProviderResults.results);
          }
          catch (error) {
@@ -29,7 +33,7 @@ const WatchProvider = () => {
       }
 
       fetchWatchProvider();
-   }, [selectedCountry.iso_3166_1])
+   }, [streamType, selectedCountry.iso_3166_1])
 
    function handleCountrySelect(country) {
       setSelectedCountry({

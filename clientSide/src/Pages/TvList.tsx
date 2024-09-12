@@ -1,28 +1,38 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext } from 'react'
 import Header from '../components/Header/Header'
 import Marquee from '../components/ShowsList/Marquee'
 import DisplayViewOption from '../components/ShowsList/ListManager/DisplayViewOption'
 import FilteringOption from '../components/ShowsList/ListManager/FilteringOption'
+import SortByOption from '../components/ShowsList/ListManager/SortByOption'
+import CompactView from '../components/ShowsList/ListManager/ViewDisplay/CompactView'
+import GridView from '../components/ShowsList/ListManager/ViewDisplay/GridView'
+import { useShowsList } from '../hooks/useShowsList'
 
 export const ContextTvShows = createContext(undefined);
 
 const TvList = () => {
+   const { items: tvShows, filters, handleFilterChange, selectedSortBy, setSelectedSortBy, setCurrentPage, selectedView, setSelectedView } = useShowsList('tv');
 
+   // console.log(tvShows)
 
    return (
       <>
          <Header />
          <main className='text-white flex flex-col font-roboto'>
             <Marquee display={"tv shows"} />
-            {/* <div className='w-[66.5625rem] flex justify-between'>
-               <ContextTvShows.Provider value={{ tvStream: 'Tv-shows' }}>
+            <ContextTvShows.Provider value={{ streamType: 'tv', filters, handleFilterChange, setCurrentPage }}>
+               <div className='w-[66.5625rem] flex justify-between'>
                   <div className='flex items-center gap-[2.5625rem]'>
                      <FilteringOption />
+                     <SortByOption selectedSorting={selectedSortBy} setSelectedSorting={setSelectedSortBy} resetCurrentPage={setCurrentPage} />
                   </div>
-               </ContextTvShows.Provider>
-               <DisplayViewOption setSelectedView={setSelectedView} resetCurrentPage={setCurrentPage} />
-            </div> */}
-            {selectedView === 0 ? "compact" : "grid"}
+                  <DisplayViewOption setSelectedView={setSelectedView} resetCurrentPage={setCurrentPage} />
+               </div>
+               {selectedView === 0
+                  ? <CompactView streams={tvShows} />
+                  : <GridView streams={tvShows} />
+               }
+            </ContextTvShows.Provider>
          </main>
       </>
    )

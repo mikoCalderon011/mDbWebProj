@@ -6,38 +6,36 @@ import StarIcon from '../../../../assets/Icons/StarIcon'
 import StarOutline from '../../../../assets/Icons/StarOutline'
 import DetailModal from './DetailModal'
 
-const GridView = ({ movies, people }) => {
+const GridView = ({ streams, people }) => {
    const [activeDetailModal, setActiveDetailModal] = useState(null);
 
-   // Todo-in-order: tv-shows, people
+   console.log(activeDetailModal)
 
-   console.log(people);
-
-   if (movies) {
+   if (streams) {
       return (
          <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
-            {movies.map(movie => {
+            {streams.map(stream => {
                return (
                   <div
-                     key={movie.id}
+                     key={stream.id}
                      className='w-[9.9375rem] h-[25.75rem] bg-[#1A1A1A] flex flex-col items-center gap-[0.9375rem] rounded-[0.625rem]'
                   >
                      <img
-                        src={movie.poster_path !== null ? `https://image.tmdb.org/t/p/w500` + movie.poster_path : MiguImg}
-                        alt={movie.original_title}
+                        src={stream.poster_path !== null ? `https://image.tmdb.org/t/p/w500` + stream.poster_path : MiguImg}
+                        alt={stream.original_title}
                         className='h-[14.0625rem] w-full rounded-[0.625rem] object-cover'
                      />
                      <div className='flex w-full justify-around'>
                         <div className='flex items-center gap-[4px]'>
                            <StarIcon />
-                           <span>{movie.vote_average?.toFixed(1)}</span>
+                           <span>{stream.vote_average?.toFixed(1)}</span>
                         </div>
                         <div className='flex items-center gap-[4px]'>
                            <StarOutline />
                            <span>0</span>
                         </div>
                      </div>
-                     <span className='block w-[8.8125rem] overflow-hidden truncate text-center'>{movie.title}</span>
+                     <span className='block w-[8.8125rem] overflow-hidden truncate text-center'>{stream.title}</span>
                      <button
                         className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md hover:bg-[#2b3947] transition-colors duration-200'
                      >
@@ -47,7 +45,7 @@ const GridView = ({ movies, people }) => {
 
                      <button
                         className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md hover:bg-[#2b3947] transition-colors duration-200'
-                        onClick={() => setActiveDetailModal(movie.id)}
+                        onClick={() => setActiveDetailModal(stream.id)}
                      >
                         <InfoIcon />
                         <span className='hover:text-[#559ef5] transition-colors duration-200'>Details</span>
@@ -56,7 +54,7 @@ const GridView = ({ movies, people }) => {
                )
             })}
             {activeDetailModal !== null
-               ? <DetailModal movieId={activeDetailModal} exitModal={setActiveDetailModal} />
+               ? <DetailModal id={activeDetailModal} exitModal={setActiveDetailModal} />
                : null
             }
          </div>

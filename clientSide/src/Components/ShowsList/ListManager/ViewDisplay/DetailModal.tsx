@@ -6,10 +6,14 @@ import PlayIcon from '../../../../assets/Icons/PlayIcon';
 import PlusIcon from '../../../../assets/Icons/PlusIcon';
 import { ContextMovies } from '../../../../pages/MovieList';
 import { certificationsDetail, movieDetailModal } from '../../../../api/api';
+import { ContextTvShows } from '../../../../pages/TvList';
 
-const DetailModal = ({ movieId, exitModal }) => {
-   const { filters } = useContext(ContextMovies);
-   const [movieDetails, setMovieDetails] = useState(null);
+const DetailModal = ({ id, exitModal }) => {
+   const moviesContext = useContext(ContextMovies);
+   const tvShowsContext = useContext(ContextTvShows);
+   const context = moviesContext || tvShowsContext;
+   const { streamType, filters } = context || {};
+   const [streamDetails, setStreamDetails] = useState(null);
 
    // Convert total minutes to hh-mm format
    const formatRuntime = (minutes) => {
@@ -19,61 +23,63 @@ const DetailModal = ({ movieId, exitModal }) => {
       return `${hours}hr ${mins}min`;
    };
 
+   // console.log(id)
+
    useEffect(() => {
-      const fetchMovieDetails = async () => {
+      const fetchStreamDetails = async () => {
          try {
-            const movieDetailOne = await movieDetailModal(movieId);
-            const movieDetailTwo = await certificationsDetail(movieId);
+            const streamDetailOne = await movieDetailModal(streamType, id);
+            const streamDetailTwo = await certificationsDetail(streamType, id);
 
-            const releaseYear = movieDetailOne.release_date ? movieDetailOne.release_date.split('-')[0] : 'N/A';
+            const releaseYear = streamDetailOne.release_date ? streamDetailOne.release_date.split('-')[0] : streamDetailOne.first_air_date ? streamDetailOne.first_air_date.split('-')[0] : 'N/A';
 
-            const formattedRuntime = formatRuntime(movieDetailOne.runtime);
+            const formattedRuntime = streamDetailOne.runtime ? formatRuntime(streamDetailOne.runtime) : streamDetailOne.episode_run_time[0] ? formatRuntime(streamDetailOne.episode_run_time[0]) : 'N/A';
 
             const countryCode = filters.certification.certCountry;
-            const countryCertifications = movieDetailTwo.results?.find(cert => cert.iso_3166_1 === countryCode);
-            const certification = countryCertifications?.release_dates?.[0]?.certification ||
-               movieDetailTwo.results?.find(cert => cert.iso_3166_1 === 'US')?.release_dates?.[0]?.certification ||
-               'N/A'
-               ;
+            const countryCertifications = streamDetailTwo.results?.find(cert => cert.iso_3166_1 === countryCode) || streamDetailTwo.results?.find(cert => cert.iso_3166_1 === "US");
+            const certification = countryCertifications?.release_dates?.[0]?.certification || countryCertifications?.rating;
 
-            const officialTrailerVideos = movieDetailOne.videos.results.filter(
+            console.log(streamDetailTwo)
+            console.log(countryCertifications)
+
+            const officialTrailerVideos = streamDetailOne.videos.results.filter(
                video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer') && video.site === 'YouTube'
             );
             const trailer = officialTrailerVideos.length > 0
                ? `https://www.youtube.com/watch?v=${officialTrailerVideos[0].key}`
-               : movieDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube')
-                  ? `https://www.youtube.com/watch?v=${movieDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube').key}`
+               : streamDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube')
+                  ? `https://www.youtube.com/watch?v=${streamDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube').key}`
                   : 'No trailer available'
                ;
 
             // Grabs only the necessary information to display the movie detail
             const grabNeededDetail = {
-               poster_path: movieDetailOne.poster_path,
-               title: movieDetailOne.title,
+               poster_path: streamDetailOne.poster_path,
+               title: streamDetailOne.title || streamDetailOne.name,
                release_date: releaseYear,
                runtime: formattedRuntime,
-               certification,
-               genres: movieDetailOne.genres.map(genre => genre.name),
-               vote_average: movieDetailOne.vote_average.toFixed(1),
-               overview: movieDetailOne.overview,
-               director: movieDetailOne.credits.crew.find(crewMember => crewMember.job === "Director")?.name || 'N/A',
-               actors: movieDetailOne.credits.cast.slice(0, 3).map(actor => `${actor.name} as ${actor.character}`),
+               certification: certification || "N/A",
+               genres: streamDetailOne.genres.map(genre => genre.name),
+               vote_average: streamDetailOne.vote_average.toFixed(1),
+               overview: streamDetailOne.overview,
+               director: streamDetailOne.credits.crew.find(crewMember => crewMember.job === "Director")?.name || 'N/A',
+               actors: streamDetailOne.credits.cast.slice(0, 3).map(actor => `${actor.name} as ${actor.character}`),
                trailer
             };
 
-            setMovieDetails(grabNeededDetail);
+            setStreamDetails(grabNeededDetail);
          }
          catch (error) {
             console.log("Error during fetching of movie details", error)
          }
       }
 
-      fetchMovieDetails();
-   }, [movieId, filters.certification.certCountry])
+      fetchStreamDetails();
+   }, [streamType, id, filters.certification.certCountry])
 
    // console.log(movieDetails);
 
-   if (!movieDetails) {
+   if (!streamDetails) {
       return <div>Loading...</div>;
    }
 
@@ -84,13 +90,13 @@ const DetailModal = ({ movieId, exitModal }) => {
             <div className='w-full h-full flex flex-col gap-[1.625rem] p-[1.5rem]'>
                <div className='flex w-full gap-[1.1875rem]'>
                   <img
-                     src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
-                     alt={movieDetails.title}
+                     src={`https://image.tmdb.org/t/p/w500${streamDetails.poster_path}`}
+                     alt={streamDetails.title}
                      className='w-[4.5rem] h-[6.625rem] object-cover rounded-[0.625rem]'
                   />
                   <div className='w-full flex flex-col gap-[.2rem] font-roboto'>
                      <div className='flex items-center justify-between w-full'>
-                        <span className='text-[1.5rem] font-bold'>{movieDetails.title}</span>
+                        <span className='text-[1.5rem] font-bold'>{streamDetails.title}</span>
                         <button
                            className='h-[2rem] w-[2rem] bg-[#1C252F] flex items-center justify-center rounded-full'
                            onClick={() => exitModal(null)}
@@ -99,21 +105,21 @@ const DetailModal = ({ movieId, exitModal }) => {
                         </button>
                      </div>
                      <div className='flex gap-[1.5rem] text-[0.875rem]'>
-                        <span>{movieDetails.release_date}</span>
-                        <span>{movieDetails.runtime}</span>
-                        <span>{movieDetails.certification}</span>
+                        <span>{streamDetails.release_date}</span>
+                        <span>{streamDetails.runtime}</span>
+                        <span>{streamDetails.certification}</span>
                      </div>
                      <div className='flex items-center gap-[1.5rem] text-[0.875rem]'>
-                        {movieDetails.genres.map(genre => {
+                        {streamDetails.genres.map((genre, index) => {
                            return (
-                              <span>{genre}</span>
+                              <span key={index}>{genre}</span>
                            )
                         })}
                      </div>
                      <div className='flex gap-[2.625rem] text-[1rem] font-bold'>
                         <div className='flex gap-[0.3625rem]'>
                            <StarIcon />
-                           <span>{movieDetails.vote_average}</span>
+                           <span>{streamDetails.vote_average}</span>
                         </div>
                         <div className='flex gap-[0.3625rem]'>
                            <StarOutline />
@@ -123,29 +129,29 @@ const DetailModal = ({ movieId, exitModal }) => {
                   </div>
                </div>
                <div className='flex flex-col gap-[0.8125rem] text-[0.875rem]'>
-                  <p>{movieDetails.overview}</p>
+                  <p>{streamDetails.overview}</p>
                   <div className='flex gap-[1.0625rem]'>
                      <span className='font-bold text-[#9F9F9F]'>Director</span>
                      <a
-                        href={`https://www.google.com/search?q=${movieDetails.director}`}
+                        href={`https://www.google.com/search?q=${streamDetails.director}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className='text-blue-500 underline hover:text-blue-700'
                      >
-                        {movieDetails.director}
+                        {streamDetails.director}
                      </a>
                   </div>
                   <div className='flex gap-[1.0625rem]'>
                      <span className='font-bold text-[#9F9F9F]'>Stars</span>
-                     {movieDetails.actors.map(actor => {
+                     {streamDetails.actors.map(actor => {
                         return (
                            <span>{actor}</span>
                         )
                      })}
                   </div>
                   <div className='flex gap-[0.5rem] pb-[2rem]'>
-                     <a 
-                        href={`${movieDetails.trailer}`}
+                     <a
+                        href={`${streamDetails.trailer}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className='w-[18.75rem] h-[2.25rem] bg-[#1C252F] flex justify-center items-center gap-[0.553rem] rounded-full'

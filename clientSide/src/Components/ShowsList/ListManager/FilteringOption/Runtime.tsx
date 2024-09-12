@@ -1,8 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { ContextMovies } from '../../../../pages/MovieList';
+import { ContextTvShows } from '../../../../pages/TvList';
 
 const Runtime = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
+  const moviesContext = useContext(ContextMovies);
+  const tvShowsContext = useContext(ContextTvShows);
+  const context = moviesContext || tvShowsContext;
+  const { filters, handleFilterChange, setCurrentPage } = context || {};
   const [runtime, setRuntime] = useState({
     gteRuntime: filters.runtime?.gteRuntime || 0,
     lteRuntime: filters.runtime?.lteRuntime || 400

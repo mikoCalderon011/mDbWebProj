@@ -1,8 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { ContextMovies } from '../../../../pages/MovieList';
+import { ContextTvShows } from '../../../../pages/TvList';
 
 const ReleaseYear = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
+  const moviesContext = useContext(ContextMovies);
+  const tvShowsContext = useContext(ContextTvShows);
+  const context = moviesContext || tvShowsContext;
+  const { streamType, filters, handleFilterChange, setCurrentPage } = context || {};
   const [releaseYear, setReleaseYear] = useState({
     gteYear: filters.releaseYear.gteYear,
     lteYear: filters.releaseYear.lteYear
@@ -11,7 +15,7 @@ const ReleaseYear = () => {
   const handleReleaseYearChange = (e, type) => {
     const inputValue = e.target.value;
     const parsedValue = parseInt(inputValue, 10);
-  
+
     const updatedReleaseYear = {
       ...releaseYear,
       [type]: convertYearToDate(parsedValue)
@@ -24,7 +28,7 @@ const ReleaseYear = () => {
 
   function convertYearToDate(year) {
     if (year && !isNaN(year) && year > 0 && year < 10000) {
-      return `${year}-12-31`; 
+      return `${year}-12-31`;
     }
     return '';
   }
@@ -33,7 +37,7 @@ const ReleaseYear = () => {
 
   return (
     <div className='text-white font-roboto flex flex-col gap-[0.875rem]'>
-      <span className='text-[#ff8731] font-bold text-[.75rem]'>RELEASE YEAR</span>
+      <span className='text-[#ff8731] font-bold text-[.75rem]'>{streamType === "movie" ? "RELEASE YEAR" : "AIR RELEASE YEAR"}</span>
       <div className='flex items-center gap-[.6rem]'>
         <div className="w-[16.875rem] h-[2.5rem] border-2 border-white rounded-md flex items-center px-3 hover:border-[#ff8731] focus-within:border-[#ff8731] transition duration-300 ease-in-out">
           <input

@@ -12,28 +12,26 @@ import { useShowsList } from '../hooks/useShowsList'
 export const ContextMovies = createContext(undefined);
 
 const MovieList = () => {
-  const { items: movies, filters, handleFilterChange, selectedSortBy, setSelectedSortBy, setCurrentPage, selectedView , setSelectedView } = useShowsList('movie');
-
-  // console.log(movies)
+  const { items: movies, filters, handleFilterChange, selectedSortBy, setSelectedSortBy, setCurrentPage, selectedView, setSelectedView } = useShowsList('movie');
 
   return (
     <>
       <Header />
       <main className='text-white flex flex-col font-roboto'>
         <Marquee display={"movies"} />
-        <div className='w-[66.5625rem] flex justify-between'>
-          <ContextMovies.Provider value={{ movieStream: 'Movies', filters, handleFilterChange, setCurrentPage }}>
+        <ContextMovies.Provider value={{ streamType: 'movie', filters, handleFilterChange, setCurrentPage }}>
+          <div className='w-[66.5625rem] flex justify-between'>
             <div className='flex items-center gap-[2.5625rem]'>
               <FilteringOption />
               <SortByOption selectedSorting={selectedSortBy} setSelectedSorting={setSelectedSortBy} resetCurrentPage={setCurrentPage} />
             </div>
             <DisplayViewOption setSelectedView={setSelectedView} resetCurrentPage={setCurrentPage} />
-            {/* {selectedView === 0
-              ? <CompactView movies={movies} />
-              : <GridView movies={movies} />
-            } */}
-          </ContextMovies.Provider>
-        </div>
+          </div>
+          {selectedView === 0
+            ? <CompactView streams={movies} />
+            : <GridView streams={movies} />
+          }
+        </ContextMovies.Provider>
       </main>
       <Footer />
     </>

@@ -5,13 +5,18 @@ import { ContextTvShows } from '../../../../pages/TvList';
 
 const Genres = () => {  
   const [genres, setGenres] = useState([]);
-  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
+  const moviesContext = useContext(ContextMovies);
+  const tvShowsContext = useContext(ContextTvShows);
+  const context = moviesContext || tvShowsContext;
+  const { streamType, filters, handleFilterChange, setCurrentPage } = context || {};
   const [localGenres, setLocalGenres] = useState(filters.genres || []);
- 
+
+  console.log(streamType)
+
   useEffect(() => {
     const getGenres = async () => {
       try {
-        const results = await apiFetch('genre/movie/list?language=en');
+        const results = await apiFetch(`genre/${streamType}/list?language=en`);
   
         setGenres(results.genres);
       }
@@ -21,7 +26,7 @@ const Genres = () => {
     }
   
     getGenres();
-  }, [])
+  }, [streamType])
 
   function handleGenreToggle(genreId) {
     const updatedGenres = localGenres.includes(genreId)
