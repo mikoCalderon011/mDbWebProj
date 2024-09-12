@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon'
 import { originalLanguageList } from '../../../../api/api';
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const Language = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
   const [languages, setLanguages] = useState([]);
   const [originalLanguage, setOriginalLanguage] = useState(
     filters.originalLanguage?.english_name || 'No Language'

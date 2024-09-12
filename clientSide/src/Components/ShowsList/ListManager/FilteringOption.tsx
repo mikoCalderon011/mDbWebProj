@@ -11,7 +11,6 @@ import Certification from './FilteringOption/Certification';
 import Language from './FilteringOption/Language';
 import Keywords from './FilteringOption/Keywords';
 
-
 const FilteringOption = () => {
    const [openFilterModal, setOpenFilterModal] = useState(false);
 
@@ -43,7 +42,7 @@ const FilteringOption = () => {
                      <Divider />
                      <WatchProvider />
                      <Divider />
-                     <Certification />
+                     {/* <Certification />
                      <Divider />
                      <ReleaseYear />
                      <Divider />
@@ -54,7 +53,7 @@ const FilteringOption = () => {
                      <div className='flex gap-[1.8rem] pb-[4rem]'>
                         <Language />
                         <Keywords />
-                     </div>
+                     </div> */}
                   </div>
                </div>
             </div>

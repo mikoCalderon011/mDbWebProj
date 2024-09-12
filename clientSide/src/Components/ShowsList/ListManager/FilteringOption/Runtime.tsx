@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const Runtime = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
   const [runtime, setRuntime] = useState({
     gteRuntime: filters.runtime?.gteRuntime || 0,
     lteRuntime: filters.runtime?.lteRuntime || 400

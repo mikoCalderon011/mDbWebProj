@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const UserRating = () => {
-   const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+   const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
    const [userScore, setUserScore] = useState({
       minScore: filters.userScore.minScore,
       maxScore: filters.userScore.maxScore

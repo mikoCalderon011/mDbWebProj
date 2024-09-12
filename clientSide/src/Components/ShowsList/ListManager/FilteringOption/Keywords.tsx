@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import SearchKeywords from './SearchKeywords';
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const Keywords = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
   const [keywordResult, setKeywordResult] = useState([]);
   const [selectedKeywords, setSelectedKeywords] = useState(filters.keyword.keywords);
 

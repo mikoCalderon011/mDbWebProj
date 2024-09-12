@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { countryListApi, watchProviderApi } from '../../../../api/api';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
 import CheckIcon from '../../../../assets/Icons/CheckIcon';
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const WatchProvider = () => {
-   const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+   const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
    const [countries, setCountries] = useState([]);
    const [selectedCountry, setSelectedCountry] = useState({
       name: filters.watchProviders.name,
@@ -44,8 +44,6 @@ const WatchProvider = () => {
       setIsDropdownOpen(false);
       setCurrentPage(1);
    }
-
-   // console.log(selectedCountry)
 
    function handleMovieProviderToggle(providerData) {
       const { provider_id } = providerData;

@@ -4,11 +4,11 @@ import StarIcon from '../../../../assets/Icons/StarIcon';
 import StarOutline from '../../../../assets/Icons/StarOutline';
 import PlayIcon from '../../../../assets/Icons/PlayIcon';
 import PlusIcon from '../../../../assets/Icons/PlusIcon';
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 import { certificationsDetail, movieDetailModal } from '../../../../api/api';
 
 const DetailModal = ({ movieId, exitModal }) => {
-   const { filters } = useContext(Context);
+   const { filters } = useContext(ContextMovies);
    const [movieDetails, setMovieDetails] = useState(null);
 
    // Convert total minutes to hh-mm format

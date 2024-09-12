@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const ReleaseYear = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
   const [releaseYear, setReleaseYear] = useState({
     gteYear: filters.releaseYear.gteYear,
     lteYear: filters.releaseYear.lteYear

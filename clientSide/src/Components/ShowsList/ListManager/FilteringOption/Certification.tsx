@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
 import { certificationList } from '../../../../api/api';
-import { Context } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/MovieList';
 
 const Certification = () => {
-  const { filters, handleFilterChange, setCurrentPage } = useContext(Context);
+  const { filters, handleFilterChange, setCurrentPage } = useContext(ContextMovies);
   const [certifications, setCertifications] = useState({});
   const [certCountry, setCertCountry] = useState(filters.certification.certCountry);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
