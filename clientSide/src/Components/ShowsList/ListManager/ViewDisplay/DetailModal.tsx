@@ -49,7 +49,7 @@ const DetailModal = ({ id, exitModal }) => {
                ? `https://www.youtube.com/watch?v=${officialTrailerVideos[0].key}`
                : streamDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube')
                   ? `https://www.youtube.com/watch?v=${streamDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube').key}`
-                  : 'No trailer available'
+                  : null
                ;
 
             // Grabs only the necessary information to display the movie detail
@@ -130,19 +130,21 @@ const DetailModal = ({ id, exitModal }) => {
                </div>
                <div className='flex flex-col gap-[0.8125rem] text-[0.875rem]'>
                   <p>{streamDetails.overview}</p>
+                  {streamType === "movie" && (
+                     <div className='flex gap-[1.0625rem]'>
+                        <span className='font-bold text-[#9F9F9F]'>Director</span>
+                        <a
+                           href={`https://www.google.com/search?q=${streamDetails.director}`}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className='text-blue-500 underline hover:text-blue-700'
+                        >
+                           {streamDetails.director}
+                        </a>
+                     </div>
+                  )}
                   <div className='flex gap-[1.0625rem]'>
-                     <span className='font-bold text-[#9F9F9F]'>Director</span>
-                     <a
-                        href={`https://www.google.com/search?q=${streamDetails.director}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className='text-blue-500 underline hover:text-blue-700'
-                     >
-                        {streamDetails.director}
-                     </a>
-                  </div>
-                  <div className='flex gap-[1.0625rem]'>
-                     <span className='font-bold text-[#9F9F9F]'>Stars</span>
+                     <span className='font-bold text-[#9F9F9F]'>{streamType === "movie" ? "Stars" : "Casts"}</span>
                      {streamDetails.actors.map(actor => {
                         return (
                            <span>{actor}</span>
@@ -151,14 +153,18 @@ const DetailModal = ({ id, exitModal }) => {
                   </div>
                   <div className='flex gap-[0.5rem] pb-[2rem]'>
                      <a
-                        href={`${streamDetails.trailer}`}
-                        target="_blank"
+                        href={streamDetails.trailer === null ? '#' : `${streamDetails.trailer}`}
+                        target={streamDetails.trailer === null ? '_self' : '_blank'}
                         rel="noopener noreferrer"
-                        className='w-[18.75rem] h-[2.25rem] bg-[#1C252F] flex justify-center items-center gap-[0.553rem] rounded-full'
+                        onClick={streamDetails.trailer === null ? (e) => e.preventDefault() : null}
+                        className={`w-[18.75rem] h-[2.25rem] bg-[#1C252F] flex justify-center items-center gap-[0.553rem] rounded-full 
+                        ${streamDetails.trailer === null ? 'pointer-events-none cursor-not-allowed opacity-50' : 'hover:bg-gray-700'}`}
                      >
                         <PlayIcon />
                         <span className='font-bold'>Trailer</span>
                      </a>
+
+
                      <button className='w-[18.75rem] h-[2.25rem] bg-[#1C252F] flex justify-center items-center gap-[0.553rem] rounded-full'>
                         <PlusIcon />
                         <span className='font-bold text-[#3D81E7]'>Watchlist</span>
