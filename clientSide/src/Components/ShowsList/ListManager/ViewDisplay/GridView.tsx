@@ -9,8 +9,6 @@ import DetailModal from './DetailModal'
 const GridView = ({ streams, people }) => {
    const [activeDetailModal, setActiveDetailModal] = useState(null);
 
-   console.log(activeDetailModal)
-
    if (streams) {
       return (
          <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
@@ -22,7 +20,7 @@ const GridView = ({ streams, people }) => {
                   >
                      <img
                         src={stream.poster_path !== null ? `https://image.tmdb.org/t/p/w500` + stream.poster_path : MiguImg}
-                        alt={stream.original_title}
+                        alt={stream.original_title || stream.name}
                         className='h-[14.0625rem] w-full rounded-[0.625rem] object-cover'
                      />
                      <div className='flex w-full justify-around'>
@@ -35,7 +33,7 @@ const GridView = ({ streams, people }) => {
                            <span>0</span>
                         </div>
                      </div>
-                     <span className='block w-[8.8125rem] overflow-hidden truncate text-center'>{stream.title}</span>
+                     <span className='block w-[8.8125rem] overflow-hidden truncate text-center'>{stream.title || stream.name}</span>
                      <button
                         className='w-[8.8125rem] h-[2.25rem] flex items-center justify-center gap-[0.81625rem] bg-[#1C252F] rounded-md hover:bg-[#2b3947] transition-colors duration-200'
                      >
@@ -90,6 +88,9 @@ const GridView = ({ streams, people }) => {
             })}
          </div>
       )
+   }
+   else {
+      return <div>Loading...</div>;
    }
 }
 

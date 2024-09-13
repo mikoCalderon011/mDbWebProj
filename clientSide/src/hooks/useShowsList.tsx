@@ -133,6 +133,7 @@ export const useShowsList = (type) => {
       certification_country: filters.certification.certCountry,
       with_original_language: selectedLanguage,
       with_keywords: selectedKeywords,
+      'with_watch_monetization_types': 'flatrate|free|ads|rent|buy',
     }).toString();
 
     const fetchData = async () => {

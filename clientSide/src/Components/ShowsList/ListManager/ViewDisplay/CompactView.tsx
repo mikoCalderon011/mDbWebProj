@@ -8,6 +8,10 @@ import DetailModal from './DetailModal';
 const CompactView = ({ streams }) => {
   const [activeDetailModal, setActiveDetailModal] = useState(null);
 
+  if (!streams) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
       {streams?.map(stream => {

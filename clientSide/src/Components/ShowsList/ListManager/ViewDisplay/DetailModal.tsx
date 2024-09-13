@@ -23,6 +23,8 @@ const DetailModal = ({ id, exitModal }) => {
       return `${hours}hr ${mins}min`;
    };
 
+   // TODO: filter input is not saving (optional), additional info in detailmodal, at the bottom only must call api issue
+
    // console.log(id)
 
    useEffect(() => {
@@ -39,7 +41,7 @@ const DetailModal = ({ id, exitModal }) => {
             const countryCertifications = streamDetailTwo.results?.find(cert => cert.iso_3166_1 === countryCode) || streamDetailTwo.results?.find(cert => cert.iso_3166_1 === "US");
             const certification = countryCertifications?.release_dates?.[0]?.certification || countryCertifications?.rating;
 
-            console.log(streamDetailTwo)
+            console.log(streamDetailOne)
             console.log(countryCertifications)
 
             const officialTrailerVideos = streamDetailOne.videos.results.filter(
