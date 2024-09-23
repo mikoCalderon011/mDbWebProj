@@ -128,3 +128,30 @@ export const peopleList = async (pageNum) => {
       console.log('Error during fetching of data', error);
    }
 }
+
+export const movieDataApi = async (movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=watch%2Fproviders%2Cvideos%2Cimages%2Crelease_dates%2Crecommendations%2Cexternal_ids%2Ccredits&language=en-US`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+// movieDataApi won't provide me the data for posters and backdrops, so I used the direct method for getting the images
+export const movieImagesApi = async (movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/movie/${movieId}/images`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}

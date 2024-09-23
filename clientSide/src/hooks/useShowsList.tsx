@@ -20,6 +20,7 @@ export const useShowsList = (type) => {
     keyword: { keywordIds: [], keywords: [] },
   });
 
+
   const handleFilterChange = (filterName, value) => {
     setFilters(prevFilters => {
       if (filterName === 'watchProviders') {
@@ -117,8 +118,8 @@ export const useShowsList = (type) => {
       with_genres: selectedGenres || '',
       watch_region: filters.watchProviders.watchRegion || '',
       with_watch_providers: selectedWatchProviders || '',
-      'vote_average.gte': filters.userScore.minScore || 0,
-      'vote_average.lte': filters.userScore.maxScore || 10,
+      'vote_average.gte': filters.userScore.minScore || '',
+      'vote_average.lte': filters.userScore.maxScore || '',
       ...(type === 'movie' && {
         'release_date.gte': filters.releaseYear.gteYear || '',
         'release_date.lte': filters.releaseYear.lteYear || '',
@@ -133,12 +134,15 @@ export const useShowsList = (type) => {
       certification_country: filters.certification.certCountry,
       with_original_language: selectedLanguage,
       with_keywords: selectedKeywords,
-      'with_watch_monetization_types': 'flatrate|free|ads|rent|buy',
+      // 'with_watch_monetization_types': 'flatrate|free|ads|rent|buy',
     }).toString();
 
     const fetchData = async () => {
       try {
         const data = await apiFetch(`/discover/${type}?${params}`);
+
+        console.log(data)
+
         setItems(prevItems => {
           if (currentPage === 1) return data.results;
           const existingItemIds = new Set(prevItems.map(item => item.id));
