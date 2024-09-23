@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import SearchKeywords from './SearchKeywords';
-import { ContextMovies } from '../../../../pages/MovieList';
-import { ContextTvShows } from '../../../../pages/TvList';
+import { ContextMovies } from '../../../../pages/Lists/MovieList';
+import { ContextTvShows } from '../../../../pages/Lists/TvList';
 
 const Keywords = () => {
   const moviesContext = useContext(ContextMovies);
@@ -30,8 +30,6 @@ const Keywords = () => {
     });
     setCurrentPage(1);
   }
-
-  console.log(filters.keywords)
 
   return (
     <div className='text-white font-roboto flex flex-col gap-2'>

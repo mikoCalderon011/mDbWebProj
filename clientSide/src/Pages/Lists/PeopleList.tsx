@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../components/Header/Header'
-import Marquee from '../components/ShowsList/Marquee'
-import { peopleList } from '../api/api';
+import Header from '../../components/Header/Header'
+import Marquee from '../../components/ShowsList/Marquee'
+import { peopleList } from '../../api/api';
 import _ from 'lodash'
-import GridView from '../components/ShowsList/ListManager/ViewDisplay/GridView';
+import GridView from '../../components/ShowsList/ListManager/ViewDisplay/GridView';
+import Footer from '../../components/Footer/Footer';
 
 const PeopleList = () => {
    const [people, setPeople] = useState();
@@ -58,6 +59,7 @@ const PeopleList = () => {
                <GridView people={people} />
             </div>
          </main>
+         <Footer />
       </>
    )
 }

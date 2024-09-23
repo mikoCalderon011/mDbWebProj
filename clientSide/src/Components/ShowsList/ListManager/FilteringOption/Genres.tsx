@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { apiFetch } from '../../../../api/api';
-import { ContextMovies } from '../../../../pages/MovieList';
-import { ContextTvShows } from '../../../../pages/TvList';
+import { ContextMovies } from '../../../../pages/Lists/MovieList';
+import { ContextTvShows } from '../../../../pages/Lists/TvList';
 
 const Genres = () => {  
   const [genres, setGenres] = useState([]);
@@ -10,8 +10,6 @@ const Genres = () => {
   const context = moviesContext || tvShowsContext;
   const { streamType, filters, handleFilterChange, setCurrentPage } = context || {};
   const [localGenres, setLocalGenres] = useState(filters.genres || []);
-
-  console.log(streamType)
 
   useEffect(() => {
     const getGenres = async () => {

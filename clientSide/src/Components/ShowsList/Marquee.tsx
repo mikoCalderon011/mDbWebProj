@@ -63,7 +63,7 @@ const Marquee = ({ display }) => {
          >
             {marqueeSlide.map((data, index) => {
                return (
-                  <div className='h-full min-w-[22.1875rem] brightness-50' key={index}>
+                  <div className='h-full min-w-[22.1875rem] brightness-75' key={index}>
                      <img 
                         className='h-full w-full object-cover' 
                         src={`${imageURL}${data.backdrop_path || data.profile_path}`}
@@ -89,7 +89,6 @@ const Marquee = ({ display }) => {
                )
             })}
          </motion.div>
-
       </section>
    )
 }

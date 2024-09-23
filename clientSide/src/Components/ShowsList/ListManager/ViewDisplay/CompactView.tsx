@@ -4,6 +4,7 @@ import StarIcon from '../../../../assets/Icons/StarIcon';
 import PlusIcon from '../../../../assets/Icons/PlusIcon';
 import InfoIcon from '../../../../assets/Icons/InfoIcon';
 import DetailModal from './DetailModal';
+import { Link } from 'react-router-dom';
 
 const CompactView = ({ streams }) => {
   const [activeDetailModal, setActiveDetailModal] = useState(null);
@@ -16,7 +17,8 @@ const CompactView = ({ streams }) => {
     <div className='flex w-[66.5625rem] gap-[1.375rem] flex-wrap'>
       {streams?.map(stream => {
         return (
-          <div
+          <Link
+            to={`${stream.id}-${stream.original_title.toLowerCase().replace(/\s+/g, '-') || stream.original_name.toLowerCase().replace(/\s+/g, '-')}`}
             key={stream.id}
             className='w-[21.2708rem] h-[6.25rem] bg-[#1A1A1A] flex flex-col gap-[0.9375rem] rounded-[0.625rem] relative cursor-pointer z-[2] hover:scale-[1.02]'
           >
@@ -57,7 +59,7 @@ const CompactView = ({ streams }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         )
       })}
       {activeDetailModal !== null

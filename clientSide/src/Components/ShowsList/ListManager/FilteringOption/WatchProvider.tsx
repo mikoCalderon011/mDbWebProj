@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { countryListApi, watchProviderApi } from '../../../../api/api';
 import ArrowIcon from '../../../../assets/Icons/ArrowIcon';
 import CheckIcon from '../../../../assets/Icons/CheckIcon';
-import { ContextMovies } from '../../../../pages/MovieList';
-import { ContextTvShows } from '../../../../pages/TvList';
+import { ContextMovies } from '../../../../pages/Lists/MovieList';
+import { ContextTvShows } from '../../../../pages/Lists/TvList';
 
 const WatchProvider = () => {
    const moviesContext = useContext(ContextMovies);

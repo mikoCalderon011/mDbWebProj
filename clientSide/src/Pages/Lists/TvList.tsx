@@ -1,12 +1,13 @@
 import React, { createContext } from 'react'
-import Header from '../components/Header/Header'
-import Marquee from '../components/ShowsList/Marquee'
-import DisplayViewOption from '../components/ShowsList/ListManager/DisplayViewOption'
-import FilteringOption from '../components/ShowsList/ListManager/FilteringOption'
-import SortByOption from '../components/ShowsList/ListManager/SortByOption'
-import CompactView from '../components/ShowsList/ListManager/ViewDisplay/CompactView'
-import GridView from '../components/ShowsList/ListManager/ViewDisplay/GridView'
-import { useShowsList } from '../hooks/useShowsList'
+import Header from '../../components/Header/Header'
+import Marquee from '../../components/ShowsList/Marquee'
+import DisplayViewOption from '../../components/ShowsList/ListManager/DisplayViewOption'
+import FilteringOption from '../../components/ShowsList/ListManager/FilteringOption'
+import SortByOption from '../../components/ShowsList/ListManager/SortByOption'
+import CompactView from '../../components/ShowsList/ListManager/ViewDisplay/CompactView'
+import GridView from '../../components/ShowsList/ListManager/ViewDisplay/GridView'
+import { useShowsList } from '../../hooks/useShowsList'
+import Footer from '../../components/Footer/Footer'
 
 export const ContextTvShows = createContext(undefined);
 
@@ -34,6 +35,7 @@ const TvList = () => {
                }
             </ContextTvShows.Provider>
          </main>
+         <Footer />
       </>
    )
 }

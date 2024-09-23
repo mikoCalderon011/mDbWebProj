@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { ContextMovies } from '../../../../pages/MovieList';
-import { ContextTvShows } from '../../../../pages/TvList';
+import { ContextMovies } from '../../../../pages/Lists/MovieList';
+import { ContextTvShows } from '../../../../pages/Lists/TvList';
 
 const UserRating = () => {
    const moviesContext = useContext(ContextMovies);
@@ -37,8 +37,9 @@ const UserRating = () => {
                   min="0"
                   max="10"
                   placeholder="0"
+                  value={userScore.minScore}
                   className="w-full h-full text-[.75rem] bg-transparent text-white placeholder-gray-500 focus:outline-none"
-                  onBlur={(e) => handleUserScoreChange(e, 'minScore')}
+                  onChange={(e) => handleUserScoreChange(e, 'minScore')}
                />
             </div>
             <span className='text-[.75rem]'>to</span>
@@ -48,8 +49,9 @@ const UserRating = () => {
                   min="0"
                   max="10"
                   placeholder="10"
+                  value={userScore.maxScore}
                   className="w-full h-full text-[.75rem] bg-transparent text-white placeholder-gray-500 focus:outline-none"
-                  onBlur={(e) => handleUserScoreChange(e, 'maxScore')}
+                  onChange={(e) => handleUserScoreChange(e, 'maxScore')}
                />
             </div>
          </div>

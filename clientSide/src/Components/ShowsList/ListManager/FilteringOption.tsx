@@ -28,7 +28,7 @@ const FilteringOption = () => {
             <span>Filtering Options</span>
          </button>
          {openFilterModal &&
-            <div className='w-screen h-screen top-0 left-0 right-0 bottom-0 fixed z-[10] flex items-center justify-center '>
+            <div className='w-screen h-screen top-0 left-0 right-0 bottom-0 fixed z-[10] flex items-center justify-center'>
                <div className='w-screen h-screen top-0 left-0 right-0 bottom-0 fixed bg-[#111111] opacity-50'></div>
                <div className='w-[41.5rem] h-[45rem] bg-[#1b1b1b] z-[10] relative rounded-[5px] overflow-auto'>
                   <div className='h-full w-full relative py-[2rem] px-[2.8125rem]'>
@@ -44,16 +44,16 @@ const FilteringOption = () => {
                      <Divider />
                      <Certification />
                      <Divider />
+                     <div className='flex gap-[1.8rem]'>
+                        <Language />
+                        <Keywords />
+                     </div>
+                     <Divider />
                      <ReleaseYear />
                      <Divider />
                      <UserRating />
                      <Divider />
                      <Runtime />
-                     <Divider />
-                     <div className='flex gap-[1.8rem] pb-[4rem]'>
-                        <Language />
-                        <Keywords />
-                     </div>
                   </div>
                </div>
             </div>

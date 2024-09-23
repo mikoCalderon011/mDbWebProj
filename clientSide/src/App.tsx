@@ -10,10 +10,11 @@ import './Styles/Components/Home/NowShowing.css'
 import './Styles/Components/Home/Popular.css'
 import './Styles/Components/Home/Upcoming.css'
 import Home from './pages/Home'
-import MovieList from './pages/MovieList'
-import TvList from './pages/TvList'
-import PeopleList from './pages/PeopleList'
+import MovieList from './pages/Lists/MovieList'
+import TvList from './pages/Lists/TvList'
+import PeopleList from './pages/Lists/PeopleList'
 import './styles/Components/Lists/GridView.css'
+import MovieDetails from './pages/Details/MovieDetails'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/movies',
     element: <MovieList />
+  },
+  {
+    path: '/movies/:movieId',
+    element: <MovieDetails />
   },
   {
     path: '/tv',

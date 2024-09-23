@@ -4,9 +4,9 @@ import StarIcon from '../../../../assets/Icons/StarIcon';
 import StarOutline from '../../../../assets/Icons/StarOutline';
 import PlayIcon from '../../../../assets/Icons/PlayIcon';
 import PlusIcon from '../../../../assets/Icons/PlusIcon';
-import { ContextMovies } from '../../../../pages/MovieList';
+import { ContextMovies } from '../../../../pages/Lists/MovieList';
 import { certificationsDetail, movieDetailModal } from '../../../../api/api';
-import { ContextTvShows } from '../../../../pages/TvList';
+import { ContextTvShows } from '../../../../pages/Lists/TvList';
 
 const DetailModal = ({ id, exitModal }) => {
    const moviesContext = useContext(ContextMovies);
@@ -23,9 +23,7 @@ const DetailModal = ({ id, exitModal }) => {
       return `${hours}hr ${mins}min`;
    };
 
-   // TODO: filter input is not saving (optional), additional info in detailmodal, at the bottom only must call api issue
-
-   // console.log(id)
+   // TODO: additional info in detailmodal, at the bottom only must call api issue
 
    useEffect(() => {
       const fetchStreamDetails = async () => {
@@ -149,7 +147,7 @@ const DetailModal = ({ id, exitModal }) => {
                      <span className='font-bold text-[#9F9F9F]'>{streamType === "movie" ? "Stars" : "Casts"}</span>
                      {streamDetails.actors.map(actor => {
                         return (
-                           <span>{actor}</span>
+                           <span className='flex-1'>{actor}</span>
                         )
                      })}
                   </div>
@@ -165,8 +163,6 @@ const DetailModal = ({ id, exitModal }) => {
                         <PlayIcon />
                         <span className='font-bold'>Trailer</span>
                      </a>
-
-
                      <button className='w-[18.75rem] h-[2.25rem] bg-[#1C252F] flex justify-center items-center gap-[0.553rem] rounded-full'>
                         <PlusIcon />
                         <span className='font-bold text-[#3D81E7]'>Watchlist</span>

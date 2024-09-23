@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { ContextMovies } from '../../../../pages/MovieList';
-import { ContextTvShows } from '../../../../pages/TvList';
+import { ContextMovies } from '../../../../pages/Lists/MovieList';
+import { ContextTvShows } from '../../../../pages/Lists/TvList';
 
 const ReleaseYear = () => {
   const moviesContext = useContext(ContextMovies);
@@ -43,7 +43,8 @@ const ReleaseYear = () => {
           <input
             type="number"
             className="w-full h-full text-[.75rem] bg-transparent text-white placeholder-gray-500 focus:outline-none"
-            onBlur={(e) => handleReleaseYearChange(e, 'gteYear')}
+            value={releaseYear.gteYear}
+            onChange={(e) => handleReleaseYearChange(e, 'gteYear')}
           />
         </div>
         <span className='text-[.75rem]'>to</span>
@@ -51,7 +52,8 @@ const ReleaseYear = () => {
           <input
             type="number"
             className="w-full h-full text-[.75rem] bg-transparent text-white placeholder-gray-500 focus:outline-none"
-            onBlur={(e) => handleReleaseYearChange(e, 'lteYear')}
+            value={releaseYear.lteYear}
+            onChange={(e) => handleReleaseYearChange(e, 'lteYear')}
           />
         </div>
       </div>
