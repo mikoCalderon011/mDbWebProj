@@ -42,15 +42,19 @@ const DetailModal = ({ id, exitModal }) => {
             console.log(streamDetailOne)
             console.log(countryCertifications)
 
+
+            // Grabs the official trailer
             const officialTrailerVideos = streamDetailOne.videos.results.filter(
                video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer') && video.site === 'YouTube'
             );
+
+            // If there is no official trailer, grab the first trailer
             const trailer = officialTrailerVideos.length > 0
                ? `https://www.youtube.com/watch?v=${officialTrailerVideos[0].key}`
                : streamDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube')
                   ? `https://www.youtube.com/watch?v=${streamDetailOne.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube').key}`
-                  : null
-               ;
+               : null
+            ;
 
             // Grabs only the necessary information to display the movie detail
             const grabNeededDetail = {
