@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Footer from '../../components/Footer/Footer';
 import { movieDataApi, movieImagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';
+import Overview from '../../components/Details/Overview';
 
 const MovieDetails = () => {
   const params = useParams();
@@ -73,6 +74,70 @@ const MovieDetails = () => {
           official_trailer: trailer
         };
 
+        // Get Overview data
+
+        // get PH or US certification
+        const certifications = response.release_dates.results.filter((country) =>
+          ["PH", "US"].includes(country.iso_3166_1)
+        );
+
+        const director = response.credits.crew.find((member) => {
+          return member.job === "Director"
+        })
+
+        const writers = response.credits.crew.filter((member) => {
+          return member.department === "Writing";
+        }).slice(0, 3).map((writer) => writer.name);
+
+        console.log(writers)
+
+        const stars = response.credits.cast.splice(0,3).map((star) => star.name)
+
+        // ill do the watch providers later or maybe next time
+        console.log(response['watch/providers'].results["PH"]?.flatrate || undefined)
+
+        const overviewData = {
+          title: response.title,
+          certifications: certifications && certifications[0].release_dates 
+          ? certifications[0].release_dates[0].certification || undefined 
+          : undefined,
+          release_date: new Date(response.release_date).toLocaleDateString('en-PH'),
+          genres: response.genres.map((genre) => genre.name).splice(0,3),
+          vote_average: response.vote_average.toFixed(1),
+          vote_count: ((response.vote_count / 1000).toFixed(1) + 'k'),
+          tagline: response.tagline,
+          overview: response.overview,
+          // watch_providers: response['watch/providers'].results["PH"] ? response['watch/providers'].results["PH"].flatrate.map((provider) => provider.logo_path) : undefined,
+          director: director.name,
+          writers: writers,
+          stars,
+          status: response.status,
+          facebook_id: response.external_ids.facebook_id
+            ? response.external_ids.facebook_id
+            : undefined,
+          twitter_id: response.external_ids.twitter_id
+            ? response.external_ids.twitter_id
+            : undefined,
+          instagram_id: response.external_ids.instagram_id
+            ? response.external_ids.instagram_id
+            : undefined,
+          wikidata: response.external_ids.wikidata_id
+            ? response.external_ids.wikidata_id
+            : undefined,
+          imdb_id: response.external_ids.imdb_id
+            ? response.external_ids.imdb_id
+            : undefined,
+          homepage: response.homepage,
+          budget: new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+          }).format(response.budget),
+          revenue: new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+          }).format(response.revenue),
+        }
+
         const necessaryData = {
           backdrops: responseImage.backdrops,
           backdrop_path: response.backdrop_path,
@@ -105,7 +170,8 @@ const MovieDetails = () => {
 
         setMovieData({
           backdrop_path: response.backdrop_path,
-          showCollageData
+          showCollageData,
+          overviewData
         });
       }
       catch (error) {
@@ -115,6 +181,7 @@ const MovieDetails = () => {
 
     fetchMovieData();
   }, [params.movieId])
+
 
   if (movieData) {
     return (
@@ -126,14 +193,13 @@ const MovieDetails = () => {
             style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})` }}
           >
             <div className="absolute z-1 inset-0 bg-black opacity-90"></div>
-            <div className='relative z-2 flex w-[66.5625rem] pt-[3.3125rem]'>
-              <ShowCollage
-                data={movieData.showCollageData}
-              />
+            <div className='relative z-2 flex w-[66.5625rem] pt-[3.3125rem] gap-[1.125rem]'>
+              <ShowCollage data={movieData.showCollageData} />
+              <Overview data={movieData.overviewData} />
             </div>
           </section>
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </>
     )
   }

@@ -4,8 +4,6 @@ import VideoIcon from '../../assets/Icons/VideoIcon'
 import PosterIcon from '../../assets/Icons/PosterIcon'
 
 const ShowCollage = ({ data }) => {
-   console.log(data)
-
    return (
       <div className='flex flex-col gap-[0.5rem] w-[37.125rem] h-[45.25rem] font-roboto text-[0.75rem] font-bold'>
          <iframe
