@@ -1,9 +1,13 @@
 import React from 'react'
 import IgopImg from '../../assets/Image/Igop.jpg'
+import { Link } from 'react-router-dom'
 
 const SearchResult = ({ data }) => {
    return (
-      <a href='' className="search-result">
+      <Link 
+         to={`/${data.streamType}/${data.id}`}
+         className="search-result"
+      >
          <div className="search-result-content">
             <img
                className="search-result-image"
@@ -16,7 +20,7 @@ const SearchResult = ({ data }) => {
                <p className="search-result-description">{data.dataThree}</p>
             </article>
          </div>
-      </a>
+      </Link>
 
    )
 }

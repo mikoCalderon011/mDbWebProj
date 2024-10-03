@@ -2,6 +2,8 @@ import React from 'react'
 import SearchResult from './SearchResult';
 
 const SearchResultList = ({ results }) => {
+  // console.log(results)
+
   return (
     <div className='search-result-list'>
       {results.map((result, id) => {
@@ -9,6 +11,8 @@ const SearchResultList = ({ results }) => {
 
         if (result.media_type === "movie") {
           searchData = {
+            id: result.id,
+            streamType: 'movies',
             dataOne: result.title,
             dataTwo: [
               result.media_type,
@@ -20,6 +24,8 @@ const SearchResultList = ({ results }) => {
         }
         else if (result.media_type === "tv") {
           searchData = {
+            id: result.id,
+            streamType: 'tv',
             dataOne: result.name,
             dataTwo: [
               result.media_type,
@@ -31,6 +37,8 @@ const SearchResultList = ({ results }) => {
         }
         else if (result.media_type === "person") {
           searchData = {
+            id: result.id,
+            streamType: 'person',
             dataOne: result.name,
             dataTwo: result.known_for_department,
             dataThree: [

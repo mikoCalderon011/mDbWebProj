@@ -5,6 +5,9 @@ import Footer from '../../components/Footer/Footer';
 import { movieDataApi, movieImagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';
 import Overview from '../../components/Details/Overview';
+import Casts from '../../components/Details/Casts';
+import Media from '../../components/Details/Media';
+import Recommendation from '../../components/Details/Recommendation';
 
 const MovieDetails = () => {
   const params = useParams();
@@ -77,8 +80,9 @@ const MovieDetails = () => {
         // Get Overview data
 
         // get PH or US certification
+
         const certifications = response.release_dates.results.filter((country) =>
-          ["PH", "US"].includes(country.iso_3166_1)
+          [response.origin_country[0], "US"].includes(country.iso_3166_1)
         );
 
         const director = response.credits.crew.find((member) => {
@@ -89,27 +93,26 @@ const MovieDetails = () => {
           return member.department === "Writing";
         }).slice(0, 3).map((writer) => writer.name);
 
-        console.log(writers)
-
-        const stars = response.credits.cast.splice(0,3).map((star) => star.name)
+        const stars = response.credits.cast.slice(0, 3).map((star) => star.name)
 
         // ill do the watch providers later or maybe next time
-        console.log(response['watch/providers'].results["PH"]?.flatrate || undefined)
+        // console.log(response)
 
         const overviewData = {
           title: response.title,
-          certifications: certifications && certifications[0].release_dates 
-          ? certifications[0].release_dates[0].certification || undefined 
-          : undefined,
+          certifications:
+            certifications[0]?.release_dates?.find(item => item.certification !== '')?.certification ||
+            certifications[1]?.release_dates?.find(item => item.certification !== '')?.certification ||
+            undefined,
           release_date: new Date(response.release_date).toLocaleDateString('en-PH'),
-          genres: response.genres.map((genre) => genre.name).splice(0,3),
+          genres: response.genres.map((genre) => genre.name).splice(0, 3),
           vote_average: response.vote_average.toFixed(1),
           vote_count: ((response.vote_count / 1000).toFixed(1) + 'k'),
           tagline: response.tagline,
           overview: response.overview,
           // watch_providers: response['watch/providers'].results["PH"] ? response['watch/providers'].results["PH"].flatrate.map((provider) => provider.logo_path) : undefined,
-          director: director.name,
-          writers: writers,
+          director: director ? director.name : undefined,
+          writers: writers || undefined,
           stars,
           status: response.status,
           facebook_id: response.external_ids.facebook_id
@@ -136,6 +139,26 @@ const MovieDetails = () => {
             style: 'currency',
             currency: 'USD'
           }).format(response.revenue),
+        }
+
+        // Credits
+        const credits = {
+          casts: response.credits.cast || undefined,
+          director: director || undefined,
+          writers: writers || undefined
+        }
+
+        // Media
+        const medias = {
+          videos: response.videos.results || undefined,
+          posters: responseImage.posters || undefined,
+          backdrops: responseImage.backdrops || undefined,
+          logos: responseImage.logos || undefined
+        }
+
+        // Recommendations
+        const recommendations = {
+          recommendations: response.recommendations,
         }
 
         const necessaryData = {
@@ -171,7 +194,10 @@ const MovieDetails = () => {
         setMovieData({
           backdrop_path: response.backdrop_path,
           showCollageData,
-          overviewData
+          overviewData,
+          credits,
+          medias,
+          recommendations
         });
       }
       catch (error) {
@@ -182,12 +208,13 @@ const MovieDetails = () => {
     fetchMovieData();
   }, [params.movieId])
 
+  // console.log(movieData)
 
   if (movieData) {
     return (
       <>
         <Header />
-        <main className='text-white flex flex-col font-roboto p-0'>
+        <main className='text-white flex flex-col gap-0 font-roboto p-0'>
           <section
             className='w-full h-[52.9375rem] bg-cover bg-center relative flex justify-center'
             style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movieData.backdrop_path})` }}
@@ -197,6 +224,15 @@ const MovieDetails = () => {
               <ShowCollage data={movieData.showCollageData} />
               <Overview data={movieData.overviewData} />
             </div>
+          </section>
+          <section
+            className='w-[66.5625rem] flex gap-[1rem] pb-[2.875rem] pt-[1.3125rem]'
+          >
+            <section className='flex flex-col gap-[1.8125rem]'>
+              <Casts data={movieData.credits} />
+              <Media data={movieData.medias} />
+            </section>
+            <Recommendation data={movieData.recommendations}/>
           </section>
         </main>
         <Footer />

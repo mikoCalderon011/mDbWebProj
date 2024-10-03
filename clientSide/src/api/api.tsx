@@ -132,7 +132,7 @@ export const peopleList = async (pageNum) => {
 export const movieDataApi = async (movieId) => {
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=watch%2Fproviders%2Cvideos%2Cimages%2Crelease_dates%2Crecommendations%2Cexternal_ids%2Ccredits&language=en-US`
+         url: `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=watch_providers,videos,images,release_dates,recommendations,external_ids,credits&language=en-US`
       })
 
       return response.data
