@@ -129,10 +129,10 @@ export const peopleList = async (pageNum) => {
    }
 }
 
-export const movieDataApi = async (movieId) => {
+export const dataApi = async (type, movieId) => {
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=watch_providers,videos,images,release_dates,recommendations,external_ids,credits&language=en-US`
+         url: `https://api.themoviedb.org/3/${type}/${movieId}?append_to_response=watch_providers,videos,images,release_dates,recommendations,external_ids,credits&language=en-US`
       })
 
       return response.data
@@ -143,10 +143,64 @@ export const movieDataApi = async (movieId) => {
 }
 
 // movieDataApi won't provide me the data for posters and backdrops, so I used the direct method for getting the images
-export const movieImagesApi = async (movieId) => {
+
+// some updates (10/03): i just found out i don't need to create another api for getting data for tv, i can just use these same APIs and add just a second argument to specify whether the data is for a TV show or a movie, they have the same format just differ on what stream tyoe being requested
+export const imagesApi = async (type, movieId) => {
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/movie/${movieId}/images`
+         url: `https://api.themoviedb.org/3/${type}/${movieId}/images`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const videosApi = async (type, movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/${type}/${movieId}/videos`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const creditsApi = async (type, movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/${type}/${movieId}/credits`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const topLevelDataApi = async (type, movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/${type}/${movieId}?language=en-US`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const topLevelDataAppendCreditsApi = async (type, movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/${type}/${movieId}?append_to_response=credits&language=en-US`
       })
 
       return response.data

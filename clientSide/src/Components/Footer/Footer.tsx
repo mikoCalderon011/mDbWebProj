@@ -62,7 +62,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <span class="footer-copy">© 2024 tskr! All rights reserved.</span>
+          <span class="footer-copy">© 2024 tskr<span className='text-[#FF8731]'>!</span> All rights reserved.</span>
         </div>
       </div>
     </footer>

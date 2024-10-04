@@ -78,65 +78,67 @@ const Media = ({ data }) => {
 		)
 	}
 
-	return (
-		<div className='w-[44.0625rem] flex flex-col gap-[1.4375rem]'>
-			<div className='flex justify-between items-center'>
-				<div className='flex items-center gap-[2.5rem]'>
-					<span className='font-bold text-[1.875rem]'>Media</span>
-					<ul className='flex font-bold text-[1.0625rem] gap-[1.0625rem] transition-all'>
-						<li
-							onClick={() => handleSelect('Videos')}
-							className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Videos'
-								? 'after:opacity-100'
-								: 'after:opacity-0'
-								}`}
-						>
-							Videos <span className='text-[.9625rem] text-[#9c9c9c]'>{data.videos.length}</span>
-						</li>
-						<li
-							onClick={() => handleSelect('Posters')}
-							className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Posters'
-								? 'after:opacity-100'
-								: 'after:opacity-0'
-								}`}
-						>
-							Posters <span className='text-[.9625rem] text-[#9c9c9c]'>{data.posters.length}</span>
-						</li>
-						<li
-							onClick={() => handleSelect('Backdrops')}
-							className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Backdrops'
-								? 'after:opacity-100'
-								: 'after:opacity-0'
-								}`}
-						>
-							Backdrops <span className='text-[.9625rem] text-[#9c9c9c]'>{data.backdrops.length}</span>
-						</li>
-						<li
-							onClick={() => handleSelect('Logos')}
-							className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Logos'
-								? 'after:opacity-100'
-								: 'after:opacity-0'
-								}`}
-						>
-							Logos <span className='text-[.9625rem] text-[#9c9c9c]'>{data.logos.length}</span>
-						</li>
-					</ul>
+	if (data) {
+		return (
+			<div className='w-[44.0625rem] flex flex-col gap-[1.4375rem]'>
+				<div className='flex justify-between items-center'>
+					<div className='flex items-center gap-[2.5rem]'>
+						<span className='font-bold text-[1.875rem]'>Media</span>
+						<ul className='flex font-bold text-[1.0625rem] gap-[1.0625rem] transition-all'>
+							<li
+								onClick={() => handleSelect('Videos')}
+								className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Videos'
+									? 'after:opacity-100'
+									: 'after:opacity-0'
+									}`}
+							>
+								Videos <span className='text-[.9625rem] text-[#9c9c9c]'>{data.videos.length}</span>
+							</li>
+							<li
+								onClick={() => handleSelect('Posters')}
+								className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Posters'
+									? 'after:opacity-100'
+									: 'after:opacity-0'
+									}`}
+							>
+								Posters <span className='text-[.9625rem] text-[#9c9c9c]'>{data.posters.length}</span>
+							</li>
+							<li
+								onClick={() => handleSelect('Backdrops')}
+								className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Backdrops'
+									? 'after:opacity-100'
+									: 'after:opacity-0'
+									}`}
+							>
+								Backdrops <span className='text-[.9625rem] text-[#9c9c9c]'>{data.backdrops.length}</span>
+							</li>
+							<li
+								onClick={() => handleSelect('Logos')}
+								className={`cursor-pointer after:block after:w-full after:h-[1px] after:border-solid after:border-[2px] after:rounded-md after:border-[#FF8731] ${selectMedia === 'Logos'
+									? 'after:opacity-100'
+									: 'after:opacity-0'
+									}`}
+							>
+								Logos <span className='text-[.9625rem] text-[#9c9c9c]'>{data.logos.length}</span>
+							</li>
+						</ul>
+					</div>
+					<div className='font-bold text-[#6BBFCB] pr-[1.25rem]'>View all {selectMedia}</div>
 				</div>
-				<div className='font-bold text-[#6BBFCB] pr-[1.25rem]'>View all {selectMedia}</div>
-			</div>
-			<div
-				className='w-[44.0625rem] h-[15.1875rem] flex overflow-hidden relative'
-			>
 				<div
-					className='absolute inset-0'
-					style={{
-						background: 'linear-gradient(90deg, rgba(17,17,17,0) 0%, rgba(35,29,24,0) 60%, rgba(18,18,18,1) 100%)'
-					}}
-				/>
-				{mediaComponents[selectMedia] || null}
+					className='w-[44.0625rem] h-[15.1875rem] flex overflow-hidden relative'
+				>
+					<div
+						className='absolute inset-0'
+						style={{
+							background: 'linear-gradient(90deg, rgba(17,17,17,0) 0%, rgba(35,29,24,0) 60%, rgba(18,18,18,1) 100%)'
+						}}
+					/>
+					{mediaComponents[selectMedia] || null}
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 export default Media

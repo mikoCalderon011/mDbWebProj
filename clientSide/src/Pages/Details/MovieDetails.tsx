@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import { useParams } from 'react-router-dom'
 import Footer from '../../components/Footer/Footer';
-import { movieDataApi, movieImagesApi } from '../../api/api';
+import { dataApi, imagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';
 import Overview from '../../components/Details/Overview';
 import Casts from '../../components/Details/Casts';
@@ -16,8 +16,8 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchMovieData = async () => {
       try {
-        const response = await movieDataApi(params.movieId.split('-')[0]);
-        const responseImage = await movieImagesApi(params.movieId.split('-')[0]);
+        const response = await dataApi('movie', params.movieId.split('-')[0]);
+        const responseImage = await imagesApi('movie', params.movieId.split('-')[0]);
 
         // Data to pass on ShowCollage 
 
@@ -161,35 +161,35 @@ const MovieDetails = () => {
           recommendations: response.recommendations,
         }
 
-        const necessaryData = {
-          backdrops: responseImage.backdrops,
-          backdrop_path: response.backdrop_path,
-          budget: response.budget,
-          credits: response.credits,
-          external_ids: response.external_ids,
-          genres: response.genres,
-          homepage: response.homepage,
-          id: response.id,
-          origin_country: response.origin_country,
-          original_language: response.original_language,
-          original_title: response.original_title,
-          overview: response.overview,
-          popularity: response.popularity,
-          posters: responseImage.posters,
-          poster_path: response.poster_path,
-          recommendations: response.recommendations,
-          release_date: response.release_date,
-          release_dates: response.release_dates,
-          revenue: response.revenue,
-          runtime: response.runtime,
-          status: response.released,
-          tagline: response.tagline,
-          title: response.title,
-          videos: response.videos,
-          vote_average: response.vote_average,
-          vote_count: response.vote_count,
-          watch_providers: response['watch/providers']
-        }
+        // const necessaryData = {
+        //   backdrops: responseImage.backdrops,
+        //   backdrop_path: response.backdrop_path,
+        //   budget: response.budget,
+        //   credits: response.credits,
+        //   external_ids: response.external_ids,
+        //   genres: response.genres,
+        //   homepage: response.homepage,
+        //   id: response.id,
+        //   origin_country: response.origin_country,
+        //   original_language: response.original_language,
+        //   original_title: response.original_title,
+        //   overview: response.overview,
+        //   popularity: response.popularity,
+        //   posters: responseImage.posters,
+        //   poster_path: response.poster_path,
+        //   recommendations: response.recommendations,
+        //   release_date: response.release_date,
+        //   release_dates: response.release_dates,
+        //   revenue: response.revenue,
+        //   runtime: response.runtime,
+        //   status: response.released,
+        //   tagline: response.tagline,
+        //   title: response.title,
+        //   videos: response.videos,
+        //   vote_average: response.vote_average,
+        //   vote_count: response.vote_count,
+        //   watch_providers: response['watch/providers']
+        // }
 
         setMovieData({
           backdrop_path: response.backdrop_path,
@@ -207,8 +207,6 @@ const MovieDetails = () => {
 
     fetchMovieData();
   }, [params.movieId])
-
-  // console.log(movieData)
 
   if (movieData) {
     return (

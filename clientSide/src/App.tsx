@@ -15,6 +15,8 @@ import TvList from './pages/Lists/TvList'
 import PeopleList from './pages/Lists/PeopleList'
 import './styles/Components/Lists/GridView.css'
 import MovieDetails from './pages/Details/MovieDetails'
+import MovieMedias from './pages/Details/MovieMedias'
+import MovieCredits from './pages/Details/MovieCredits'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: '/movies/:movieId',
     element: <MovieDetails />
+  },
+  {
+    path: '/movies/:movieId/cast',
+    element: <MovieCredits />
+  },
+  {
+    path: '/movies/:movieId/images/:mediaType',
+    element: <MovieMedias />
   },
   {
     path: '/tv',
