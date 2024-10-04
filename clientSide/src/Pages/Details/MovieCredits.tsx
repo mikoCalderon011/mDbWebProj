@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header'
 import { useParams } from 'react-router-dom'
 import { topLevelDataAppendCreditsApi } from '../../api/api';
 import Section from '../../components/Details/Section';
+import Credits from '../../components/Details/Credits';
 
 const MovieCredits = () => {
    const params = useParams();
@@ -16,9 +17,9 @@ const MovieCredits = () => {
             console.log(response)
 
             const groupedCrew = response.credits.crew.reduce((acc, member) => {
-               if (!acc[member.known_for_department]) acc[member.known_for_department] = [];
+               if (!acc[member.department]) acc[member.department] = [];
 
-               acc[member.known_for_department].push(member);
+               acc[member.department].push(member);
 
                return acc;
             }, {})
@@ -32,8 +33,10 @@ const MovieCredits = () => {
                   title: response.title || null,  
                   release_date: response.release_date.split('-')[0]
                },
-               casts: response.credits.cast || [],
-               crews: groupedCrew || [], 
+               credits: {
+                  casts: response.credits.cast || [],
+                  crews: groupedCrew || [], 
+               }
             });
          }
          catch (error) {
@@ -50,8 +53,9 @@ const MovieCredits = () => {
       return (
          <>
             <Header />
-            <main className='text-white flex flex-col gap-0 font-roboto p-0'>
+            <main className='text-white flex flex-col gap-[2.75rem] font-roboto p-0'>
                <Section data={credits.section} />
+               <Credits data={credits.credits} />
             </main>
          </>
       )
