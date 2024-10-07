@@ -6,7 +6,7 @@ import { dataApi, imagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';
 import Overview from '../../components/Details/Overview';
 import Casts from '../../components/Details/Casts';
-import Media from '../../components/Details/Media';
+import Media from '../../components/Details/OverviewMedia';
 import Recommendation from '../../components/Details/Recommendation';
 
 const MovieDetails = () => {
@@ -84,6 +84,8 @@ const MovieDetails = () => {
         const certifications = response.release_dates.results.filter((country) =>
           [response.origin_country[0], "US"].includes(country.iso_3166_1)
         );
+
+        console.log(certifications)
 
         const director = response.credits.crew.find((member) => {
           return member.job === "Director"

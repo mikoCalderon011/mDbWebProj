@@ -209,3 +209,43 @@ export const topLevelDataAppendCreditsApi = async (type, movieId) => {
       console.log('Error during fetching of data', error);
    }
 }
+
+// For some reason it doesn't grab the data using append response
+export const appendImagesApi = async (type, movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/${type}/${movieId}?append_to_response=images&language=en-US`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const appendVideosApi = async (type, movieId) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/${type}/${movieId}?append_to_response=videos&language=en-US`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
+export const languages = async () => {
+   try {
+      const response = await apiClient({
+         url: 'https://api.themoviedb.org/3/configuration/languages'
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}

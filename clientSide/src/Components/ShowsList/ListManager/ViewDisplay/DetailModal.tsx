@@ -36,11 +36,11 @@ const DetailModal = ({ id, exitModal }) => {
             const formattedRuntime = streamDetailOne.runtime ? formatRuntime(streamDetailOne.runtime) : streamDetailOne.episode_run_time[0] ? formatRuntime(streamDetailOne.episode_run_time[0]) : 'N/A';
 
             const countryCode = filters.certification.certCountry;
-            const countryCertifications = streamDetailTwo.results?.find(cert => cert.iso_3166_1 === countryCode) || streamDetailTwo.results?.find(cert => cert.iso_3166_1 === "US");
-            const certification = countryCertifications?.release_dates?.[0]?.certification || countryCertifications?.rating;
+            const countryCertifications = streamDetailTwo.results?.find(cert => cert.iso_3166_1 === countryCode) || streamDetailTwo.results?.find(cert => cert.iso_3166_1 === streamDetailOne.origin_country[0]);
+            const certification = (countryCertifications?.release_dates?.[0]?.certification || countryCertifications?.release_dates?.[1]?.certification) || countryCertifications?.rating;
 
-            console.log(streamDetailOne)
-            console.log(countryCertifications)
+            console.log(streamDetailTwo.results?.find(cert => cert.iso_3166_1 === streamDetailOne.origin_country[0]))
+            console.log(certification)
 
 
             // Grabs the official trailer

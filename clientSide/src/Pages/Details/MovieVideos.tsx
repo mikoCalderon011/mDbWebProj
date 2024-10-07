@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Backdrops = () => {
+const MovieVideos = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Backdrops = () => {
   )
 }
 
-export default Backdrops
+export default MovieVideos

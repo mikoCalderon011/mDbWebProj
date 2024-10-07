@@ -27,8 +27,7 @@ const MovieCredits = () => {
             setCredits({
                id: response.id,
                section: {
-                  full_cast: 'Full Cast', 
-                  crew: 'Crew',
+                  section_title: "Full Cast & Crew",
                   backdrop_path: response.backdrop_path || null,  
                   title: response.title || null,  
                   release_date: response.release_date.split('-')[0]
