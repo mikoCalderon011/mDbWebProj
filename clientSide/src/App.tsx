@@ -18,6 +18,10 @@ import MovieDetails from './pages/Details/MovieDetails'
 import MovieImages from './pages/Details/MovieImages'
 import MovieCredits from './pages/Details/MovieCredits'
 import MovieVideos from './pages/Details/MovieVideos'
+import TvDetails from './pages/Details/TvDetails'
+import TvCredits from './pages/Details/TvCredits'
+import TvVideos from './pages/Details/TvVideos'
+import TvImages from './pages/Details/TvImages'
 
 const router = createBrowserRouter([
   {
@@ -47,6 +51,22 @@ const router = createBrowserRouter([
   {
     path: '/tv',
     element: <TvList />
+  },
+  {
+    path: '/tv/:tvId',
+    element: <TvDetails />
+  },
+  {
+    path: '/tv/:tvId/cast',
+    element: <TvCredits />
+  },
+  {
+    path: '/tv/:tvId/videos',
+    element: <TvVideos />
+  },
+  {
+    path: '/tv/:tvId/images/:mediaType',
+    element: <TvImages />
   },
   {
     path: '/people',
