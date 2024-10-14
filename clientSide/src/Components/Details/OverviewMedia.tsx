@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom';
 
 const Media = ({ data }) => {
 	const [selectMedia, setSelectMedia] = useState('Videos');
@@ -123,7 +124,15 @@ const Media = ({ data }) => {
 							</li>
 						</ul>
 					</div>
-					<div className='font-bold text-[#6BBFCB] pr-[1.25rem]'>View all {selectMedia}</div>
+					<NavLink
+						to={selectMedia !== 'Videos' 
+							? `images/${selectMedia.toLowerCase()}` 
+							: `${selectMedia.toLowerCase()}`}
+
+						className='font-bold text-[#6BBFCB] pr-[1.25rem]'
+					>
+						View all {selectMedia}
+					</NavLink>
 				</div>
 				<div
 					className='w-[44.0625rem] h-[15.1875rem] flex overflow-hidden relative'

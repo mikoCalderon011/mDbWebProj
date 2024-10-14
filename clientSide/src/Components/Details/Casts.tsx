@@ -2,18 +2,22 @@ import React from 'react'
 import RightIconTwo from '../../assets/Icons/RightIconTwo'
 import DividerTwo from './DividerTwo'
 import RightIconTwoS from '../../assets/Icons/RightIconTwoS'
+import { NavLink } from 'react-router-dom'
 
 const Casts = ({ data }) => {
    if (data) {
       return (
          <div className='w-[38.4375rem] flex flex-col gap-[1.4375rem]'>
-            <div className='flex gap-[0.75rem] items-center'>
+            <NavLink 
+               to={'cast'}
+               className='flex gap-[0.75rem] items-center'
+            >
                <span className="font-bold text-[1.875rem] before:w-[4px] before:h-[2.5rem] before:border-[0.125rem] before:rounded-md before:mr-[0.5rem] before:border-[#FF8731]">Top Cast</span>
                <div className='flex gap-[0.3125rem] items-center'>
                   <span className='text-[0.875rem]'>{data.casts.length}</span>
                   <RightIconTwo />
                </div>
-            </div>
+            </NavLink>
             <div className='flex gap-[0.9375rem] flex-wrap'>
                {data.casts.map((cast, index) => {
                   if (index < 18) {

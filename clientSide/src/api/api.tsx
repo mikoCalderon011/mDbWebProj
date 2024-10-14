@@ -271,7 +271,7 @@ export const fetchYoutubeData = async (videoId) => {
 
 export const fetchMultipleVideosData = async (keys) => {
    try {
-      const response = await youtubeApi.get(`?part=snippet,statistics&id=${keys.join(',')}&key=${import.meta.env.VITE_YT_API_ACCESS_KEY}`);
+      const response = await youtubeApi.get(`?part=snippet,statistics,contentDetails&id=${keys.join(',')}&key=${import.meta.env.VITE_YT_API_ACCESS_KEY}`);
 
       return response.data.items; // Adjust based on your API response structure
    } catch (error) {
