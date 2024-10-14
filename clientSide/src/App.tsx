@@ -17,6 +17,7 @@ import './styles/Components/Lists/GridView.css'
 import MovieDetails from './pages/Details/MovieDetails'
 import MovieImages from './pages/Details/MovieImages'
 import MovieCredits from './pages/Details/MovieCredits'
+import MovieVideos from './pages/Details/MovieVideos'
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: '/movies/:movieId/cast',
     element: <MovieCredits />
+  },
+  {
+    path: '/movies/:movieId/videos',
+    element: <MovieVideos />
   },
   {
     path: '/movies/:movieId/images/:mediaType',

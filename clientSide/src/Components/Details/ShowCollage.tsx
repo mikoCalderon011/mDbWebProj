@@ -2,6 +2,7 @@ import React from 'react'
 import BackdropIcon from '../../assets/Icons/BackdropIcon'
 import VideoIcon from '../../assets/Icons/VideoIcon'
 import PosterIcon from '../../assets/Icons/PosterIcon'
+import { NavLink } from 'react-router-dom'
 
 const ShowCollage = ({ data }) => {
    if (data) {
@@ -25,7 +26,8 @@ const ShowCollage = ({ data }) => {
                />
                <div className='flex flex-col gap-[0.5rem]'>
                   <div className='flex gap-[0.5rem]'>
-                     <div
+                     <NavLink
+                        to={'images/posters'}
                         className={`w-[11.3125rem] h-[11.5625rem] flex justify-center items-center rounded-[10px] overflow-hidden relative group hover:outline-dotted ${data.poster ? 'cursor-pointer' : 'cursor-default pointer-events-none'}`}
                      >
                         <img
@@ -38,8 +40,9 @@ const ShowCollage = ({ data }) => {
                            <PosterIcon />
                            <span>{data.poster_count}</span>
                         </div>
-                     </div>
-                     <div
+                     </NavLink>
+                     <NavLink
+                        to={'videos'}
                         className={`w-[11.3125rem] h-[11.5625rem] flex justify-center items-center rounded-[10px] overflow-hidden relative group hover:outline-dotted ${data.video ? 'cursor-pointer' : 'cursor-default pointer-events-none'}`}
                      >
                         <img
@@ -52,9 +55,10 @@ const ShowCollage = ({ data }) => {
                            <VideoIcon />
                            <span>{data.video_count}</span>
                         </div>
-                     </div>
+                     </NavLink>
                   </div>
-                  <div
+                  <NavLink
+                     to={'images/backdrops'}
                      className={`w-[23.125rem] h-[11.5625rem] flex justify-center items-center rounded-[10px] overflow-hidden relative group hover:outline-dotted ${data.backdrop ? 'cursor-pointer' : 'cursor-default pointer-events-none'}`}
                   >
                      <img
@@ -67,7 +71,7 @@ const ShowCollage = ({ data }) => {
                         <BackdropIcon />
                         <span>{data.backdrop_count}</span>
                      </div>
-                  </div>
+                  </NavLink>
                </div>
             </div>
          </div>

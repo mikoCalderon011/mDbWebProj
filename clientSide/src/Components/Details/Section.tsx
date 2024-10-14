@@ -17,7 +17,7 @@ const Section = ({ data }) => {
          <div className='flex flex-col relative pl-[3.3125rem] pb-[1.25rem]'>
             <Link 
                to={basePath} 
-               className='w-[5.4375rem] h-[2.0625rem] flex items-center justify-center bg-[#1C252F] rounded-full text-[.875rem] gap-[0.546875rem]'
+               className='w-[5.4375rem] h-[2.0625rem] flex items-center justify-center border-solid border-[2px] border-[#ffffff] rounded-full text-[.875rem] gap-[0.546875rem] mb-[.75rem]'
             >
                <LeftSIcon /> Back
             </Link>

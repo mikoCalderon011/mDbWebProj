@@ -8,6 +8,10 @@ const apiClient = axios.create({
    },
 })
 
+const youtubeApi = axios.create({
+   baseURL: 'https://www.googleapis.com/youtube/v3/videos',
+});
+
 export const apiFetch = async (endpoint) => {
    try {
       const response = await apiClient({
@@ -249,3 +253,29 @@ export const languages = async () => {
       console.log('Error during fetching of data', error);
    }
 }
+
+export const fetchYoutubeData = async (videoId) => {
+   try {
+      const response = await youtubeApi.get('', {
+         params: {
+            part: 'snippet,statistics,contentDetails',
+            id: videoId,
+            key: import.meta.env.VITE_YT_API_ACCESS_KEY, // Your API key here
+         },
+      });
+      return response.data;
+   } catch (error) {
+      console.log('Error fetching data from YouTube API', error);
+   }
+};
+
+export const fetchMultipleVideosData = async (keys) => {
+   try {
+      const response = await youtubeApi.get(`?part=snippet,statistics&id=${keys.join(',')}&key=${import.meta.env.VITE_YT_API_ACCESS_KEY}`);
+
+      return response.data.items; // Adjust based on your API response structure
+   } catch (error) {
+      console.error('Error during fetching multiple videos data:', error);
+      return [];
+   }
+};
