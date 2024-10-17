@@ -136,7 +136,7 @@ export const peopleList = async (pageNum) => {
 export const dataApi = async (type, movieId) => {
    try {
       const response = await apiClient({
-         url: `https://api.themoviedb.org/3/${type}/${movieId}?append_to_response=watch_providers,videos,images,release_dates,recommendations,external_ids,credits&language=en-US`
+         url: `https://api.themoviedb.org/3/${type}/${movieId}?append_to_response=watch_providers,videos,images,release_dates,recommendations,external_ids,credits,content_ratings&language=en-US`
       })
 
       return response.data

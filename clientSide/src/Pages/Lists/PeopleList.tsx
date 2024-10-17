@@ -11,6 +11,8 @@ const PeopleList = () => {
    const [currentPage, setCurrentPage] = useState(1)
 
    useEffect(() => {
+      document.title = 'tskr! Movie Database Website';
+      
       const fetchPeopleList = async () => {
          try {
             const data = await peopleList(currentPage);

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import Marquee from '../../components/ShowsList/Marquee'
 import DisplayViewOption from '../../components/ShowsList/ListManager/DisplayViewOption'
@@ -14,7 +14,10 @@ export const ContextTvShows = createContext(undefined);
 const TvList = () => {
    const { items: tvShows, filters, handleFilterChange, selectedSortBy, setSelectedSortBy, setCurrentPage, selectedView, setSelectedView } = useShowsList('tv');
 
-   // console.log(tvShows)
+   useEffect(() => {
+      // Change tab title
+      document.title = 'tskr! Movie Database Website';
+   }, [])
 
    return (
       <>

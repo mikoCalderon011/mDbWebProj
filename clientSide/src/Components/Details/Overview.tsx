@@ -14,8 +14,8 @@ const Overview = ({ data }) => {
       <section className='w-[30.0625rem] h-[45.25rem] flex flex-col gap-[1.125rem] overflow-y-scroll scrollbar-none'>
         <div className='flex flex-col gap-[0.6875rem]'>
           <article className='flex flex-col'>
-            <span className='text-[2.25rem] font-bold leading-tight'>{data.title}</span>
-            <article className='flex text-[1rem] gap-[0.875rem] items-center'>
+            <span className='text-[2.25rem] font-bold leading-tight'>{data.title || data.name}</span>
+            <article className='flex text-[1rem] gap-[0.875rem]'>
               <span className='border border-white border-solid px-[5px] py-[2px]'>{data.certifications || "NR"}</span>
               <span>{data.release_date !== "Invalid Date" ? data.release_date : "No Date Given"}</span>
               <div>
@@ -81,35 +81,58 @@ const Overview = ({ data }) => {
           </div>
         </div>
         <section className='flex flex-col gap-[0.9375rem]'>
-          <div className='flex flex-col gap-[0.9375rem]'>
-            <Divider />
-            <div className='flex gap-[1.4375rem]'>
-              <span className='font-bold'>Director</span>
-              {data.director
-                ? <a className='text-[#4397FA]'>{data.director}</a>
-                : <span className='text-[#ff8731]'>N/A</span>
-              }
-            </div>
-          </div>
-          <div className='flex flex-col gap-[0.9375rem]'>
-            <Divider />
-            <div className='flex gap-[1.4375rem]'>
-              <span className='font-bold'>Writers</span>
-              <div className='flex gap-[.875rem]'>
-                {data.writers && data.writers.length > 0
-                  ? data.writers.map((writer, index) => (
-                    <>
-                      <span key={index} className='flex items-center'>
-                        <a className='text-[#4397FA]'>{writer}</a>
-                      </span>
-                      {index < data.writers.length - 1 && <span> • </span>}
-                    </>
-                  ))
-                  : <span className='text-[#ff8731]'>N/A</span>
-                }
+          {data.type === 'movie' && (
+            <div className='flex flex-col gap-[0.9375rem]'>
+              <Divider />
+              <div className='flex gap-[1.4375rem]'>
+                <span className='font-bold'>Director</span>
+                {data.director ? (
+                  <a className='text-[#4397FA]'>{data.director}</a>
+                ) : (
+                  <span className='text-[#ff8731]'>N/A</span>
+                )}
+              </div>
+              <Divider />
+              <div className='flex gap-[1.4375rem]'>
+                <span className='font-bold'>Writers</span>
+                <div className='flex gap-[.875rem]'>
+                  {data.writers && data.writers.length > 0 ? (
+                    data.writers.map((writer, index) => (
+                      <>
+                        <span key={index} className='flex items-center'>
+                          <a className='text-[#4397FA]'>{writer}</a>
+                        </span>
+                        {index < data.writers.length - 1 && <span> • </span>}
+                      </>
+                    ))
+                  ) : (
+                    <span className='text-[#ff8731]'>N/A</span>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          {data.type === 'tv' ? (
+            <div className='flex flex-col gap-[0.9375rem]'>
+              <Divider />
+              <div className='flex gap-[1.4375rem]'>
+                <span className='font-bold'>Created By</span>
+                <div className='flex gap-[.875rem]'>
+                  {data.created_by && data.created_by.length > 0
+                    ? data.created_by.map((creator, index) => (
+                      <>
+                        <span key={index} className='flex items-center'>
+                          <a className='text-[#4397FA]'>{creator}</a>
+                        </span>
+                        {index < data.created_by.length - 1 && <span> • </span>}
+                      </>
+                    ))
+                    : <span className='text-[#ff8731]'>N/A</span>
+                  }
+                </div>
+              </div>
+            </div>
+          ) : null}
           <div className='flex flex-col gap-[0.9375rem]'>
             <Divider />
             <div className='flex gap-[1.4375rem]'>
@@ -129,6 +152,24 @@ const Overview = ({ data }) => {
               </div>
             </div>
           </div>
+          {data.type === 'tv' ? (
+            <>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>First Air Date</span>
+                  <span>{data.first_air_date}</span>
+                </div>
+              </div>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>Last Air Date</span>
+                  <span>{data.last_air_date}</span>
+                </div>
+              </div>
+            </>
+          ) : null}
           <div className='flex flex-col gap-[0.9375rem]'>
             <Divider />
             <div className='flex gap-[1.4375rem] items-center'>
@@ -180,26 +221,30 @@ const Overview = ({ data }) => {
               <span className='text-[#12AD18]'>{data.status}</span>
             </div>
           </div>
-          <div className='flex flex-col gap-[0.9375rem]'>
-            <Divider />
-            <div className='flex gap-[1.4375rem]'>
-              <span className='font-bold'>Budget</span>
-              {data.budget !== "$0.00"
-                ? <span>{data.budget}</span>
-                : <span className='text-[#ff8731]'>N/A</span>
-              }
-            </div>
-          </div>
-          <div className='flex flex-col gap-[0.9375rem]'>
-            <Divider />
-            <div className='flex gap-[1.4375rem]'>
-              <span className='font-bold'>Revenue</span>
-              {data.revenue !== "$0.00"
-                ? <span>{data.revenue}</span>
-                : <span className='text-[#ff8731]'>N/A</span>
-              }
-            </div>
-          </div>
+          {data.type === 'movie' ? (
+            <>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>Budget</span>
+                  {data.budget !== "$0.00"
+                    ? <span>{data.budget}</span>
+                    : <span className='text-[#ff8731]'>N/A</span>
+                  }
+                </div>
+              </div>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>Revenue</span>
+                  {data.revenue !== "$0.00"
+                    ? <span>{data.revenue}</span>
+                    : <span className='text-[#ff8731]'>N/A</span>
+                  }
+                </div>
+              </div>
+            </>
+          ) : null}
         </section>
       </section>
     )

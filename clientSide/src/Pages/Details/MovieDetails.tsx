@@ -19,6 +19,9 @@ const MovieDetails = () => {
         const response = await dataApi('movie', params.movieId.split('-')[0]);
         const responseImage = await imagesApi('movie', params.movieId.split('-')[0]);
 
+        // Change tab title
+        document.title = response.title;
+
         // Data to pass on ShowCollage 
 
         // Gets the official trailer first, if not found, try to get relevant trailer
@@ -101,6 +104,7 @@ const MovieDetails = () => {
         // console.log(response)
 
         const overviewData = {
+          type: 'movie',
           title: response.title,
           certifications:
             certifications[0]?.release_dates?.find(item => item.certification !== '')?.certification ||
@@ -143,6 +147,8 @@ const MovieDetails = () => {
           }).format(response.revenue),
         }
 
+        console.log(overviewData)
+
         // Credits
         const credits = {
           casts: response.credits.cast || undefined,
@@ -162,36 +168,6 @@ const MovieDetails = () => {
         const recommendations = {
           recommendations: response.recommendations,
         }
-
-        // const necessaryData = {
-        //   backdrops: responseImage.backdrops,
-        //   backdrop_path: response.backdrop_path,
-        //   budget: response.budget,
-        //   credits: response.credits,
-        //   external_ids: response.external_ids,
-        //   genres: response.genres,
-        //   homepage: response.homepage,
-        //   id: response.id,
-        //   origin_country: response.origin_country,
-        //   original_language: response.original_language,
-        //   original_title: response.original_title,
-        //   overview: response.overview,
-        //   popularity: response.popularity,
-        //   posters: responseImage.posters,
-        //   poster_path: response.poster_path,
-        //   recommendations: response.recommendations,
-        //   release_date: response.release_date,
-        //   release_dates: response.release_dates,
-        //   revenue: response.revenue,
-        //   runtime: response.runtime,
-        //   status: response.released,
-        //   tagline: response.tagline,
-        //   title: response.title,
-        //   videos: response.videos,
-        //   vote_average: response.vote_average,
-        //   vote_count: response.vote_count,
-        //   watch_providers: response['watch/providers']
-        // }
 
         setMovieData({
           backdrop_path: response.backdrop_path,
