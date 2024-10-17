@@ -8,7 +8,7 @@ const Casts = ({ data }) => {
    if (data) {
       return (
          <div className='w-[38.4375rem] flex flex-col gap-[1.4375rem]'>
-            <NavLink 
+            <NavLink
                to={'cast'}
                className='flex gap-[0.75rem] items-center'
             >
@@ -38,34 +38,58 @@ const Casts = ({ data }) => {
                })}
             </div>
             <div className='flex flex-col gap-[0.8125rem]'>
-               <DividerTwo />
-               <div className='flex gap-[1.4375rem]'>
-                  <span className='font-bold'>Director</span>
-                  {data.director
-                     ? <a className='text-[#4397FA]'>{data.director.name}</a>
-                     : <a className='text-[#FF8731]'>N/A</a>
-                  }
-               </div>
-               <DividerTwo />
-               <div className='flex gap-[1.4375rem] justify-between'>
-                  <div className='flex gap-[1.4375rem]'>
-                     <span className='font-bold'>Writers</span>
-                     <div className='w-[30rem] flex flex-wrap gap-[0.5rem]'>
-                        {data.writers && data.writers.length > 0
-                           ? data.writers.map((writer, index) => (
-                              <>
-                                 <span key={index} className='flex items-center'>
-                                    <a className='text-[#4397FA]'>{writer}</a>
-                                 </span>
-                                 {index < data.writers.length - 1 && <span> • </span>}
-                              </>
-                           ))
-                           : <span className='text-[#ff8731]'>N/A</span>
+               {data.type === 'movie' ? (
+                  <>
+                     <DividerTwo />
+                     <div className='flex gap-[1.4375rem]'>
+                        <span className='font-bold'>Director</span>
+                        {data.director
+                           ? <a className='text-[#4397FA]'>{data.director.name}</a>
+                           : <a className='text-[#FF8731]'>N/A</a>
                         }
                      </div>
-                  </div>
-                  <RightIconTwoS />
-               </div>
+                     <DividerTwo />
+                     <div className='flex gap-[1.4375rem] justify-between'>
+                        <div className='flex gap-[1.4375rem]'>
+                           <span className='font-bold'>Writers</span>
+                           <div className='w-[30rem] flex flex-wrap gap-[0.5rem]'>
+                              {data.writers && data.writers.length > 0
+                                 ? data.writers.map((writer, index) => (
+                                    <>
+                                       <span key={index} className='flex items-center'>
+                                          <a className='text-[#4397FA]'>{writer}</a>
+                                       </span>
+                                       {index < data.writers.length - 1 && <span> • </span>}
+                                    </>
+                                 ))
+                                 : <span className='text-[#ff8731]'>N/A</span>
+                              }
+                           </div>
+                        </div>
+                        <RightIconTwoS />
+                     </div>
+                  </>
+               ) :
+                  <>
+                     <DividerTwo />
+                     <div className='flex gap-[1.4375rem]'>
+                        <span className='font-bold'>Created By</span>
+                        <div className='w-[30rem] flex flex-wrap gap-[0.5rem]'>
+                           {data.created_by && data.created_by.length > 0
+                              ? data.created_by.map((creator, index) => (
+                                 <>
+                                    <span key={index} className='flex items-center'>
+                                       <a className='text-[#4397FA]'>{creator}</a>
+                                    </span>
+                                    {index < data.created_by.length - 1 && <span> • </span>}
+                                 </>
+                              ))
+                              : <span className='text-[#ff8731]'>N/A</span>
+                           }
+                        </div>
+                     </div>
+                  </>
+               }
                <DividerTwo />
                <div className='flex gap-[1.4375rem] items-center justify-between'>
                   <span className='font-bold'>All Cast & Crew</span>

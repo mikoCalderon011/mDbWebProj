@@ -80,6 +80,15 @@ const Overview = ({ data }) => {
             )}
           </div>
         </div>
+        {data.original_language !== 'en' ? (
+          <div className='flex flex-col gap-[0.9375rem]'>
+            <Divider />
+            <div className='flex gap-[1.4375rem]'>
+              <span className='font-bold'>Original name</span>
+              <span>{data.original_name}</span>
+            </div>
+          </div>
+        ) : null}
         <section className='flex flex-col gap-[0.9375rem]'>
           {data.type === 'movie' && (
             <div className='flex flex-col gap-[0.9375rem]'>
@@ -137,12 +146,12 @@ const Overview = ({ data }) => {
             <Divider />
             <div className='flex gap-[1.4375rem]'>
               <span className='font-bold'>Stars</span>
-              <div className='flex gap-[.875rem]'>
+              <div className='flex flex-wrap gap-[.875rem]'>
                 {data.stars && data.stars.length > 0
                   ? data.stars.map((star, index) => (
                     <>
                       <span key={index} className='flex items-center'>
-                        <a className='text-[#4397FA]'>{star}</a>
+                        <a className='text-[#4397FA] text-wrap'>{star}</a>
                       </span>
                       {index < data.stars.length - 1 && <span> • </span>}
                     </>
@@ -152,20 +161,62 @@ const Overview = ({ data }) => {
               </div>
             </div>
           </div>
+          {data.type === 'movie' && (
+            <div className='flex flex-col gap-[0.9375rem]'>
+              <Divider />
+              <div className='flex gap-[1.4375rem]'>
+                <span className='font-bold'>Runtime</span>
+                {data.runtime ? (
+                  <span>{data.runtime}</span>
+                ) : <span className='text-[#ff8731]'>N/A</span>}
+              </div>
+            </div>
+          )}
           {data.type === 'tv' ? (
             <>
               <div className='flex flex-col gap-[0.9375rem]'>
                 <Divider />
                 <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>Number of Episodes</span>
+                  {data.number_of_episodes ? (
+                    <span>{data.number_of_episodes}</span>
+                  ) : <span className='text-[#ff8731]'>N/A</span>}
+                </div>
+              </div>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>Number of Seasons</span>
+                  {data.number_of_seasons ? (
+                    <span>{data.number_of_seasons}</span>
+                  ) : <span className='text-[#ff8731]'>N/A</span>}
+                </div>
+              </div>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
                   <span className='font-bold'>First Air Date</span>
-                  <span>{data.first_air_date}</span>
+                  {data.first_air_date ? (
+                    <span>{data.first_air_date}</span>
+                  ) : <span className='text-[#ff8731]'>N/A</span>}
                 </div>
               </div>
               <div className='flex flex-col gap-[0.9375rem]'>
                 <Divider />
                 <div className='flex gap-[1.4375rem]'>
                   <span className='font-bold'>Last Air Date</span>
-                  <span>{data.last_air_date}</span>
+                  {data.last_air_date ? (
+                    <span>{data.last_air_date}</span>
+                  ) : <span className='text-[#ff8731]'>N/A</span>}
+                </div>
+              </div>
+              <div className='flex flex-col gap-[0.9375rem]'>
+                <Divider />
+                <div className='flex gap-[1.4375rem]'>
+                  <span className='font-bold'>Type</span>
+                  {data.tv_type ? (
+                    <span>{data.tv_type}</span>
+                  ) : <span className='text-[#ff8731]'>N/A</span>}
                 </div>
               </div>
             </>

@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import { dataApi, imagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';
 import Overview from '../../components/Details/Overview';
+import Recommendation from '../../components/Details/Recommendation';
+import Casts from '../../components/Details/Casts';
+import Footer from '../../components/Footer/Footer';
+import Media from '../../components/Details/OverviewMedia';
 
 const TvDetails = () => {
    const params = useParams();
@@ -81,18 +85,19 @@ const TvDetails = () => {
 
             const createdBy = response.created_by.filter((member) => {
                return member.name;
-             }).slice(0, 3).map((writer) => writer.name);
+            }).slice(0, 3).map((writer) => writer.name);
 
             const stars = response.credits.cast.slice(0, 3).map((star) => star.name)
 
-            console.log(createdBy)
+            console.log(response)
 
             const overviewData = {
                type: 'tv',
                title: response.name,
                certifications:
-                  certifications[0].rating ||
+                  certifications[0]?.rating ||
                   certifications[1]?.rating ||
+                  response.content_ratings.results[0].rating ||
                   undefined,
                release_date: new Date(response.first_air_date).toLocaleDateString('en-PH'),
                genres: response.genres.map((genre) => genre.name).splice(0, 3),
@@ -101,9 +106,13 @@ const TvDetails = () => {
                tagline: response.tagline,
                overview: response.overview,
                // watch_providers: response['watch/providers'].results["PH"] ? response['watch/providers'].results["PH"].flatrate.map((provider) => provider.logo_path) : undefined,
+               original_language: response.original_language,
+               original_name: response.original_name,
                created_by: createdBy,
                stars,
                status: response.status,
+               number_of_episodes: `${response.number_of_episodes} ${response.number_of_episodes === 1 ? 'episode' : 'episodes'}`,
+               number_of_seasons: `${response.number_of_seasons} ${response.number_of_seasons === 1 ? 'season' : 'seasons'}`,
                first_air_date: new Date(response.first_air_date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -114,6 +123,7 @@ const TvDetails = () => {
                   month: 'long',
                   day: 'numeric'
                }),
+               tv_type: response.type,
                facebook_id: response.external_ids.facebook_id
                   ? response.external_ids.facebook_id
                   : undefined,
@@ -132,12 +142,34 @@ const TvDetails = () => {
                homepage: response.homepage,
             }
 
-            console.log(response)
+            const credits = {
+               type: 'tv',
+               casts: response.credits.cast || undefined,
+               created_by: createdBy || undefined,
+            }
+
+            // Media
+            const medias = {
+               videos: response.videos.results || undefined,
+               posters: responseImage.posters || undefined,
+               backdrops: responseImage.backdrops || undefined,
+               logos: responseImage.logos || undefined
+            }
+
+            console.log(medias)
+
+            // Recommendations
+            const recommendations = {
+               recommendations: response.recommendations,
+            }
 
             setTvData({
                backdrop_path: response.backdrop_path,
                showCollageData,
-               overviewData
+               overviewData,
+               credits,
+               medias,
+               recommendations
             })
          }
          catch (error) {
@@ -165,7 +197,17 @@ const TvDetails = () => {
                      <Overview data={tvData.overviewData} />
                   </ div>
                </section>
+               <section
+                  className='w-[66.5625rem] flex gap-[2rem] pb-[2.875rem] pt-[1.3125rem]'
+               >
+                  <section className='flex flex-col gap-[1.8125rem]'>
+                     <Casts data={tvData.credits} />
+                     <Media data={tvData.medias} />
+                  </section>
+                  <Recommendation data={tvData.recommendations} />
+               </section>
             </main>
+            <Footer />
          </>
       )
    }

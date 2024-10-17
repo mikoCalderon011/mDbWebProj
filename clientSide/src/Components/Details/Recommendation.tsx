@@ -4,7 +4,7 @@ import PlusIcon from '../../assets/Icons/PlusIcon'
 import InfoIcon from '../../assets/Icons/InfoIcon'
 
 const Recommendation = ({ data }) => {
-  console.log(data.recommendations.results)
+  console.log(data)
 
   if (data) {
     return (
@@ -26,10 +26,10 @@ const Recommendation = ({ data }) => {
                     <div className='flex flex-col gap-[0.825rem] w-full'>
                       <div className='flex flex-col gap-[0.225rem]'>
                         <span className='font-bold text-[1.25rem] line-clamp-2'>
-                          {recommendation.title}
+                          {recommendation.title || recommendation.name}
                         </span>
                         <div className='flex gap-[1.25rem] items-center'>
-                          <span>{new Date(recommendation.release_date).toLocaleDateString('en-PH')}</span>
+                          <span>{new Date(recommendation.release_date || recommendation.first_air_date).toLocaleDateString('en-PH')}</span>
                           <span className='flex gap-[.5rem] items-center'>
                             <StarIcon />
                             <span>{recommendation.vote_average.toFixed(1)}</span>

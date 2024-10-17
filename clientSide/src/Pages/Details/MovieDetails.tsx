@@ -88,7 +88,7 @@ const MovieDetails = () => {
           [response.origin_country[0], "US"].includes(country.iso_3166_1)
         );
 
-        console.log(certifications)
+        console.log(response)
 
         const director = response.credits.crew.find((member) => {
           return member.job === "Director"
@@ -102,6 +102,9 @@ const MovieDetails = () => {
 
         // ill do the watch providers later or maybe next time
         // console.log(response)
+
+        const hours = response.runtime !== undefined ? Math.floor(response.runtime / 60) : 0;
+        const minutes = response.runtime !== undefined ? response.runtime % 60 : 0;
 
         const overviewData = {
           type: 'movie',
@@ -117,10 +120,13 @@ const MovieDetails = () => {
           tagline: response.tagline,
           overview: response.overview,
           // watch_providers: response['watch/providers'].results["PH"] ? response['watch/providers'].results["PH"].flatrate.map((provider) => provider.logo_path) : undefined,
+          original_language: response.original_language,
+          original_name: response.original_name,
           director: director ? director.name : undefined,
           writers: writers || undefined,
           stars,
           status: response.status,
+          runtime: response.runtime !== undefined ? `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}` : 'N/A',
           facebook_id: response.external_ids.facebook_id
             ? response.external_ids.facebook_id
             : undefined,
@@ -151,6 +157,7 @@ const MovieDetails = () => {
 
         // Credits
         const credits = {
+          type: 'movie',
           casts: response.credits.cast || undefined,
           director: director || undefined,
           writers: writers || undefined
@@ -208,7 +215,7 @@ const MovieDetails = () => {
               <Casts data={movieData.credits} />
               <Media data={movieData.medias} />
             </section>
-            <Recommendation data={movieData.recommendations}/>
+            <Recommendation data={movieData.recommendations} />
           </section>
         </main>
         <Footer />
