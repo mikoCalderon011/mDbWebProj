@@ -22,6 +22,7 @@ import TvDetails from './pages/Details/TvDetails'
 import TvCredits from './pages/Details/TvCredits'
 import TvVideos from './pages/Details/TvVideos'
 import TvImages from './pages/Details/TvImages'
+import SignIn from './pages/SignIn'
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
   {
     path: '/people',
     element: <PeopleList />
+  },
+  {
+    path: '/signin',
+    element: <SignIn />
   }
 ]);
 
