@@ -25,6 +25,8 @@ import TvImages from './pages/Details/TvImages'
 import SignIn from './pages/SignIn'
 import { AuthProvider } from './context/AuthContext'
 import PublicLayout from './pages/PublicLayout'
+import AdminLayout from './pages/Admin/AdminLayout'
+import AdminPage from './pages/Admin/AdminPage'
 
 const router = createBrowserRouter([
   {
@@ -84,7 +86,15 @@ const router = createBrowserRouter([
         element: <SignIn />
       }
     ]
-  }
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      { path: '', element: <AdminPage /> },
+      // More admin routes...
+    ],
+  },
 ]);
 
 export default function App() {

@@ -1,12 +1,10 @@
 import React, { createContext, useEffect } from 'react'
-import Header from '../../components/Header/Header'
 import Marquee from '../../components/ShowsList/Marquee'
 import FilteringOption from '../../components/ShowsList/ListManager/FilteringOption'
 import DisplayViewOption from '../../components/ShowsList/ListManager/DisplayViewOption'
 import SortByOption from '../../components/ShowsList/ListManager/SortByOption'
 import CompactView from '../../components/ShowsList/ListManager/ViewDisplay/CompactView'
 import GridView from '../../components/ShowsList/ListManager/ViewDisplay/GridView'
-import Footer from '../../components/Footer/Footer'
 import { useShowsList } from '../../hooks/useShowsList'
 
 export const ContextMovies = createContext(undefined);

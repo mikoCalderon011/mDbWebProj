@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require("mongoose");
 const connectDB = require('./config/dbConn');
 const createError = require('http-errors'); // You need to require this for the error handling
+const cors = require('cors');
 
 // Routers
 const usersRouter = require('./routes/users.route');
@@ -13,6 +14,10 @@ const PORT = process.env.PORT || 3000;
 connectDB(); // Connect to the database
 
 app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cors({
+   origin: 'http://localhost:5173', // Allow your frontend URL
+   credentials: true, // Enable cookies to be sent
+ }));
 
 app.use('/users', usersRouter); // Set up users router
 
