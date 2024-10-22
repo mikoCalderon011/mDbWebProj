@@ -56,12 +56,10 @@ const MovieVideos = () => {
   if (videos) {
     return (
       <>
-        <Header />
         <main className='text-white flex flex-col gap-0 font-roboto p-0'>
           <Section data={videos.section} />
           <Videos data={videos.videos} />
         </main>
-        <Footer />
       </>
     )
   }

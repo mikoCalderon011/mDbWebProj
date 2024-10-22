@@ -130,7 +130,6 @@ const TvDetails = () => {
 
   return (
     <>
-      <Header />
       <main className='text-white flex flex-col gap-0 font-roboto p-0'>
         <section
           className='w-full h-[52.9375rem] bg-cover bg-center relative flex justify-center'
@@ -152,7 +151,6 @@ const TvDetails = () => {
           <Recommendation data={recommendations} />
         </section>
       </main>
-      <Footer />
     </>
   );
 };

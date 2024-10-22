@@ -21,7 +21,6 @@ const TvList = () => {
 
    return (
       <>
-         <Header />
          <main className='text-white flex flex-col font-roboto'>
             <Marquee display={"tv shows"} />
             <ContextTvShows.Provider value={{ streamType: 'tv', filters, handleFilterChange, setCurrentPage }}>
@@ -38,7 +37,6 @@ const TvList = () => {
                }
             </ContextTvShows.Provider>
          </main>
-         <Footer />
       </>
    )
 }

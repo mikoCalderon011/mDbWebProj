@@ -54,14 +54,12 @@ const PeopleList = () => {
 
    return (
       <>
-         <Header />
          <main className='text-white flex flex-col font-roboto'>
             <Marquee display={"people"} />
             <div className='w-[66.5625rem] flex justify-between'>
                <GridView people={people} />
             </div>
          </main>
-         <Footer />
       </>
    )
 }

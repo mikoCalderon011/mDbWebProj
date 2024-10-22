@@ -23,67 +23,75 @@ import TvCredits from './pages/Details/TvCredits'
 import TvVideos from './pages/Details/TvVideos'
 import TvImages from './pages/Details/TvImages'
 import SignIn from './pages/SignIn'
+import { AuthProvider } from './context/AuthContext'
+import PublicLayout from './pages/PublicLayout'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
-  },
-  {
-    path: '/movies',
-    element: <MovieList />
-  },
-  {
-    path: '/movies/:movieId',
-    element: <MovieDetails />
-  },
-  {
-    path: '/movies/:movieId/cast',
-    element: <MovieCredits />
-  },
-  {
-    path: '/movies/:movieId/videos',
-    element: <MovieVideos />
-  },
-  {
-    path: '/movies/:movieId/images/:mediaType',
-    element: <MovieImages />
-  },
-  {
-    path: '/tv',
-    element: <TvList />
-  },
-  {
-    path: '/tv/:tvId',
-    element: <TvDetails />
-  },
-  {
-    path: '/tv/:tvId/cast',
-    element: <TvCredits />
-  },
-  {
-    path: '/tv/:tvId/videos',
-    element: <TvVideos />
-  },
-  {
-    path: '/tv/:tvId/images/:mediaType',
-    element: <TvImages />
-  },
-  {
-    path: '/people',
-    element: <PeopleList />
-  },
-  {
-    path: '/signin',
-    element: <SignIn />
+    element: <PublicLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/movies',
+        element: <MovieList />
+      },
+      {
+        path: '/movies/:movieId',
+        element: <MovieDetails />
+      },
+      {
+        path: '/movies/:movieId/cast',
+        element: <MovieCredits />
+      },
+      {
+        path: '/movies/:movieId/videos',
+        element: <MovieVideos />
+      },
+      {
+        path: '/movies/:movieId/images/:mediaType',
+        element: <MovieImages />
+      },
+      {
+        path: '/tv',
+        element: <TvList />
+      },
+      {
+        path: '/tv/:tvId',
+        element: <TvDetails />
+      },
+      {
+        path: '/tv/:tvId/cast',
+        element: <TvCredits />
+      },
+      {
+        path: '/tv/:tvId/videos',
+        element: <TvVideos />
+      },
+      {
+        path: '/tv/:tvId/images/:mediaType',
+        element: <TvImages />
+      },
+      {
+        path: '/people',
+        element: <PeopleList />
+      },
+      {
+        path: '/signin',
+        element: <SignIn />
+      }
+    ]
   }
 ]);
 
 export default function App() {
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </>
+    </AuthProvider>
   )
 }
 

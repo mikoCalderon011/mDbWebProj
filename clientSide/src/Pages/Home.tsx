@@ -14,14 +14,12 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <main className='page-container'>
         <NowShowing />
         <FreshPicks />
         <Popular />
         <Upcoming />
       </main>
-      <Footer />
     </>
   )
 }

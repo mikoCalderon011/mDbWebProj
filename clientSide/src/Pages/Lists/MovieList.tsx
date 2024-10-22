@@ -21,7 +21,6 @@ const MovieList = () => {
 
   return (
     <>
-      <Header />
       <main className='text-white flex flex-col font-roboto'>
         <Marquee display={"movies"} />
         <ContextMovies.Provider value={{ streamType: 'movie', filters, handleFilterChange, setCurrentPage }}>
@@ -38,7 +37,6 @@ const MovieList = () => {
           }
         </ContextMovies.Provider>
       </main>
-      <Footer />
     </>
   )
 }

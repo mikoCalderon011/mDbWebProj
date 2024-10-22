@@ -4,7 +4,6 @@ import Header from '../../components/Header/Header'
 const TvVideos = () => {
   return (
     <>
-      <Header />
     </>
   )
 }

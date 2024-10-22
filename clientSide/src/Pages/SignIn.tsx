@@ -4,7 +4,6 @@ import Header from '../components/Header/Header'
 const SignIn = () => {
   return (
     <>
-      <Header />
       <main className='text-white flex flex-col gap-0 font-roboto p-0'>
         <p>this is a login page lmao</p>
         <div className='flex flex-col gap-[1rem]'>
