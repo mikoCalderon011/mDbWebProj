@@ -27,6 +27,9 @@ import { AuthProvider } from './context/AuthContext'
 import PublicLayout from './pages/PublicLayout'
 import AdminLayout from './pages/Admin/AdminLayout'
 import AdminPage from './pages/Admin/AdminPage'
+import RequireAuth from './components/RequireAuth'
+
+const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
 
 const router = createBrowserRouter([
   {
@@ -89,7 +92,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <AdminLayout />,
+    element: (
+      <RequireAuth allowedRoles={[adminRole]}>
+        <AdminLayout />
+      </RequireAuth>
+    ),
     children: [
       { path: '', element: <AdminPage /> },
       // More admin routes...

@@ -4,6 +4,9 @@ import { jwtDecode } from 'jwt-decode';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
+const userRole = Number(import.meta.env.VITE_YT_ROLE_USER);
+const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
+
 const SignIn = () => {
   const { setUser } = useAuth();
   const [email, setEmail] = useState('');
@@ -15,13 +18,14 @@ const SignIn = () => {
   const handleLogin = async () => {
     try {
       const response = await axiosPrivate.post(
-        '/users/login',
-        JSON.stringify({ email, password }), // Stringifying the payload
+        '/auth',
+        JSON.stringify({ email, password }),
         {
           headers: { 'Content-Type': 'application/json' }, 
           withCredentials: true
         }
       );
+
       const accessToken = response.data.accessToken;
       const decodedToken = jwtDecode(accessToken);
       const { roles } = decodedToken;
@@ -30,12 +34,12 @@ const SignIn = () => {
 
       setUser({ email, accessToken });
       
-      console.log('Login successful:', roles);
+      console.log('Login successful:', response);
 
-      if (roles.includes("admin")) {
+      if (roles.includes(adminRole)) {
         navigate('/admin')
       }
-      else if (roles.includes("user")) {
+      else if (roles.includes(userRole)) {
         navigate('/');
       }
       else {

@@ -4,9 +4,13 @@ const mongoose = require("mongoose");
 const connectDB = require('./config/dbConn');
 const createError = require('http-errors'); // You need to require this for the error handling
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 // Routers
 const usersRouter = require('./routes/users.route');
+const authRouter = require('./routes/auth.route');
+const refreshTokenRouter = require('./routes/refreshToken.route');
+const logoutRouter = require('./routes/logout.route');
 
 const app = express(); // Initialize the Express app
 
@@ -17,9 +21,14 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cors({
    origin: 'http://localhost:5173', // Allow your frontend URL
    credentials: true, // Enable cookies to be sent
- }));
+}));
+app.use(cookieParser());
 
+app.use('/auth', authRouter);
 app.use('/users', usersRouter); // Set up users router
+app.use('/refresh', refreshTokenRouter); // Set up users router
+app.use('/logout', logoutRouter); // Set up users router
+
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
