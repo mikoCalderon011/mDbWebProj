@@ -4,7 +4,6 @@ import Marquee from '../../components/ShowsList/Marquee'
 import { peopleList } from '../../api/api';
 import _ from 'lodash'
 import GridView from '../../components/ShowsList/ListManager/ViewDisplay/GridView';
-import Footer from '../../components/Footer/Footer';
 
 const PeopleList = () => {
    const [people, setPeople] = useState();

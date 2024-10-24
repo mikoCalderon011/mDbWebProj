@@ -14,11 +14,11 @@ const RequireAuth = ({ allowedRoles }) => {
 
   const hasAccess = roles.some(role => allowedRoles?.includes(role));
 
+  console.log("has access: ", hasAccess)
+
   if (hasAccess) {
     return <Outlet />;
   }
-
-  console.log("Auth role find: ", hasAccess)
 
   if (user?.accessToken) {
     return <Navigate to="/unauthorized" state={{ from: location }} replace />;

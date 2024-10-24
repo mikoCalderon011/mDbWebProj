@@ -28,6 +28,7 @@ import PublicLayout from './pages/PublicLayout'
 import AdminLayout from './pages/Admin/AdminLayout'
 import AdminPage from './pages/Admin/AdminPage'
 import RequireAuth from './components/RequireAuth'
+import PersistLogin from './pages/PersistLogin'
 
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
 
@@ -91,16 +92,22 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/admin',
-    element: (
-      <RequireAuth allowedRoles={[adminRole]}>
-        <AdminLayout />
-      </RequireAuth>
-    ),
+    path: '*',
+    element: <PersistLogin />, // Persist login state across protected routes
     children: [
-      { path: '', element: <AdminPage /> },
-      // More admin routes...
-    ],
+      {
+        path: 'admin',
+        element: (
+          <RequireAuth allowedRoles={[adminRole]}>
+            <AdminLayout /> {/* Admin Layout wrapped in RequireAuth */}
+          </RequireAuth>
+        ),
+        children: [
+          { path: '', element: <AdminPage /> }, // Admin page or other protected admin routes
+          // More admin routes...
+        ]
+      }
+    ]
   },
 ]);
 

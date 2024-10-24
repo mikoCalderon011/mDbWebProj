@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
 import { useParams } from 'react-router-dom';
-import Footer from '../../components/Footer/Footer';
 import { useQuery } from '@tanstack/react-query';
 import { dataApi, imagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';

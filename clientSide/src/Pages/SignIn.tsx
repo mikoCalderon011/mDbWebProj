@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { axiosPrivate } from '../api/api';
 import { jwtDecode } from 'jwt-decode';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 const userRole = Number(import.meta.env.VITE_YT_ROLE_USER);
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
 
 const SignIn = () => {
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.accessToken) {
+      if (user.roles.includes(adminRole)) {
+        console.log('admin', user)
+        navigate('/admin');
+      } else if (user.roles.includes(userRole)) {
+        console.log('user', user)
+        navigate('/');
+      }
+    }
+  }, [user, navigate]);
 
   // Handle login
   const handleLogin = async () => {
@@ -21,8 +34,8 @@ const SignIn = () => {
         '/auth',
         JSON.stringify({ email, password }),
         {
-          headers: { 'Content-Type': 'application/json' }, 
-          withCredentials: true
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
         }
       );
 
@@ -31,18 +44,15 @@ const SignIn = () => {
       const { roles } = decodedToken;
 
       localStorage.setItem("jwt", response.data.refreshToken);
-
-      setUser({ email, accessToken });
+      setUser({ email, accessToken, roles }); // Ensure roles are included
       
       console.log('Login successful:', response);
 
       if (roles.includes(adminRole)) {
-        navigate('/admin')
-      }
-      else if (roles.includes(userRole)) {
+        navigate('/admin');
+      } else if (roles.includes(userRole)) {
         navigate('/');
-      }
-      else {
+      } else {
         setError('Unknown role.');
       }
 
