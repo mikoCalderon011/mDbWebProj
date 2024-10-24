@@ -15,6 +15,8 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  console.log('user', user)
+
   useEffect(() => {
     if (user?.accessToken) {
       if (user.roles.includes(adminRole)) {
