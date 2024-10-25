@@ -93,18 +93,17 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <PersistLogin />, // Persist login state across protected routes
+    element: <PersistLogin />,
     children: [
       {
         path: 'admin',
         element: (
           <RequireAuth allowedRoles={[adminRole]}>
-            <AdminLayout /> {/* Admin Layout wrapped in RequireAuth */}
+            <AdminLayout />
           </RequireAuth>
         ),
         children: [
-          { path: '', element: <AdminPage /> }, // Admin page or other protected admin routes
-          // More admin routes...
+          { path: '', element: <AdminPage /> },
         ]
       }
     ]

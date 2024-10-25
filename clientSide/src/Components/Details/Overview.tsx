@@ -13,8 +13,8 @@ const Overview = ({ data }) => {
     return (
       <section className='w-[30.0625rem] h-[45.25rem] flex flex-col gap-[1.125rem] overflow-y-scroll scrollbar-none'>
         <div className='flex flex-col gap-[0.6875rem]'>
-          <article className='flex flex-col'>
-            <span className='text-[2.25rem] font-bold leading-tight'>{data.title || data.name}</span>
+          <article className='flex flex-col '>
+            <span className='text-[2.25rem] font-bold leading-tight break-words'>{data.title || data.name}</span>
             <article className='flex text-[1rem] gap-[0.875rem]'>
               <span className='border border-white border-solid px-[5px] py-[2px]'>{data.certifications || "NR"}</span>
               <span>{data.release_date !== "Invalid Date" ? data.release_date : "No Date Given"}</span>

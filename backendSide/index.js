@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 
 // Routers
 const usersRouter = require('./routes/users.route');
+const movieRouter = require('./routes/movie.route');
 const authRouter = require('./routes/auth.route');
 const refreshTokenRouter = require('./routes/refreshToken.route');
 const logoutRouter = require('./routes/logout.route');
@@ -25,10 +26,10 @@ app.use(cors({
 app.use(cookieParser());
 
 app.use('/auth', authRouter);
-app.use('/users', usersRouter); // Set up users router
-app.use('/refresh', refreshTokenRouter); // Set up users router
-app.use('/logout', logoutRouter); // Set up users router
-
+app.use('/movie', movieRouter);
+app.use('/users', usersRouter); 
+app.use('/refresh', refreshTokenRouter); 
+app.use('/logout', logoutRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
