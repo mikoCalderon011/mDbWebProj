@@ -2,7 +2,7 @@ import React from 'react'
 import SearchResult from './SearchResult';
 
 const SearchResultList = ({ results }) => {
-  // console.log(results)
+  console.log(results)
 
   return (
     <div className='search-result-list'>

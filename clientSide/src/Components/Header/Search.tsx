@@ -1,23 +1,41 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { axiosPrivate } from '../../api/api';
 
 const fetchResults = async (value, setResults) => {
 	try {
-		const response = await axios.get(`https://api.themoviedb.org/3/search/multi?query=${value}&include_adult=false&language=en-US&page=1`, {
-			params: {
-				query: value,
-				include_adult: false,
-				language: 'en-US',
-				page: 1
-			},
-			headers: {
-				'Authorization': `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_KEY}`,
-				'Content-Type': 'application/json'
-			}
-		});
+		if (!value.trim()) {
+			setResults([]);
+			return;
+	  }
 
-		const topResults = response.data.results.slice(0, 6);
-		setResults(topResults);
+		const [tmdbResponse, privateResponse] = await Promise.all([
+			axios.get(`https://api.themoviedb.org/3/search/multi`, {
+				params: {
+					query: value,
+					include_adult: false,
+					language: 'en-US',
+					page: 1
+				},
+				headers: {
+					'Authorization': `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_KEY}`,
+					'Content-Type': 'application/json'
+				}
+			}),
+			axiosPrivate.get(`/search?query=${encodeURIComponent(value)}`)
+		]);
+
+		const tmdbResults = tmdbResponse.data.results;
+		const privateResults = privateResponse.data.movies;
+
+		const combinedResults = [
+			...tmdbResults,
+			...privateResults
+		];
+		const limitedResults = combinedResults.slice(0, 6);
+
+		console.log(tmdbResults)
+		setResults(limitedResults)
 	} catch (error) {
 		console.error('Error fetching data:', error);
 	}

@@ -8,9 +8,24 @@ exports.get_movies = asyncHandler(async (req, res, next) => {
 
 });
 
-/* Display a specific movie */
+/* Display a specific movie via ID */
 exports.get_one_movie = asyncHandler(async (req, res, next) => {
 
+});
+
+/* Search for a specific movie */
+exports.search_movie = asyncHandler(async (query) => {
+
+   try {
+      const movies = await Movie.find({
+         original_title: new RegExp(query, 'i')
+      });
+
+      return movies;
+   }
+   catch (error) {
+      throw new Error('Failed to search movies: ' + error.message);
+   }
 });
 
 /* Create a movie */
@@ -49,7 +64,7 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
       await movie.save();
       return res.status(200).json({
          message: "Movie, " + req.body.original_title + ", has been created",
-     });
+      });
    }
    catch (error) {
       return res.status(500).json({

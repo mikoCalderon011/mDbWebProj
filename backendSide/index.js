@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 // Routers
 const usersRouter = require('./routes/users.route');
 const movieRouter = require('./routes/movie.route');
+const searchRouter = require('./routes/search.route');
 const authRouter = require('./routes/auth.route');
 const refreshTokenRouter = require('./routes/refreshToken.route');
 const logoutRouter = require('./routes/logout.route');
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/movie', movieRouter);
 app.use('/users', usersRouter); 
+app.use('/search', searchRouter); 
 app.use('/refresh', refreshTokenRouter); 
 app.use('/logout', logoutRouter);
 

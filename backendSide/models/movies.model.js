@@ -20,6 +20,7 @@ const movieSchema = new Schema({
    genres: { type: [String] },
    homepage: { type: String },
    imdb_id: { type: String },
+   media_type: { type: String },
    origin_country: { type: [String] },
    original_language: { type: String },
    original_title: { type: String, required: true },
