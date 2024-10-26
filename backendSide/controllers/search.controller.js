@@ -7,8 +7,6 @@ const asyncHandler = require('express-async-handler');
 exports.search = asyncHandler(async (req, res) => {
    const query = req.query.query;
 
-   console.log(query)
-
    try {
       const [movies] = await Promise.all([
          movie_controller.search_movie(query)

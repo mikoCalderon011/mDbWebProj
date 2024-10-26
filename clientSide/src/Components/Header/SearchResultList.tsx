@@ -13,7 +13,7 @@ const SearchResultList = ({ results }) => {
           searchData = {
             id: result.id,
             streamType: 'movies',
-            dataOne: result.title,
+            dataOne: result.title || result.original_title,
             dataTwo: [
               result.media_type,
               result.release_date ? result.release_date.substring(0, 4) : null,

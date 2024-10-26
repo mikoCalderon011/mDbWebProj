@@ -7,4 +7,6 @@ const router = express.Router();
 /* POST request movie create */
 router.post('/', movie_controller.create_movie);
 
+router.patch('/:movieId/release-date', movie_controller.add_release_date)
+
 module.exports = router;
