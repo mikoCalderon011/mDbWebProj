@@ -11,4 +11,6 @@ router.patch('/:movieId/release-date', movie_controller.add_release_date);
 
 router.patch('/:movieId/genre', movie_controller.add_genre);
 
+router.patch('/:movieId/external-ids', movie_controller.add_external_ids);
+
 module.exports = router;

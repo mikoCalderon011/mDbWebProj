@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
 const releaseDates_service = require('../services/releaseDates.services');
 const genre_service = require('../services/genres.services');
+const external_ids_service = require('../services/external_ids.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -101,3 +102,13 @@ exports.add_genre = asyncHandler(async (req, res, next) => {
    }
 });
 
+/* Add external ids */
+exports.add_external_ids = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const external_ids = await external_ids_service.add_external_ids(movieId, req.body);
+      return res.status(200).json({ message: "External Ids added successfully", external_ids });
+   } catch (error) {
+      return res.status(400).json({ message: error.message });
+   }
+});

@@ -10,10 +10,8 @@ exports.add_genre = asyncHandler(async (movieId, body) => {
    const genre = await validate_genre(body.genre);
    if(!genre) throw new Error(`The genre "${body.genre}" is not valid.`);
 
-   console.log(genre)
-
    movie.genres.push(genre);
-   await movie.save()
+   await movie.save();
 
-   return body.genre;
+   return genre;
 });

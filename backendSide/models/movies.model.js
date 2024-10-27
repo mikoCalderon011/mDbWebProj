@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const releaseDatesSchema = require('./releaseDates.model');
 const genresSchema = require('./genres.model');
+const externalIdsSchema = require('./external_ids.model');
 
 // For later...
 // const productionCompanySchema = new mongoose.Schema({
@@ -11,7 +12,6 @@ const genresSchema = require('./genres.model');
 //    origin_country: { type: String, required: true }
 // });
 
-
 const movieSchema = new Schema({
    adult: { type: Boolean },
    backdrop_path: { type: String },
@@ -19,6 +19,7 @@ const movieSchema = new Schema({
    genres: [genresSchema],
    homepage: { type: String },
    imdb_id: { type: String },
+   external_ids: externalIdsSchema,
    media_type: { type: String },
    origin_country: { type: [String] },
    original_language: { type: String },
