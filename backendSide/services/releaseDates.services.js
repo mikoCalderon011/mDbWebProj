@@ -1,8 +1,8 @@
 const Movie = require('../models/movies.model');
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
-const { validate_country, validate_language, validate_certification } = require('../services/tmdb.api');
-const { isValidDate } = require('../services/general.services');
+const { validate_country, validate_language, validate_certification } = require('./tmdb.api');
+const { isValidDate } = require('./general.services');
 
 exports.add_release_date = asyncHandler(async (movieId, body) => {
    const movie = await Movie.findById(movieId);

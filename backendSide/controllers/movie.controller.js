@@ -1,7 +1,7 @@
 const Movie = require('../models/movies.model');
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
-const releaseDates_controller = require('./releaseDates.controller');
+const releaseDates_service = require('../services/releaseDates.services');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -82,14 +82,9 @@ exports.edit_movie = asyncHandler(async (req, res, next) => {
 exports.add_release_date = asyncHandler(async (req, res, next) => {
    const { movieId } = req.params;
    try {
-      const releaseDate = await releaseDates_controller.add_release_date(movieId, req.body);
+      const releaseDate = await releaseDates_service.add_release_date(movieId, req.body);
       return res.status(200).json({ message: "Release date added successfully", releaseDate });
    } catch (error) {
       return res.status(400).json({ message: error.message });
    }
-});
-
-/* Create a movie */
-exports.delete_movie = asyncHandler(async (req, res, next) => {
-
 });
