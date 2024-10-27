@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const releaseDatesSchema = require('./releaseDates.model');
+const genresSchema = require('./genres.model');
 
 // For later...
 // const productionCompanySchema = new mongoose.Schema({
@@ -15,7 +16,7 @@ const movieSchema = new Schema({
    adult: { type: Boolean },
    backdrop_path: { type: String },
    budget: { type: Number, required: true },
-   genres: { type: [String] },
+   genres: [genresSchema],
    homepage: { type: String },
    imdb_id: { type: String },
    media_type: { type: String },

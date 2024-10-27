@@ -2,6 +2,7 @@ const Movie = require('../models/movies.model');
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
 const releaseDates_service = require('../services/releaseDates.services');
+const genre_service = require('../services/genres.services');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -88,3 +89,15 @@ exports.add_release_date = asyncHandler(async (req, res, next) => {
       return res.status(400).json({ message: error.message });
    }
 });
+
+/* Add genre */
+exports.add_genre = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const genre = await genre_service.add_genre(movieId, req.body);
+      return res.status(200).json({ message: "Genre date added successfully", genre });
+   } catch (error) {
+      return res.status(400).json({ message: error.message });
+   }
+});
+

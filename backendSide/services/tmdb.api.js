@@ -54,8 +54,25 @@ exports.validate_certification = async (certification, iso_3166_1) => {
       const certEntry = certificationsCountry.find(certEntry => certEntry.certification === certification);
 
       if (certEntry) return certEntry;
-   
+
       return null
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+      throw error;
+   }
+};
+
+exports.validate_genre = async (genreName) => {
+   try {
+      const response = await apiClient({
+         url: '/genre/movie/list'
+      });
+
+      const genres = response.data.genres;
+      const genreExists = genres.find(genre => genre.name.toLowerCase() === genreName.toLowerCase());
+
+      return genreExists;
    }
    catch (error) {
       console.log('Error during fetching of data', error);
