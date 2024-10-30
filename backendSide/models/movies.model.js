@@ -3,19 +3,13 @@ const Schema = mongoose.Schema;
 const releaseDatesSchema = require('./releaseDates.model');
 const genresSchema = require('./genres.model');
 const externalIdsSchema = require('./external_ids.model');
-
-// For later...
-// const productionCompanySchema = new mongoose.Schema({
-//    id: { type: Number, required: true },
-//    logo_path: { type: String, default: null }, // Can be null if there's no logo
-//    name: { type: String, required: true },
-//    origin_country: { type: String, required: true }
-// });
+const castSchema = require('./casts.model');
 
 const movieSchema = new Schema({
    adult: { type: Boolean },
    backdrop_path: { type: String },
    budget: { type: Number, required: true },
+   casts: { cast: [castSchema] },
    genres: [genresSchema],
    homepage: { type: String },
    imdb_id: { type: String },

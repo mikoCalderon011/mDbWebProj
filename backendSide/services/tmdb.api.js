@@ -79,3 +79,18 @@ exports.validate_genre = async (genreName) => {
       throw error;
    }
 };
+
+exports.fetch_cast_data = async (person_id) => {
+   try {
+      const response = await apiClient({
+         url: `/person/${person_id}`
+      });
+      
+      return response.data;
+   } catch (error) {
+      if (error.status) console.error("Bad request, this person doesn't exist in the database");
+      else console.error('Error during fetching of data:', error);
+      throw error;
+   }
+};
+

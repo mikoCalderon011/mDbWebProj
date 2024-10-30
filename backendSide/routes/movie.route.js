@@ -13,4 +13,6 @@ router.patch('/:movieId/genre', movie_controller.add_genre);
 
 router.patch('/:movieId/external-ids', movie_controller.add_external_ids);
 
+router.patch('/:movieId/cast', movie_controller.add_cast);
+
 module.exports = router;
