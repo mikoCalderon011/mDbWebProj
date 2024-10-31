@@ -4,12 +4,13 @@ const releaseDatesSchema = require('./releaseDates.model');
 const genresSchema = require('./genres.model');
 const externalIdsSchema = require('./external_ids.model');
 const castSchema = require('./casts.model');
+const crewSchema = require('./crews.model');
 
 const movieSchema = new Schema({
    adult: { type: Boolean },
    backdrop_path: { type: String },
    budget: { type: Number, required: true },
-   casts: { cast: [castSchema] },
+   casts: { cast: [castSchema], crew: [crewSchema] },
    genres: [genresSchema],
    homepage: { type: String },
    imdb_id: { type: String },

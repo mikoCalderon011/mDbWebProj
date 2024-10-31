@@ -5,6 +5,7 @@ const releaseDates_service = require('../services/releaseDates.services');
 const genre_service = require('../services/genres.services');
 const external_ids_service = require('../services/external_ids.service');
 const casts_service = require('../services/casts.service');
+const crews_service = require('../services/crews.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -119,6 +120,16 @@ exports.add_cast = asyncHandler(async (req, res, next) => {
    try {
       const cast = await casts_service.add_cast(movieId, req.body);
       return res.status(200).json({ message: "Cast added successfully", cast });
+   } catch (error) {
+      return res.status(400).json({ message: error.message });
+   }
+});
+
+exports.add_crew = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const crew = await crews_service.add_crew(movieId, req.body);
+      return res.status(200).json({ message: "Crew added successfully", crew });
    } catch (error) {
       return res.status(400).json({ message: error.message });
    }

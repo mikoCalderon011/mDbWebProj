@@ -15,4 +15,6 @@ router.patch('/:movieId/external-ids', movie_controller.add_external_ids);
 
 router.patch('/:movieId/cast', movie_controller.add_cast);
 
+router.patch('/:movieId/crew', movie_controller.add_crew);
+
 module.exports = router;

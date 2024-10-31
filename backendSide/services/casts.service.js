@@ -6,9 +6,13 @@ exports.add_cast = asyncHandler(async (movieId, body) => {
    const movie = await Movie.findById(movieId);
    if (!movie) throw new Error("Movie not found");
    
-   const castData = await fetch_cast_data(body.id)
+   const castData = await fetch_cast_data(body.id);
 
    if (!body.character) throw new Error("The 'character' field is empty");
+
+   if (movie.casts?.cast?.some(existingCast => existingCast.id === castData.id && existingCast.character === body.character)) {
+      throw new Error("Cast member with this character already exists for this movie.");
+   }
 
    const cast = {
       gender: castData.gender,
@@ -23,6 +27,9 @@ exports.add_cast = asyncHandler(async (movieId, body) => {
       credit_id: `${movieId}${castData.id}`,
       order: body.order
    };
+
+   if (!movie.casts) movie.casts = {};
+   if (!movie.casts.cast) movie.casts.cast = [];
 
    movie.casts.cast.push(cast);
    await movie.save();

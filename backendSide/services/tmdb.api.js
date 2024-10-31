@@ -85,7 +85,7 @@ exports.fetch_cast_data = async (person_id) => {
       const response = await apiClient({
          url: `/person/${person_id}`
       });
-      
+
       return response.data;
    } catch (error) {
       if (error.status) console.error("Bad request, this person doesn't exist in the database");
@@ -94,3 +94,26 @@ exports.fetch_cast_data = async (person_id) => {
    }
 };
 
+exports.validate_jobs = async (department, job) => {
+   try {
+      const response = await apiClient({
+         url: `/configuration/jobs`
+      });
+
+      const jobsData = response.data;
+
+      const jobValidationMap = jobsData.reduce((acc, dept) => {
+         acc[dept.department] = new Set(dept.jobs);
+         return acc;
+      }, {});
+
+      if (jobValidationMap[department]) {
+         return jobValidationMap[department].has(job);
+      }
+      
+      return false;
+   } catch (error) {
+      console.log('Error during fetching of data', error);
+      throw error;
+   }
+};
