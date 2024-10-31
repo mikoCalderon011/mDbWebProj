@@ -6,6 +6,7 @@ const genre_service = require('../services/genres.services');
 const external_ids_service = require('../services/external_ids.service');
 const casts_service = require('../services/casts.service');
 const crews_service = require('../services/crews.service');
+const recommendations_service = require('../services/recommendation.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -88,7 +89,8 @@ exports.add_release_date = asyncHandler(async (req, res, next) => {
    try {
       const releaseDate = await releaseDates_service.add_release_date(movieId, req.body);
       return res.status(200).json({ message: "Release date added successfully", releaseDate });
-   } catch (error) {
+   }
+   catch (error) {
       return res.status(400).json({ message: error.message });
    }
 });
@@ -99,7 +101,8 @@ exports.add_genre = asyncHandler(async (req, res, next) => {
    try {
       const genre = await genre_service.add_genre(movieId, req.body);
       return res.status(200).json({ message: "Genre date added successfully", genre });
-   } catch (error) {
+   }
+   catch (error) {
       return res.status(400).json({ message: error.message });
    }
 });
@@ -110,7 +113,8 @@ exports.add_external_ids = asyncHandler(async (req, res, next) => {
    try {
       const external_ids = await external_ids_service.add_external_ids(movieId, req.body);
       return res.status(200).json({ message: "External Ids added successfully", external_ids });
-   } catch (error) {
+   }
+   catch (error) {
       return res.status(400).json({ message: error.message });
    }
 });
@@ -120,7 +124,8 @@ exports.add_cast = asyncHandler(async (req, res, next) => {
    try {
       const cast = await casts_service.add_cast(movieId, req.body);
       return res.status(200).json({ message: "Cast added successfully", cast });
-   } catch (error) {
+   }
+   catch (error) {
       return res.status(400).json({ message: error.message });
    }
 });
@@ -130,7 +135,19 @@ exports.add_crew = asyncHandler(async (req, res, next) => {
    try {
       const crew = await crews_service.add_crew(movieId, req.body);
       return res.status(200).json({ message: "Crew added successfully", crew });
-   } catch (error) {
+   }
+   catch (error) {
       return res.status(400).json({ message: error.message });
+   }
+});
+
+exports.get_recommendations = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const recommendations = await recommendations_service.get_recommendations(movieId);
+      return res.status(200).json({ message: "Recommendations loaded successfully", recommendations });
+   } 
+   catch (error) {
+      return res.status(500).json({ message: error.message });
    }
 });

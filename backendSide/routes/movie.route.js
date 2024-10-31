@@ -17,4 +17,6 @@ router.patch('/:movieId/cast', movie_controller.add_cast);
 
 router.patch('/:movieId/crew', movie_controller.add_crew);
 
+router.get('/:movieId/recommendations', movie_controller.get_recommendations);
+
 module.exports = router;

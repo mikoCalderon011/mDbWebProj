@@ -110,10 +110,24 @@ exports.validate_jobs = async (department, job) => {
       if (jobValidationMap[department]) {
          return jobValidationMap[department].has(job);
       }
-      
+
       return false;
    } catch (error) {
       console.log('Error during fetching of data', error);
+      throw error;
+   }
+};
+
+exports.fetch_recommendations = async (params) => {
+   try {
+      const response = await apiClient({
+         url: `/discover/movie?include_adult=${params.adult}&include_video=${params.video}&language=en-US&page=1&release_date.lte=${params.release_date}&sort_by=popularity.desc&with_genres=${params.genres}&with_original_language=${params.original_language}`
+      });
+
+      return response.data.results;
+   } 
+   catch (error) {
+      console.error('Error fetching recommendations:', error);
       throw error;
    }
 };
