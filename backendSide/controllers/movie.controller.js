@@ -7,6 +7,7 @@ const external_ids_service = require('../services/external_ids.service');
 const casts_service = require('../services/casts.service');
 const crews_service = require('../services/crews.service');
 const recommendations_service = require('../services/recommendation.service');
+const backdrops_service = require('../services/backdrops.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -146,6 +147,17 @@ exports.get_recommendations = asyncHandler(async (req, res, next) => {
    try {
       const recommendations = await recommendations_service.get_recommendations(movieId);
       return res.status(200).json({ message: "Recommendations loaded successfully", recommendations });
+   } 
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
+exports.add_backdrops = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const backdrop = await backdrops_service.add_backdrop(movieId, req.file);
+      return res.status(200).json({ message: "Backdrop added successfully", backdrop });
    } 
    catch (error) {
       return res.status(500).json({ message: error.message });

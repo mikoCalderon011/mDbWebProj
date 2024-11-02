@@ -5,7 +5,8 @@ const genresSchema = require('./genres.model');
 const externalIdsSchema = require('./external_ids.model');
 const castSchema = require('./casts.model');
 const crewSchema = require('./crews.model');
-const recommendationSchema = require('./recommendations.model')
+// const recommendationSchema = require('./recommendations.model');
+const imageSchema = require('./images.model');
 
 const movieSchema = new Schema({
    adult: { type: Boolean, default: null },
@@ -14,6 +15,7 @@ const movieSchema = new Schema({
    casts: { cast: [castSchema], crew: [crewSchema] },
    genres: [genresSchema],
    homepage: { type: String },
+   images: { backdrops: [imageSchema], posters: [imageSchema], logos: [imageSchema] },
    imdb_id: { type: String },
    external_ids: externalIdsSchema,
    media_type: { type: String },

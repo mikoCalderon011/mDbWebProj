@@ -1,5 +1,6 @@
 const express = require('express');
 const movie_controller = require('../controllers/movie.controller');
+const upload = require('../middleware/imageUpload');
 const router = express.Router();
 
 // router.get('/', movie_controller.get_movies);
@@ -18,5 +19,7 @@ router.patch('/:movieId/cast', movie_controller.add_cast);
 router.patch('/:movieId/crew', movie_controller.add_crew);
 
 router.get('/:movieId/recommendations', movie_controller.get_recommendations);
+
+router.post('/:movieId/backdrops', upload.single('backdrop'), movie_controller.add_backdrops);
 
 module.exports = router;

@@ -121,7 +121,7 @@ exports.validate_jobs = async (department, job) => {
 exports.fetch_recommendations = async (params) => {
    try {
       const response = await apiClient({
-         url: `/discover/movie?include_adult=${params.adult}&include_video=${params.video}&language=en-US&page=1&release_date.lte=${params.release_date}&sort_by=popularity.desc&with_genres=${params.genres}&with_original_language=${params.original_language}`
+         url: `/discover/movie?include_adult=${params.adult}&include_video=${params.video}&language=en-US&page=1&release_date.lte=${params.release_date}&sort_by=popularity.desc&with_genres=${params.genres}&with_original_language=${params.original_language}&vote_average.lte=${params.vote_average}`
       });
 
       return response.data.results;
