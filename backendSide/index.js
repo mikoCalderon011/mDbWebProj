@@ -13,6 +13,7 @@ const searchRouter = require('./routes/search.route');
 const authRouter = require('./routes/auth.route');
 const refreshTokenRouter = require('./routes/refreshToken.route');
 const logoutRouter = require('./routes/logout.route');
+const imageRouter = require('./routes/image.route');
 
 const app = express(); // Initialize the Express app
 
@@ -32,6 +33,7 @@ app.use('/users', usersRouter);
 app.use('/search', searchRouter); 
 app.use('/refresh', refreshTokenRouter); 
 app.use('/logout', logoutRouter);
+app.use('/images', imageRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

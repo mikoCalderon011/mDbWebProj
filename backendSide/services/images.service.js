@@ -5,7 +5,7 @@ const sharp = require('sharp');
 const { Readable } = require('stream');
 const { v4: uuidv4 } = require('uuid');
 
-exports.add_backdrop = asyncHandler(async (movieId, file) => {
+exports.add_image = asyncHandler(async (movieId, file, type) => {
    const movie = await Movie.findById(movieId);
    if (!movie) throw new Error("Movie not found");
 
@@ -18,52 +18,66 @@ exports.add_backdrop = asyncHandler(async (movieId, file) => {
 
    const { width, height } = await sharp(file.buffer).metadata();
 
-   const minWidth = 1920;
-   const minHeight = 1080;
-   const maxWidth = 3840;
-   const maxHeight = 2160;
+   let minWidth, minHeight, maxWidth, maxHeight;
+   if (type === 'backdrop') {
+      minWidth = 1920; minHeight = 1080;
+      maxWidth = 3840; maxHeight = 2160;
+   } 
+   else if (type === 'poster') {
+      minWidth = 500; minHeight = 750;
+      maxWidth = 2000; maxHeight = 3000;
+   }
 
-   if (width < minWidth || height < minHeight || width > maxWidth || height > maxHeight) {
+   if (type !== 'logo' && (width < minWidth || height < minHeight || width > maxWidth || height > maxHeight)) {
       throw new Error(`Image dimensions are out of range. Must be between ${minWidth}x${minHeight} and ${maxWidth}x${maxHeight}.`);
    }
 
-   const originalFilename = file.originalname; 
+   const originalFilename = file.originalname;
    const fileExtension = originalFilename.split('.').pop();
    const imageUUID = uuidv4() + '.' + fileExtension;
-   
-   const processedImage = await sharp(file.buffer)
-      .resize({ width: 1920, height: 1080, fit: 'contain' })
-      .jpeg({ quality: 80 })
-      .toBuffer();
+
+   let processedImage;
+   if (type === 'backdrop') {
+      processedImage = await sharp(file.buffer)
+         .resize({ width: 1920, height: 1080, fit: 'contain' })
+         .jpeg({ quality: 80 })
+         .toBuffer();
+   } 
+   else if (type === 'poster') {
+      processedImage = await sharp(file.buffer)
+         .resize({ width: 500, height: 750, fit: 'contain' })
+         .jpeg({ quality: 80 })
+         .toBuffer();
+   } 
+   else if (type === 'logo') {
+      processedImage = await sharp(file.buffer)
+         .jpeg({ quality: 80 })
+         .toBuffer();
+   }
 
    const readBufferStream = Readable.from(processedImage);
    const uploadStream = new mongoose.mongo.GridFSBucket(mongoose.connection.db).openUploadStream(imageUUID);
 
-   // Using a promise to handle the upload process
    await new Promise((resolve, reject) => {
       readBufferStream.pipe(uploadStream);
-
       uploadStream.on('error', (error) => {
          console.error('Error uploading file:', error);
          reject(new Error("Failed to upload file"));
       });
-
-      uploadStream.on('finish', resolve); 
+      uploadStream.on('finish', resolve);
    });
 
    console.log('Processed image uploaded successfully');
 
-   const backdrop = {
+   const imageData = {
       file_path: imageUUID,
       aspect_ratio: width / height,
-      height: 1080,
-      width: 1920,
+      height: height,
+      width: width,
    };
 
-   console.log(backdrop);
-
-   movie.images.backdrops.push(backdrop);
+   movie.images[type === 'poster' ? 'posters' : type === 'backdrop' ? 'backdrops' : 'logos'].push(imageData);
    await movie.save();
 
-   return backdrop;
+   return imageData;
 });

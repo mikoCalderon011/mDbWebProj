@@ -20,6 +20,10 @@ router.patch('/:movieId/crew', movie_controller.add_crew);
 
 router.get('/:movieId/recommendations', movie_controller.get_recommendations);
 
-router.post('/:movieId/backdrops', upload.single('backdrop'), movie_controller.add_backdrops);
+router.post('/:movieId/backdrops', upload.single('backdrop'), movie_controller.add_backdrop);
+
+router.post('/:movieId/posters', upload.single('poster'), movie_controller.add_poster);
+
+router.post('/:movieId/logos', upload.single('logo'), movie_controller.add_logo);
 
 module.exports = router;

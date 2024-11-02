@@ -7,7 +7,7 @@ const external_ids_service = require('../services/external_ids.service');
 const casts_service = require('../services/casts.service');
 const crews_service = require('../services/crews.service');
 const recommendations_service = require('../services/recommendation.service');
-const backdrops_service = require('../services/backdrops.service');
+const images_service = require('../services/images.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -153,11 +153,33 @@ exports.get_recommendations = asyncHandler(async (req, res, next) => {
    }
 });
 
-exports.add_backdrops = asyncHandler(async (req, res, next) => {
+exports.add_backdrop = asyncHandler(async (req, res, next) => {
    const { movieId } = req.params;
    try {
-      const backdrop = await backdrops_service.add_backdrop(movieId, req.file);
+      const backdrop = await images_service.add_image(movieId, req.file, 'backdrop');
       return res.status(200).json({ message: "Backdrop added successfully", backdrop });
+   } 
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
+exports.add_poster = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const poster = await images_service.add_image(movieId, req.file, 'poster');
+      return res.status(200).json({ message: "Poster added successfully", poster });
+   } 
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
+exports.add_logo = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const logo = await images_service.add_image(movieId, req.file, 'logo');
+      return res.status(200).json({ message: "Logo added successfully", logo });
    } 
    catch (error) {
       return res.status(500).json({ message: error.message });
