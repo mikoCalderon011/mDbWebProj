@@ -8,6 +8,7 @@ const casts_service = require('../services/casts.service');
 const crews_service = require('../services/crews.service');
 const recommendations_service = require('../services/recommendation.service');
 const images_service = require('../services/images.service');
+const videos_service = require('../services/videos.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -180,6 +181,17 @@ exports.add_logo = asyncHandler(async (req, res, next) => {
    try {
       const logo = await images_service.add_image(movieId, req.file, 'logo');
       return res.status(200).json({ message: "Logo added successfully", logo });
+   } 
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
+exports.add_video = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const video = await videos_service.add_video(movieId, req.body);
+      return res.status(200).json({ message: "Video added successfully", video });
    } 
    catch (error) {
       return res.status(500).json({ message: error.message });

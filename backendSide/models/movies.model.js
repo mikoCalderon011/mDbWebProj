@@ -7,6 +7,8 @@ const castSchema = require('./casts.model');
 const crewSchema = require('./crews.model');
 // const recommendationSchema = require('./recommendations.model');
 const imageSchema = require('./images.model');
+const videoSchema = require('./videos.model');
+const videosSchema = require('./videos.model');
 
 const movieSchema = new Schema({
    adult: { type: Boolean, default: null },
@@ -33,6 +35,7 @@ const movieSchema = new Schema({
    status: { type: String },
    tagline: { type: String, required: true },
    video: { type: Boolean },
+   videos: [videosSchema],
    vote_average: { type: Number, default: 0 },
    vote_count: { type: Number, default: 0 },
 });

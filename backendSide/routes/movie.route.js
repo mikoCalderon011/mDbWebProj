@@ -26,4 +26,6 @@ router.post('/:movieId/posters', upload.single('poster'), movie_controller.add_p
 
 router.post('/:movieId/logos', upload.single('logo'), movie_controller.add_logo);
 
+router.post('/:movieId/videos', movie_controller.add_video);
+
 module.exports = router;

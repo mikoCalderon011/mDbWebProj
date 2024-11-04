@@ -6,7 +6,7 @@ const apiClient = axios.create({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.TMDB_API_KEY}`
    },
-})
+});
 
 /* For Release Dates */
 
