@@ -143,7 +143,7 @@ const MovieDetails = () => {
     tagline: response.tagline,
     overview: response.overview,
     original_language: response.original_language,
-    original_name: response.original_name,
+    original_title: response.original_title,
     director: director ? director.name : undefined,
     writers: writers.length > 0 ? writers : undefined,
     stars,
@@ -175,7 +175,7 @@ const MovieDetails = () => {
 
   // Media
   const medias = {
-    videos: response.videos.results || undefined,
+    videos: response.videos.results || response.videos || undefined,
     posters: response.posters || response.images.posters || undefined,
     backdrops: response.backdrops || response.images.backdrops || undefined,
     logos: response.logos || response.images.logos || undefined

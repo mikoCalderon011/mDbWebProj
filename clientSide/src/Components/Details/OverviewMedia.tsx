@@ -33,11 +33,15 @@ const Media = ({ data }) => {
 				{data.posters.map((poster, index) => {
 					if (index < 5) {
 						return (
-							<div key={index} className='w-[10.1875rem] flex-shrink-0'>
+							<div key={index} className="w-[10.1875rem] flex-shrink-0">
 								<img
-									className='w-full h-full object-cover'
+									className="w-full h-full object-cover"
 									src={`https://image.tmdb.org/t/p/original${poster.file_path}`}
 									alt=""
+									onError={(e) => {
+										e.target.onerror = null; // Prevent infinite fallback loop
+										e.target.src = `http://localhost:3000/images/${poster.file_path}`;
+									}}
 								/>
 							</div>
 						);
@@ -52,9 +56,13 @@ const Media = ({ data }) => {
 						return (
 							<div key={index} className='w-[27.1875rem] flex-shrink-0'>
 								<img
-									className='w-full h-full object-cover'
+									className="w-full h-full object-cover"
 									src={`https://image.tmdb.org/t/p/original${backdrop.file_path}`}
 									alt=""
+									onError={(e) => {
+										e.target.onerror = null; // Prevent infinite fallback loop
+										e.target.src = `http://localhost:3000/images/${backdrop.file_path}`;
+									}}
 								/>
 							</div>
 						);
@@ -69,9 +77,13 @@ const Media = ({ data }) => {
 						return (
 							<div key={index} className='w-[20.1875rem] flex-shrink-0'>
 								<img
-									className='w-full h-full object-cover'
+									className="w-full h-full object-cover"
 									src={`https://image.tmdb.org/t/p/original${logo.file_path}`}
 									alt=""
+									onError={(e) => {
+										e.target.onerror = null; // Prevent infinite fallback loop
+										e.target.src = `http://localhost:3000/images/${logo.file_path}`;
+									}}
 								/>
 							</div>
 						);
@@ -127,8 +139,8 @@ const Media = ({ data }) => {
 						</ul>
 					</div>
 					<NavLink
-						to={selectMedia !== 'Videos' 
-							? `images/${selectMedia.toLowerCase()}` 
+						to={selectMedia !== 'Videos'
+							? `images/${selectMedia.toLowerCase()}`
 							: `${selectMedia.toLowerCase()}`}
 
 						className='font-bold text-[#6BBFCB] pr-[1.25rem]'

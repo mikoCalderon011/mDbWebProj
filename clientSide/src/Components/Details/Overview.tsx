@@ -7,7 +7,7 @@ import Divider from './Divider'
 import { FacebookIcon, HomepageIcon, IMDbIcon, InstagramIcon, TwitterIcon, WikiDataIcon } from '../../assets/Icons/LinkIcons'
 
 const Overview = ({ data }) => {
-  // console.log(data)
+  console.log(data)
 
   if (data) {
     return (
@@ -85,7 +85,7 @@ const Overview = ({ data }) => {
             <Divider />
             <div className='flex gap-[1.4375rem]'>
               <span className='font-bold'>Original name</span>
-              <span>{data.original_name}</span>
+              <span>{data.original_title || data.original_name}</span>
             </div>
           </div>
         ) : null}
