@@ -1,18 +1,33 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { dataApi, imagesApi } from '../../api/api';
+import { dataApi, getMyMovieDataApi, imagesApi } from '../../api/api';
 import ShowCollage from '../../components/Details/ShowCollage';
 import Overview from '../../components/Details/Overview';
 import Casts from '../../components/Details/Casts';
 import Media from '../../components/Details/OverviewMedia';
 import Recommendation from '../../components/Details/Recommendation';
 
+// Check if it's an ID from MongoDB
+const isMongoDBId = (id) => typeof id === 'string' && id.length === 24;
+
 // Fetch Movie Data
 const fetchMovieData = async (movieId) => {
-  const response = await dataApi('movie', movieId);
-  const responseImage = await imagesApi('movie', movieId);
-  return { response, responseImage };
+
+  if (isMongoDBId(movieId)) {
+    const myResponse = await getMyMovieDataApi('movie', movieId);
+
+    return { ...myResponse.movie };
+  }
+  else {
+    const response = await dataApi('movie', movieId);
+    const responseImage = await imagesApi('movie', movieId);
+
+    return { ...response, ...responseImage };
+  }
+  // 
+  // console.log(...response, responseImage );
+  // console.log(myResponse?.data.movie);
 };
 
 const MovieDetails = () => {
@@ -28,20 +43,36 @@ const MovieDetails = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
-  const { response, responseImage } = data;
+  const response = data;
+
+  console.log(response);
 
   // Change tab title
   document.title = response.title;
 
   // Gets the official trailer first, if not found, try to get a relevant trailer
-  const officialTrailer = response.videos.results.filter(
-    video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
-  );
+  const officialTrailer = (response.videos.results && response.videos.results.length > 0)
+    ? response.videos.results.filter(
+      video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
+    )
+    : response.videos.filter(
+      video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
+    );
+
   const trailer = officialTrailer.length > 0
     ? `https://www.youtube.com/embed/${officialTrailer[0].key}?si=8l7P2cs2GNCdH2-L`
-    : response.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube')
-      ? `https://www.youtube.com/embed/${response.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube').key}?si=8l7P2cs2GNCdH2-L`
-      : null;
+    : response.videos?.results
+      ? (() => {
+        const foundVideo = response.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+        return foundVideo ? `https://www.youtube.com/embed/${foundVideo.key}?si=8l7P2cs2GNCdH2-L` : null;
+      })()
+      : response.videos
+        ? (() => {
+          const foundVideo = response.videos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+          return foundVideo ? `https://www.youtube.com/embed/${foundVideo.key}?si=8l7P2cs2GNCdH2-L` : null;
+        })()
+        : null;
+
 
   // Helper functions
   const generateCountMessage = (count, singularLabel, pluralLabel) => {
@@ -60,10 +91,10 @@ const MovieDetails = () => {
     return Math.floor(Math.random() * count);
   };
 
-  const backdropCount = responseImage.backdrops?.length || 0;
+  const backdropCount = response.backdrops?.length || 0;
   const backdropMessage = generateCountMessage(backdropCount, 'BACKDROP', 'BACKDROPS');
 
-  const posterCount = responseImage.posters?.length || 0;
+  const posterCount = response.posters?.length || 0;
   const posterMessage = generateCountMessage(posterCount, 'POSTER', 'POSTERS');
 
   const videosCount = response.videos.results?.length || 0;
@@ -77,9 +108,9 @@ const MovieDetails = () => {
   const showCollageData = {
     title: response.title,
     poster_path: response.poster_path ? `https://image.tmdb.org/t/p/w500${response.poster_path}` : null,
-    backdrop: randomBackdropIndex !== null ? `https://image.tmdb.org/t/p/w500${responseImage.backdrops[randomBackdropIndex].file_path}` : null,
+    backdrop: randomBackdropIndex !== null ? `https://image.tmdb.org/t/p/w500${response.backdrops[randomBackdropIndex].file_path}` : null,
     backdrop_count: backdropMessage,
-    poster: randomPosterIndex !== null ? `https://image.tmdb.org/t/p/w500${responseImage.posters[randomPosterIndex].file_path}` : null,
+    poster: randomPosterIndex !== null ? `https://image.tmdb.org/t/p/w500${response.posters[randomPosterIndex].file_path}` : null,
     poster_count: posterMessage,
     video: randomVideoIndex !== null ? `https://i.ytimg.com/vi/${response.videos.results[randomVideoIndex].key}/hqdefault.jpg` : null,
     video_count: videoMessage,
@@ -107,7 +138,7 @@ const MovieDetails = () => {
       undefined,
     release_date: new Date(response.release_date).toLocaleDateString('en-PH'),
     genres: response.genres.map((genre) => genre.name).slice(0, 3),
-    vote_average: response.vote_average.toFixed(1),
+    vote_average: response.vote_average.toFixed(1) || 0,
     vote_count: ((response.vote_count / 1000).toFixed(1) + 'k'),
     tagline: response.tagline,
     overview: response.overview,
@@ -145,9 +176,9 @@ const MovieDetails = () => {
   // Media
   const medias = {
     videos: response.videos.results || undefined,
-    posters: responseImage.posters || undefined,
-    backdrops: responseImage.backdrops || undefined,
-    logos: responseImage.logos || undefined
+    posters: response.posters || response.images.posters || undefined,
+    backdrops: response.backdrops || response.images.backdrops || undefined,
+    logos: response.logos || response.images.logos || undefined
   };
 
   // Recommendations

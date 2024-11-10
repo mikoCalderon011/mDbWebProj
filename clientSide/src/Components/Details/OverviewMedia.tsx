@@ -8,10 +8,12 @@ const Media = ({ data }) => {
 		setSelectMedia(media);
 	};
 
+	console.log(data)
+
 	const mediaComponents = {
 		Videos: (
 			<>
-				{data.videos.map((video, index) => {
+				{data.videos?.map((video, index) => {
 					if (index < 2) {
 						return (
 							<div key={index} className='w-[27.1875rem] flex-shrink-0'>
@@ -93,7 +95,7 @@ const Media = ({ data }) => {
 									: 'after:opacity-0'
 									}`}
 							>
-								Videos <span className='text-[.9625rem] text-[#9c9c9c]'>{data.videos.length}</span>
+								Videos <span className='text-[.9625rem] text-[#9c9c9c]'>{data.videos?.length}</span>
 							</li>
 							<li
 								onClick={() => handleSelect('Posters')}

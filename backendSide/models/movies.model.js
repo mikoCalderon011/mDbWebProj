@@ -14,7 +14,7 @@ const movieSchema = new Schema({
    adult: { type: Boolean, default: null },
    backdrop_path: { type: String, default: null },
    budget: { type: Number, required: true },
-   casts: { cast: [castSchema], crew: [crewSchema] },
+   credits: { cast: [castSchema], crew: [crewSchema] },
    genres: [genresSchema],
    homepage: { type: String },
    images: { backdrops: [imageSchema], posters: [imageSchema], logos: [imageSchema] },

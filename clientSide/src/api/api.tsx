@@ -283,7 +283,32 @@ export const fetchMultipleVideosData = async (keys) => {
 // My API
 
 export const axiosPrivate = axios.create({
-    baseURL: 'http://localhost:3000/',
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true
+   baseURL: 'http://localhost:3000/',
+   headers: { 'Content-Type': 'application/json' },
+   withCredentials: true
 });
+
+export const getMyMovieDataApi = async (type, movieId) => {
+   try {
+      const response = await axiosPrivate({
+         url: `http://localhost:3000/${type}/${movieId}`
+      })
+
+      const responseTwo = await axiosPrivate({
+         url: `http://localhost:3000/${type}/${movieId}/recommendations`
+      })
+
+      const allResponseData = {
+         ...response.data, 
+         movie: {
+            ...response.data.movie,
+            recommendations: responseTwo.data.recommendations
+         }
+      };
+
+      return allResponseData
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}

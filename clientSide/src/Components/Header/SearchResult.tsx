@@ -3,6 +3,7 @@ import IgopImg from '../../assets/Image/Igop.jpg'
 import { Link } from 'react-router-dom'
 
 const SearchResult = ({ data }) => {
+
    return (
       <Link 
          to={`/${data.streamType}/${data.id}`}
@@ -21,7 +22,6 @@ const SearchResult = ({ data }) => {
             </article>
          </div>
       </Link>
-
    )
 }
 

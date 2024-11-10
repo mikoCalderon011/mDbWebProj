@@ -2,7 +2,6 @@ import React from 'react'
 import SearchResult from './SearchResult';
 
 const SearchResultList = ({ results }) => {
-  console.log(results)
 
   return (
     <div className='search-result-list'>
@@ -11,7 +10,7 @@ const SearchResultList = ({ results }) => {
 
         if (result.media_type === "movie") {
           searchData = {
-            id: result.id,
+            id: result.id || result._id,
             streamType: 'movies',
             dataOne: result.title || result.original_title,
             dataTwo: [
@@ -24,7 +23,7 @@ const SearchResultList = ({ results }) => {
         }
         else if (result.media_type === "tv") {
           searchData = {
-            id: result.id,
+            id: result.id || result._id,
             streamType: 'tv',
             dataOne: result.name,
             dataTwo: [
@@ -37,7 +36,7 @@ const SearchResultList = ({ results }) => {
         }
         else if (result.media_type === "person") {
           searchData = {
-            id: result.id,
+            id: result.id || result._id,
             streamType: 'person',
             dataOne: result.name,
             dataTwo: result.known_for_department,

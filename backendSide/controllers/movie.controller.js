@@ -1,6 +1,7 @@
 const Movie = require('../models/movies.model');
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
+const movies_service = require('../services/movies.service');
 const releaseDates_service = require('../services/releaseDates.services');
 const genre_service = require('../services/genres.services');
 const external_ids_service = require('../services/external_ids.service');
@@ -16,8 +17,11 @@ exports.get_movies = asyncHandler(async (req, res, next) => {
 });
 
 /* Display a specific movie via ID */
-exports.get_one_movie = asyncHandler(async (req, res, next) => {
+exports.get_movie = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   const movie = await movies_service.get_movie(movieId);
 
+   return res.status(200).json({ movie });
 });
 
 /* Search for a specific movie */

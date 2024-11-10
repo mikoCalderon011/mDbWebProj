@@ -34,7 +34,7 @@ const fetchResults = async (value, setResults) => {
 		];
 		const limitedResults = combinedResults.slice(0, 6);
 
-		console.log(tmdbResults)
+		// console.log(limitedResults)
 		setResults(limitedResults)
 	} catch (error) {
 		console.error('Error fetching data:', error);
