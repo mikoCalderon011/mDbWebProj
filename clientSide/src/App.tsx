@@ -31,6 +31,7 @@ import RequireAuth from './components/RequireAuth'
 import PersistLogin from './pages/PersistLogin'
 
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
+export const LOCALHOST = 'http://localhost:3000';
 
 const router = createBrowserRouter([
   {

@@ -4,8 +4,6 @@ import PlusIcon from '../../assets/Icons/PlusIcon'
 import InfoIcon from '../../assets/Icons/InfoIcon'
 
 const Recommendation = ({ data }) => {
-  console.log(data);
-
   if (data) {
     const recommendations = data.recommendations.results || data.recommendations;
 

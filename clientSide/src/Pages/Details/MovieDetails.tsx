@@ -63,12 +63,14 @@ const MovieDetails = () => {
     ? `https://www.youtube.com/embed/${officialTrailer[0].key}?si=8l7P2cs2GNCdH2-L`
     : response.videos?.results
       ? (() => {
-        const foundVideo = response.videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+        const foundVideo = response.videos.results.find(video => video.type === 'Trailer' && video.site === 'Youtube');
         return foundVideo ? `https://www.youtube.com/embed/${foundVideo.key}?si=8l7P2cs2GNCdH2-L` : null;
       })()
       : response.videos
         ? (() => {
-          const foundVideo = response.videos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+          console.log(response.videos)
+          const foundVideo = response.videos.find(video => video.type === 'Trailer' && video.site === 'Youtube');
+          console.log(foundVideo)
           return foundVideo ? `https://www.youtube.com/embed/${foundVideo.key}?si=8l7P2cs2GNCdH2-L` : null;
         })()
         : null;
@@ -91,13 +93,13 @@ const MovieDetails = () => {
     return Math.floor(Math.random() * count);
   };
 
-  const backdropCount = response.backdrops?.length || 0;
+  const backdropCount = response.backdrops?.length || response.images.backdrops?.length || 0;
   const backdropMessage = generateCountMessage(backdropCount, 'BACKDROP', 'BACKDROPS');
 
-  const posterCount = response.posters?.length || 0;
+  const posterCount = response.posters?.length || response.images.posters?.length || 0;
   const posterMessage = generateCountMessage(posterCount, 'POSTER', 'POSTERS');
 
-  const videosCount = response.videos.results?.length || 0;
+  const videosCount = response.videos.results?.length || response.videos?.length || 0;
   const videoMessage = generateCountMessage(videosCount, 'VIDEO', 'VIDEOS');
 
   // Gets random index based on the total count of data
@@ -105,14 +107,21 @@ const MovieDetails = () => {
   const randomPosterIndex = posterCount > 0 ? getRandomIndex(posterCount) : null;
   const randomVideoIndex = videosCount > 0 ? getRandomIndex(videosCount) : null;
 
+  console.log(posterCount);
+
   const showCollageData = {
     title: response.title,
-    poster_path: response.poster_path ? `https://image.tmdb.org/t/p/w500${response.poster_path}` : null,
-    backdrop: randomBackdropIndex !== null ? `https://image.tmdb.org/t/p/w500${response.backdrops[randomBackdropIndex].file_path}` : null,
+    poster_path: response.poster_path ? response.poster_path : null,
+    backdrop: randomBackdropIndex !== null
+      ? (response.backdrops ? response.backdrops[randomBackdropIndex].file_path : response.images.backdrops[randomBackdropIndex].file_path)
+      : null,
     backdrop_count: backdropMessage,
-    poster: randomPosterIndex !== null ? `https://image.tmdb.org/t/p/w500${response.posters[randomPosterIndex].file_path}` : null,
+    poster: randomPosterIndex !== null
+      ? (response.posters ? response.posters[randomPosterIndex].file_path : response.images.posters[randomPosterIndex].file_path)
+      : null,
     poster_count: posterMessage,
-    video: randomVideoIndex !== null ? `https://i.ytimg.com/vi/${response.videos.results[randomVideoIndex].key}/hqdefault.jpg` : null,
+    video: randomVideoIndex !== null
+      ? (response.videos.results ? `https://i.ytimg.com/vi/${response.videos.results[randomVideoIndex].key}/hqdefault.jpg` : `https://i.ytimg.com/vi/${response.videos[randomVideoIndex].key}/hqdefault.jpg`) : null,
     video_count: videoMessage,
     official_trailer: trailer
   };

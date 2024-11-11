@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
+import { LOCALHOST } from '../../App';
 
 const Media = ({ data }) => {
 	const [selectMedia, setSelectMedia] = useState('Videos');
@@ -40,7 +41,7 @@ const Media = ({ data }) => {
 									alt=""
 									onError={(e) => {
 										e.target.onerror = null; // Prevent infinite fallback loop
-										e.target.src = `http://localhost:3000/images/${poster.file_path}`;
+										e.target.src = `${LOCALHOST}/images/${poster.file_path}`;
 									}}
 								/>
 							</div>
@@ -61,7 +62,7 @@ const Media = ({ data }) => {
 									alt=""
 									onError={(e) => {
 										e.target.onerror = null; // Prevent infinite fallback loop
-										e.target.src = `http://localhost:3000/images/${backdrop.file_path}`;
+										e.target.src = `${LOCALHOST}/images/${backdrop.file_path}`;
 									}}
 								/>
 							</div>
@@ -82,7 +83,7 @@ const Media = ({ data }) => {
 									alt=""
 									onError={(e) => {
 										e.target.onerror = null; // Prevent infinite fallback loop
-										e.target.src = `http://localhost:3000/images/${logo.file_path}`;
+										e.target.src = `${LOCALHOST}/images/${logo.file_path}`;
 									}}
 								/>
 							</div>

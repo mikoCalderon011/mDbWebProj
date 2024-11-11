@@ -3,8 +3,10 @@ import BackdropIcon from '../../assets/Icons/BackdropIcon'
 import VideoIcon from '../../assets/Icons/VideoIcon'
 import PosterIcon from '../../assets/Icons/PosterIcon'
 import { NavLink } from 'react-router-dom'
+import { LOCALHOST } from '../../App'
 
 const ShowCollage = ({ data }) => {
+   console.log(data)
    if (data) {
       return (
          <div className='flex flex-col gap-[0.5rem] w-[37.125rem] h-[45.25rem] font-roboto text-[0.75rem] font-bold'>
@@ -21,8 +23,14 @@ const ShowCollage = ({ data }) => {
             <div className='flex gap-[0.5rem]'>
                <img
                   className='w-[13.4375rem] h-[23.625rem] object-cover rounded-[10px]'
-                  src={data.poster_path || 'https://craftypixels.com/placeholder-image/215x378/999799/31317d'}
+                  src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
                   alt={data.name}
+                  onError={(e) => {
+                     e.target.onerror = () => { // Second fallback for the placeholder
+                        e.target.src = 'https://craftypixels.com/placeholder-image/215x378/999799/31317d';
+                     };
+                     e.target.src = `${LOCALHOST}/images/${data.poster_path}`; // First fallback to your backend image
+                  }}
                />
                <div className='flex flex-col gap-[0.5rem]'>
                   <div className='flex gap-[0.5rem]'>
@@ -32,8 +40,14 @@ const ShowCollage = ({ data }) => {
                      >
                         <img
                            className='w-full h-full absolute object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110'
-                           src={data.poster || 'https://craftypixels.com/placeholder-image/181x185/999799/31317d'}
-                           alt={`${data.name} Posters`}
+                           src={`https://image.tmdb.org/t/p/w500${data.poster}`}
+                           alt={data.name}
+                           onError={(e) => {
+                              e.target.onerror = () => { // Second fallback for the placeholder
+                                 e.target.src = 'https://craftypixels.com/placeholder-image/181x185/999799/31317d';
+                              };
+                              e.target.src = `${LOCALHOST}/images/${data.poster}`; // First fallback to your backend image
+                           }}
                         />
                         <div className="absolute z-[2] inset-0 bg-black opacity-70 group-hover:opacity-60 group-active:opacity-40" />
                         <div className='flex flex-col items-center gap-[0.4375rem] relative z-[3]'>
@@ -63,8 +77,14 @@ const ShowCollage = ({ data }) => {
                   >
                      <img
                         className='w-full h-full absolute object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110'
-                        src={data.backdrop || 'https://craftypixels.com/placeholder-image/370x185/999799/31317d'}
-                        alt={`${data.name} Backdrops`}
+                        src={`https://image.tmdb.org/t/p/w500${data.backdrop}`}
+                        alt={data.name}
+                        onError={(e) => {
+                           e.target.onerror = () => { // Second fallback for the placeholder
+                              e.target.src = 'https://craftypixels.com/placeholder-image/370x185/999799/31317d';
+                           };
+                           e.target.src = `${LOCALHOST}/images/${data.backdrop}`; // First fallback to your backend image
+                        }}
                      />
                      <div className="absolute z-[2] inset-0 bg-black opacity-70 group-hover:opacity-60 group-active:opacity-40" />
                      <div className='flex flex-col items-center gap-[0.4375rem] relative z-[3]'>
