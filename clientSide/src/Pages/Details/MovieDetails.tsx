@@ -7,6 +7,7 @@ import Overview from '../../components/Details/Overview';
 import Casts from '../../components/Details/Casts';
 import Media from '../../components/Details/OverviewMedia';
 import Recommendation from '../../components/Details/Recommendation';
+import { LOCALHOST } from '../../App';
 
 // Check if it's an ID from MongoDB
 const isMongoDBId = (id) => typeof id === 'string' && id.length === 24;
@@ -55,9 +56,11 @@ const MovieDetails = () => {
     ? response.videos.results.filter(
       video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
     )
-    : response.videos.filter(
+    : (!response.videos['results'] ? response.videos.filter(
       video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
-    );
+    ) : 0); // this is still can have an issue, will fix later ig
+
+  console.log(officialTrailer)
 
   const trailer = officialTrailer.length > 0
     ? `https://www.youtube.com/embed/${officialTrailer[0].key}?si=8l7P2cs2GNCdH2-L`
@@ -200,7 +203,11 @@ const MovieDetails = () => {
       <main className='text-white flex flex-col gap-0 font-roboto p-0'>
         <section
           className='w-full h-[52.9375rem] bg-cover bg-center relative flex justify-center'
-          style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${response.backdrop_path})` }}
+          style={{
+            backgroundImage: response._id
+              ? `url(${LOCALHOST}/images/${response.backdrop_path})`
+              : `url(https://image.tmdb.org/t/p/original${response.backdrop_path})`
+          }}
         >
           <div className="absolute z-1 inset-0 bg-black opacity-90"></div>
           <div className='relative z-2 flex w-[66.5625rem] pt-[3.3125rem] gap-[1.125rem]'>

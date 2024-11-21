@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header/Client/Header';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { dataApi, imagesApi } from '../../api/api';

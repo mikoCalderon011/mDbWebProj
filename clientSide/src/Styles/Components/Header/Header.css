@@ -42,6 +42,7 @@ header {
   flex-direction: row;
   align-items: center;
 }
+
 .dark .search-bar--container .search-bar--wrapper {
   background-color: #1C252F;
 }

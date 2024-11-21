@@ -2,7 +2,7 @@ import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { jwtDecode } from 'jwt-decode'
 
-const RequireAuth = ({ allowedRoles }) => {
+const RequireAuth = ({ allowedRoles, children }) => {
   const { user } = useAuth();
   const location = useLocation();
 
@@ -17,7 +17,8 @@ const RequireAuth = ({ allowedRoles }) => {
   console.log("has access: ", hasAccess)
 
   if (hasAccess) {
-    return <Outlet />;
+    console.log("user has access")
+    return children;
   }
 
   if (user?.accessToken) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
+import Header from '../../components/Header/Client/Header'
 import Marquee from '../../components/ShowsList/Marquee'
 import { peopleList } from '../../api/api';
 import _ from 'lodash'

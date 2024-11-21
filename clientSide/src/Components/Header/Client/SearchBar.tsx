@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SearchIcon from '../../assets/Icons/SearchIcon'
+import SearchIcon from '../../../assets/Icons/SearchIcon'
 import SearchResultList from './SearchResultList';
 import Search from './Search';
 

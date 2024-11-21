@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { axiosPrivate } from '../../api/api';
+import { axiosPrivate } from '../../../api/api';
 
 const fetchResults = async (value, setResults) => {
 	try {

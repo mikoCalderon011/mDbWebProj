@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 import { jwtDecode } from 'jwt-decode';
-import useLogout from '../../hooks/useLogout';
+import useLogout from '../../../hooks/useLogout';
 
 const Account = () => {
   const { user } = useAuth();

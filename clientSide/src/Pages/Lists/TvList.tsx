@@ -1,5 +1,5 @@
 import React, { createContext, useEffect } from 'react'
-import Header from '../../components/Header/Header'
+import Header from '../../components/Header/Client/Header'
 import Marquee from '../../components/ShowsList/Marquee'
 import DisplayViewOption from '../../components/ShowsList/ListManager/DisplayViewOption'
 import FilteringOption from '../../components/ShowsList/ListManager/FilteringOption'

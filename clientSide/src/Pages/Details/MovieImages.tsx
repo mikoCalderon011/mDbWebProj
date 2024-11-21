@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
+import Header from '../../components/Header/Client/Header'
 import { useParams } from 'react-router-dom'
 import { appendImagesApi, imagesApi, languages } from '../../api/api';
 import Section from '../../components/Details/Section';

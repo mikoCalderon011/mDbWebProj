@@ -1,7 +1,7 @@
 import React from 'react'
-import IgopImg from '../../assets/Image/Igop.jpg'
+import IgopImg from '../../../assets/Image/Igop.jpg'
 import { Link } from 'react-router-dom'
-import { LOCALHOST } from '../../App'
+import { LOCALHOST } from '../../../App'
 
 const SearchResult = ({ data }) => {
    console.log(data)
@@ -16,6 +16,7 @@ const SearchResult = ({ data }) => {
                src={`https://image.tmdb.org/t/p/w500${data.dataFour}`}
                alt={data.dataOne}
                onError={(e) => {
+                  e.target.onerror = null;
                   e.target.onerror = () => { // Second fallback for the placeholder
                      e.target.src = IgopImg;
                   };

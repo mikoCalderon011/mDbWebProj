@@ -1,5 +1,5 @@
 import React from 'react'
-import WatchlistIcon from '../../assets/Icons/WatchlistIcon'
+import WatchlistIcon from '../../../assets/Icons/WatchlistIcon'
 
 const Watchlist = () => {
   return (
