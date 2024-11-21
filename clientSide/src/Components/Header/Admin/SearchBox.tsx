@@ -8,7 +8,7 @@ const SearchBox = () => {
    console.log(isToggled);
 
    return (
-      <>
+      <div className='w-[38.4375rem] overflow-hidden flex'>
          <SearchBar isToggled={isToggled} setIsToggled={setIsToggled} />
          <div
             onClick={() => {
@@ -20,7 +20,7 @@ const SearchBox = () => {
          >
             <SearchIcon />
          </div>
-      </>
+      </div>
    )
 }
 
