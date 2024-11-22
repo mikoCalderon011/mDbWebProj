@@ -30,6 +30,7 @@ import AdminLayout from './pages/Admin/AdminLayout'
 import AdminPage from './pages/Admin/AdminPage'
 import RequireAuth from './components/RequireAuth'
 import PersistLogin from './pages/PersistLogin'
+import AdminMovie from './pages/Admin/AdminMovie'
 
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
 export const LOCALHOST = 'http://localhost:3000';
@@ -106,6 +107,7 @@ const router = createBrowserRouter([
         ),
         children: [
           { path: '', element: <AdminPage /> },
+          { path: 'movie', element: <AdminMovie /> },
         ]
       }
     ]

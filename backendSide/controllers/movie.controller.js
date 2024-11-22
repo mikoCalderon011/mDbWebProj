@@ -13,8 +13,19 @@ const videos_service = require('../services/videos.service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
+   try {
+      const movies = await Movie.find().exec();
 
+      return res.status(200).json({
+         success: true,
+         data: movies,
+      });
+   } 
+   catch (error) {
+      throw new Error('Unexpected error precedented: ' + error.message); 
+   }
 });
+
 
 /* Display a specific movie via ID */
 exports.get_movie = asyncHandler(async (req, res, next) => {

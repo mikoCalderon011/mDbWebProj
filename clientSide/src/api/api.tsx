@@ -288,6 +288,19 @@ export const axiosPrivate = axios.create({
    withCredentials: true
 });
 
+export const fetchMyData= async (type) =>{
+   try {
+      const response = await axiosPrivate({
+         url: `http://localhost:3000/${type}/`
+      })
+
+      return response.data
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
 export const getMyMovieDataApi = async (type, movieId) => {
    try {
       const response = await axiosPrivate({

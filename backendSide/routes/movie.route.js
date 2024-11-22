@@ -3,6 +3,8 @@ const movie_controller = require('../controllers/movie.controller');
 const upload = require('../middleware/imageUpload');
 const router = express.Router();
 
+router.get('/', movie_controller.get_movies);
+
 router.get('/:movieId', movie_controller.get_movie)
 
 /* POST request movie create */

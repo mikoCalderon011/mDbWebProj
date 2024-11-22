@@ -8,7 +8,7 @@ import LogoutIcon from '../../assets/Icons/Admin/LogoutIcon'
 
 const Sidebar = () => {
   return (
-    <div className='w-[5.1875rem] h-[76.85dvh] rounded-[.75rem] flex flex-col items-center justify-between bg-gradient-to-b from-[#CC511D] to-black'>
+    <div className='w-[5.1875rem] min-h-[34.315rem] h-[76.85dvh] rounded-[.75rem] flex flex-col items-center justify-between bg-gradient-to-b from-[#CC511D] to-black'>
       <section className='flex flex-col gap-[2.125rem] pt-[2.375rem]'>
          <MovieIcon />
          <TvShowIcon />
