@@ -7,6 +7,7 @@ import TripleDotIcon from '../../assets/Icons/Admin/TripleDotIcon';
 import ViewIcon from '../../assets/Icons/Admin/ViewIcon';
 import EditIcon from '../../assets/Icons/Admin/EditIcon';
 import DeleteIcon from '../../assets/Icons/Admin/DeleteIcon';
+import StarLIcon from '../../assets/Icons/StarLIcon';
 
 const AdminMovie = () => {
   const [movieList, setMovieList] = useState([]);
@@ -81,6 +82,16 @@ const AdminMovie = () => {
     };
   }, [isInfoVisible]);
 
+  const getDynamicFontSize = (title) => {
+    const length = title.length;
+    if (length > 30) {
+      return '1rem'; // Smaller font size for long titles
+    } else if (length > 20) {
+      return '1.25rem'; // Medium font size
+    }
+    return '2rem'; // Default larger font size
+  };
+
   console.log(selectedMovie);
 
   return (
@@ -112,6 +123,9 @@ const AdminMovie = () => {
                 <TripleDotIcon />
               </div>
               <div className="flex flex-col">
+                <span className=" self-start py-[0.25rem] px-[0.71875rem] bg-[#909090] text-[0.625rem] rounded-full">
+                  {card?.genres[0].name}
+                </span>
                 <span className="w-[7.3125rem] font-semibold text-[1rem] line-clamp-1">{card.title}</span>
                 <div className="w-full flex gap-[0.625rem] items-center">
                   <span className="w-[7.3125rem] font-roboto text-[0.75rem] text-[#999999] line-clamp-4">
@@ -169,6 +183,32 @@ const AdminMovie = () => {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             />
+            <div className=' w-full flex flex-col gap-[1rem] items-center justify-center'>
+              {selectedMovie?.genres?.length > 0 ? (
+                selectedMovie.genres.map((genre) => {
+                  return (
+                    <div className='py-[0.25rem] px-[0.71875rem] flex items-center justify-center gap-[0.4375rem] bg-[#909090] text-[0.625rem] rounded-full'>
+                      <div className='w-[0.3125rem] h-[0.3125rem] bg-[#111111] rounded-full'></div>
+                      <span>{genre.name}</span>
+                    </div>
+                  )
+                })
+              ) : null}
+              <span className='font-bold text-center' style={{ fontSize: getDynamicFontSize(selectedMovie.title) }}>{selectedMovie.title}</span>
+              <div className='flex gap-[1.3125rem]'>
+                <span className='border border-white border-solid px-[5px] py-[2px]'>{selectedMovie.certifications || "NR"}</span>
+                <div className='flex gap-[0.3125rem] items-center'>
+                  <StarLIcon />
+                  <div className='flex gap-[0.1875rem]'>
+                    <div className='flex flex-col leading-[1]'>
+                      <span className='text-[1.25rem] font-bold'>{selectedMovie.vote_average.toFixed(1) || 0}</span>
+                      <span className='text-[0.75rem] text-[#8F8F8F] font-semibold'>{(selectedMovie.vote_count / 1000).toFixed(1) + 'k'}</span>
+                    </div>
+                    <span className='font-semibold text-[#8F8F8F]'>/10</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
