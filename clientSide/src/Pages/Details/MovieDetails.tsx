@@ -174,7 +174,7 @@ const MovieDetails = () => {
     revenue: new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'
-    }).format(response.revenue),
+    }).format(response.revenue)
   };
 
   // Credits

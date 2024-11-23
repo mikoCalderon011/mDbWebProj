@@ -5,9 +5,7 @@ import { fetchMyData } from '../../api/api';
 import { LOCALHOST } from '../../App';
 import TripleDotIcon from '../../assets/Icons/Admin/TripleDotIcon';
 import ViewIcon from '../../assets/Icons/Admin/ViewIcon';
-import EditIcon from '../../assets/Icons/Admin/EditIcon';
-import DeleteIcon from '../../assets/Icons/Admin/DeleteIcon';
-import StarLIcon from '../../assets/Icons/StarLIcon';
+import OverviewPanel from '../../components/Details/OverviewPanel';
 
 const AdminMovie = () => {
   const [movieList, setMovieList] = useState([]);
@@ -19,38 +17,89 @@ const AdminMovie = () => {
     const fetchMovieList = async () => {
       try {
         const response = await fetchMyData('movie');
+        const movies = response?.data || [];
 
         const getTrailerUrl = (videos) => {
-          const officialTrailer =
-            videos && videos.length > 0
-              ? videos.find(
-                video =>
-                  video.name.toLowerCase().includes('official') &&
-                  video.name.toLowerCase().includes('trailer')
-              )
-              : null;
+          if (!videos || videos.length === 0) return null;
 
-          return officialTrailer
-            ? `https://www.youtube.com/embed/${officialTrailer.key}?si=8l7P2cs2GNCdH2-L`
-            : videos && videos.length > 0
-              ? (() => {
-                const foundVideo = videos.find(
-                  video => video.type === 'Trailer' && video.site.toLowerCase() === 'youtube'
-                );
-                return foundVideo
-                  ? `https://www.youtube.com/embed/${foundVideo.key}?si=8l7P2cs2GNCdH2-L`
-                  : null;
-              })()
-              : null;
+          const officialTrailer = videos.find(
+            (video) =>
+              video.name.toLowerCase().includes('official') &&
+              video.name.toLowerCase().includes('trailer')
+          );
+          if (officialTrailer) {
+            return `https://www.youtube.com/embed/${officialTrailer.key}?si=8l7P2cs2GNCdH2-L`;
+          }
+
+          const genericTrailer = videos.find(
+            (video) => video.type === 'Trailer' && video.site.toLowerCase() === 'youtube'
+          );
+
+          return genericTrailer
+            ? `https://www.youtube.com/embed/${genericTrailer.key}?si=8l7P2cs2GNCdH2-L`
+            : null;
         };
 
-        const movieData = response.data.map(movie => ({
-          ...movie,
-          trailer: getTrailerUrl(movie.videos),
-        }));
+        console.log(movies)
 
-        setMovieList(movieData);
-      } catch (error) {
+        const parsedMovies = movies.map((movie) => {
+          const certifications =
+            movie?.release_dates?.results?.filter((country) =>
+              ['US', movie.origin_country?.[0]].includes(country.iso_3166_1)
+            ) || [];
+
+          const director = movie?.credits?.crew?.find((member) => member.job === 'Director');
+          const writers = (movie?.credits?.crew || []).filter((member) => member.department === 'Writing').slice(0, 3).map((writer) => writer.name);
+          const stars = (movie?.credits?.cast || []).slice(0, 3).map((star) => star.name);
+
+          const hours = Math.floor((movie.runtime || 0) / 60);
+          const minutes = (movie.runtime || 0) % 60;
+
+          return {
+            _id: movie._id,
+            title: movie.title,
+            overview: movie.overview,
+            trailer: getTrailerUrl(movie?.videos),
+            genres: movie.genres.map((genre) => genre.name).slice(0, 3),
+            certifications:
+              certifications[0]?.release_dates?.find(
+                (item) => item.certification !== ''
+              )?.certification || 'N/A',
+            vote_average: movie.vote_average.toFixed(1) || 0,
+            vote_count: ((movie.vote_count / 1000).toFixed(1) + 'k'),
+            release_date: movie.release_date
+              ? new Date(movie.release_date).toLocaleDateString('en-PH')
+              : 'Unknown',
+            director: director?.name || undefined,
+            writers: writers.length > 0 ? writers : undefined,
+            stars,
+            runtime: movie.runtime
+              ? `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`
+              : 'N/A',
+            backdrop_path: movie.backdrop_path || '',
+            budget: new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            }).format(movie.budget),
+            revenue: new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            }).format(movie.revenue),
+            facebook_id: movie.external_ids.facebook_id || undefined,
+            twitter_id: movie.external_ids.twitter_id || undefined,
+            instagram_id: movie.external_ids.instagram_id || undefined,
+            wikidata: movie.external_ids.wikidata_id || undefined,
+            imdb_id: movie.external_ids.imdb_id || undefined,
+            homepage: movie.homepage,
+            status: movie.status,
+          };
+        });
+
+        console.log(parsedMovies);
+
+        setMovieList(parsedMovies);
+      }
+      catch (error) {
         console.error('Error fetching media data:', error);
       }
     };
@@ -64,35 +113,7 @@ const AdminMovie = () => {
     setIsInfoVisible(true);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (panelRef.current && !panelRef.current.contains(event.target)) {
-        setIsInfoVisible(false);
-      }
-    };
-
-    if (isInfoVisible) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isInfoVisible]);
-
-  const getDynamicFontSize = (title) => {
-    const length = title.length;
-    if (length > 30) {
-      return '1rem'; // Smaller font size for long titles
-    } else if (length > 20) {
-      return '1.25rem'; // Medium font size
-    }
-    return '2rem'; // Default larger font size
-  };
-
-  console.log(selectedMovie);
+  console.log(movieList);
 
   return (
     <div className="w-[55.75rem] flex flex-col gap-[1.4375rem]">
@@ -124,7 +145,7 @@ const AdminMovie = () => {
               </div>
               <div className="flex flex-col">
                 <span className=" self-start py-[0.25rem] px-[0.71875rem] bg-[#909090] text-[0.625rem] rounded-full">
-                  {card?.genres[0].name}
+                  {card?.genres[0]}
                 </span>
                 <span className="w-[7.3125rem] font-semibold text-[1rem] line-clamp-1">{card.title}</span>
                 <div className="w-full flex gap-[0.625rem] items-center">
@@ -143,74 +164,8 @@ const AdminMovie = () => {
           </div>
         ))
         : null}
-      {isInfoVisible && (
-        <>
-          <div
-            className={`fixed inset-0 bg-black ${isInfoVisible ? 'opacity-70' : 'opacity-0'
-              } backdrop-blur-sm z-[3]`}
-          ></div>
-        </>
-      )}
       {selectedMovie && (
-        <div
-          ref={panelRef}
-          className={`w-[24.6875rem] h-full flex justify-center bg-[#111111] ${isInfoVisible
-            ? 'opacity-100 z-[10] translate-x-0'
-            : 'opacity-0 z-[0] translate-x-[100%]'
-            } fixed top-0 right-0 transition-all duration-500 ease-in-out transform`}
-        >
-          <div className="w-[20.9375rem] flex flex-col gap-[1rem]">
-            <div className="w-full mt-[3.25rem] flex justify-between">
-              <span className="text-[#7066FF] underline">View Full Details</span>
-              <div className='flex gap-[1.4375rem]'>
-                <div className='flex items-center gap-[0.625rem]'>
-                  <EditIcon />
-                  <span>Edit</span>
-                </div>
-                <div className='flex items-center gap-[0.625rem] text-[#FF3333]'>
-                  <DeleteIcon />
-                  <span>Delete</span>
-                </div>
-              </div>
-            </div>
-            <iframe
-              className='rounded-[1rem]'
-              width="335"
-              height="206"
-              src={selectedMovie?.trailer || 'https://craftypixels.com/placeholder-image/335x206/999799/31317d'}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-            <div className=' w-full flex flex-col gap-[1rem] items-center justify-center'>
-              {selectedMovie?.genres?.length > 0 ? (
-                selectedMovie.genres.map((genre) => {
-                  return (
-                    <div className='py-[0.25rem] px-[0.71875rem] flex items-center justify-center gap-[0.4375rem] bg-[#909090] text-[0.625rem] rounded-full'>
-                      <div className='w-[0.3125rem] h-[0.3125rem] bg-[#111111] rounded-full'></div>
-                      <span>{genre.name}</span>
-                    </div>
-                  )
-                })
-              ) : null}
-              <span className='font-bold text-center' style={{ fontSize: getDynamicFontSize(selectedMovie.title) }}>{selectedMovie.title}</span>
-              <div className='flex gap-[1.3125rem]'>
-                <span className='border border-white border-solid px-[5px] py-[2px]'>{selectedMovie.certifications || "NR"}</span>
-                <div className='flex gap-[0.3125rem] items-center'>
-                  <StarLIcon />
-                  <div className='flex gap-[0.1875rem]'>
-                    <div className='flex flex-col leading-[1]'>
-                      <span className='text-[1.25rem] font-bold'>{selectedMovie.vote_average.toFixed(1) || 0}</span>
-                      <span className='text-[0.75rem] text-[#8F8F8F] font-semibold'>{(selectedMovie.vote_count / 1000).toFixed(1) + 'k'}</span>
-                    </div>
-                    <span className='font-semibold text-[#8F8F8F]'>/10</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <OverviewPanel data={selectedMovie} isInfoVisible={isInfoVisible} panelRef={panelRef} setIsInfoVisible={setIsInfoVisible} />
       )}
     </div>
   );
