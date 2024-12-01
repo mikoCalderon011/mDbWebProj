@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// In casts.model.js
 const castsSchema = new Schema({
-   adult: { type: Boolean, required: true, default: false },
-   gender: { type: Number, required: true },
-   id: { type: Number, required: true, unique: true },
-   // mongo_id: { type: Schema.Types.ObjectId, required: true, unique: true, ref: 'Person' },
-   known_for_department: { type: String, required: true },
-   name: { type: String, required: true },
-   original_name: { type: String, required: true, },
+   adult: { type: Boolean, default: false },
+   gender: { type: Number, default: null },
+   id: { type: Number, default: null },
+   known_for_department: { type: String, default: null },
+   name: { type: String, default: null },
+   original_name: { type: String, default: null },
    popularity: { type: Number, default: 0.0 },
    profile_path: { type: String, default: null },
-   cast_id: { type: Number, required: true, unique: true },
-   character: { type: String, required: true },
-   credit_id: { type: String, required: true },
-   order: { type: Number, required: true }
-});
+   cast_id: { type: Number, default: null },
+   character: { type: String, default: null },
+   credit_id: { type: String, default: null },
+   order: { type: Number, default: null }
+}, { strict: false });
+
 
 module.exports = castsSchema;

@@ -11,10 +11,19 @@ const videoSchema = require('./videos.model');
 const videosSchema = require('./videos.model');
 
 const movieSchema = new Schema({
-   adult: { type: Boolean, default: null },
+   adult: { type: String },
    backdrop_path: { type: String, default: null },
-   budget: { type: Number, required: true },
-   credits: { cast: [castSchema], crew: [crewSchema] },
+   budget: { type: Number },
+   credits: { 
+      cast: { 
+        type: [castSchema], 
+        default: [] 
+      }, 
+      crew: { 
+        type: [crewSchema], 
+        default: [] 
+      } 
+    },
    genres: [genresSchema],
    homepage: { type: String },
    images: { backdrops: [imageSchema], posters: [imageSchema], logos: [imageSchema] },
@@ -27,18 +36,21 @@ const movieSchema = new Schema({
    overview: { type: String, required: true },
    popularity: { type: Number, default: 0 },
    poster_path: { type: String },
-   release_date: { type: Date, required: true },
+   release_date: { type: Date },
    release_dates: releaseDatesSchema,
    // recommendations: recommendationSchema,
-   revenue: { type: Number, required: true },
-   runtime: { type: Number, required: true },
+   revenue: { type: Number },
+   runtime: { type: Number },
    status: { type: String },
-   tagline: { type: String, required: true },
-   title: { type: String, required: true },
-   video: { type: Boolean },
+   tagline: { type: String },
+   title: { type: String },
+   video: { type: String },
    videos: [videosSchema],
    vote_average: { type: Number, default: 0 },
    vote_count: { type: Number, default: 0 },
+}, { 
+   // Add this to ensure no unexpected fields are saved
+   strict: true 
 });
 
 module.exports = mongoose.model("Movies", movieSchema)

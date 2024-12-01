@@ -58,7 +58,7 @@ const AdminMovie = () => {
 
           return {
             _id: movie._id,
-            title: movie.title,
+            title: movie.title || movie.original_title,
             overview: movie.overview,
             trailer: getTrailerUrl(movie?.videos),
             genres: movie.genres.map((genre) => genre.name).slice(0, 3),
@@ -116,63 +116,67 @@ const AdminMovie = () => {
 
   console.log(movieList);
 
-  return (
-    <div className="w-[55.75rem] flex flex-col gap-[1.4375rem]">
-      <div className="w-full flex gap-[11.71875rem] items-center">
-        <div className="flex gap-[2.25rem] items-center">
-          <span className="text-[2.5rem] font-bold">Movies</span>
-          <SearchFilter />
-        </div>
-        <NavLink 
-          to="create" 
-          className="w-[9.25rem] h-[3.0625rem] flex items-center justify-center gap-[0.625rem] bg-[#CC511D] rounded-full"
-        >
-          <AddIcon />
-          <span className="text-[0.875rem]">Add Movie</span>
-        </NavLink>
-      </div>
-      {movieList.length > 0
-        ? movieList.map((card) => (
-          <div
-            key={card._id}
-            className="w-[13.1875rem] h-[16.4375rem] flex items-center justify-center rounded-[1rem] bg-cover bg-center relative"
-            style={{
-              backgroundImage: card._id
-                ? `url(${LOCALHOST}/images/${card.backdrop_path})`
-                : `url(https://placehold.co/211x263/png)`,
-            }}
+  if (movieList) {
+    return (
+      <div className="w-[55.75rem] flex flex-col gap-[1.4375rem]">
+        <div className="w-full flex gap-[11.71875rem] items-center">
+          <div className="flex gap-[2.25rem] items-center">
+            <span className="text-[2.5rem] font-bold">Movies</span>
+            <SearchFilter />
+          </div>
+          <NavLink
+            to="create"
+            className="w-[9.25rem] h-[3.0625rem] flex items-center justify-center gap-[0.625rem] bg-[#CC511D] rounded-full"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF] to-black rounded-[1rem] opacity-70"></div>
-            <div className="w-[10.9375rem] h-[14.1875rem] flex flex-col justify-between relative">
-              <div className="w-[1.75rem] h-[1.75rem] rounded-full bg-[#D9D9D9] flex items-center justify-center ml-auto">
-                <TripleDotIcon />
-              </div>
-              <div className="flex flex-col">
-                <span className=" self-start py-[0.25rem] px-[0.71875rem] bg-[#909090] text-[0.625rem] rounded-full">
-                  {card?.genres[0]}
-                </span>
-                <span className="w-[7.3125rem] font-semibold text-[1rem] line-clamp-1">{card.title}</span>
-                <div className="w-full flex gap-[0.625rem] items-center">
-                  <span className="w-[7.3125rem] font-roboto text-[0.75rem] text-[#999999] line-clamp-4">
-                    {card.overview}
-                  </span>
-                  <button
-                    onClick={() => handleViewInfo(card)}
-                    className="w-[3rem] h-[3rem] flex items-center justify-center rounded-full bg-[#D9D9D9]"
-                  >
-                    <ViewIcon />
-                  </button>
+            <AddIcon />
+            <span className="text-[0.875rem]">Add Movie</span>
+          </NavLink>
+        </div>
+        <div className='flex gap-[1rem] flex-wrap'>
+          {movieList.length > 0
+            ? movieList.map((card) => (
+              <div
+                key={card._id}
+                className="w-[13.1875rem] h-[16.4375rem] flex items-center justify-center rounded-[1rem] bg-cover bg-center relative"
+                style={{
+                  backgroundImage: card._id
+                    ? `url(${LOCALHOST}/images/${card.backdrop_path})`
+                    : `url(https://placehold.co/211x263/png)`,
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF] to-black rounded-[1rem] opacity-70"></div>
+                <div className="w-[10.9375rem] h-[14.1875rem] flex flex-col justify-between relative">
+                  <div className="w-[1.75rem] h-[1.75rem] rounded-full bg-[#D9D9D9] flex items-center justify-center ml-auto">
+                    <TripleDotIcon />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className=" self-start py-[0.25rem] px-[0.71875rem] bg-[#909090] text-[0.625rem] rounded-full">
+                      {card?.genres[0]}
+                    </span>
+                    <span className="w-[7.3125rem] font-semibold text-[1rem] line-clamp-1">{card.title}</span>
+                    <div className="w-full flex gap-[0.625rem] items-center">
+                      <span className="w-[7.3125rem] font-roboto text-[0.75rem] text-[#999999] line-clamp-4">
+                        {card.overview}
+                      </span>
+                      <button
+                        onClick={() => handleViewInfo(card)}
+                        className="w-[3rem] h-[3rem] flex items-center justify-center rounded-full bg-[#D9D9D9]"
+                      >
+                        <ViewIcon />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))
-        : null}
-      {selectedMovie && (
-        <OverviewPanel data={selectedMovie} isInfoVisible={isInfoVisible} panelRef={panelRef} setIsInfoVisible={setIsInfoVisible} />
-      )}
-    </div>
-  );
+            ))
+            : null}
+        </div>
+        {selectedMovie && (
+          <OverviewPanel data={selectedMovie} isInfoVisible={isInfoVisible} panelRef={panelRef} setIsInfoVisible={setIsInfoVisible} />
+        )}
+      </div>
+    );
+  }
 };
 
 export default AdminMovie;

@@ -6,13 +6,22 @@ import TvContentCheck from '../../components/Admin/CreateMovie/TvContentCheck';
 import MovieContentCheck from '../../components/Admin/CreateMovie/MovieContentCheck';
 import AdditionalDetails from '../../components/Admin/CreateMovie/AdditionalDetails';
 import VerifyAndSave from '../../components/Admin/CreateMovie/VerifyAndSave';
+import { createMovie } from '../../api/api';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
    step: 1,
    movieDetails: {
-      original_name: '',
-      movie_overview: '',
+      original_title: '',
+      overview: '',
       imdb_id: '',
+      adult: 'No',
+      video: 'No',
+      tagline: '',
+      runtime: '',
+      budget: '',
+      revenue: '',
+      webpage: '',
    },
    translation: {
       detectedLang: '',
@@ -49,11 +58,12 @@ const formReducer = (state, action) => {
 
 const CreateMovie = () => {
    const [state, dispatch] = useReducer(formReducer, initialState);
+   const navigate = useNavigate();
 
    const handleNext = () => {
       if (state.step === 1) {
          const lngDetector = new LanguageDetect(); // Initialize the detector
-         const detectedLang = lngDetector.detect(state.movieDetails.movie_overview, 2)[0][0]; // Get the language code
+         const detectedLang = lngDetector.detect(state.movieDetails.overview, 2)[0][0]; // Get the language code
 
          console.log(detectedLang);
 
@@ -72,8 +82,15 @@ const CreateMovie = () => {
 
    const handlePrev = () => dispatch({ type: 'PREV_STEP' });
 
-   const handleSubmit = () => {
-      console.log('Submitting movie details:', state.movieDetails);
+   const handleSubmit = async () => {
+      try {
+         const createdMovie = await createMovie(state.movieDetails);
+         console.log('Created Movie:', createdMovie);
+         navigate('/admin/movie');
+      }
+      catch (error) {
+         console.error('Failed to create movie:', error);
+      }
    };
 
    const renderStep = () => {
@@ -93,23 +110,28 @@ const CreateMovie = () => {
             );
          case 3:
             return (
-               <TvContentCheck 
+               <TvContentCheck
                   movieDetails={state.movieDetails}
                />
             );
          case 4:
             return (
-               <MovieContentCheck 
+               <MovieContentCheck
                   movieDetails={state.movieDetails}
                />
             );
          case 5:
             return (
-               <AdditionalDetails />
+               <AdditionalDetails
+                  movieDetails={state.movieDetails}
+                  dispatch={dispatch}
+               />
             );
          case 6:
             return (
-               <VerifyAndSave />
+               <VerifyAndSave
+                  movieDetails={state.movieDetails}
+               />
             );
          default:
             return <h2>Unknown Step</h2>;
@@ -131,7 +153,7 @@ const CreateMovie = () => {
             {state.step < 6 && (
                <button
                   className={`h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem] 
-      ${state.step === 2 && !state.translation.isValid ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
+                  ${state.step === 2 && !state.translation.isValid ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
                   onClick={handleNext}
                   disabled={state.step === 2 && !state.translation.isValid}
                >

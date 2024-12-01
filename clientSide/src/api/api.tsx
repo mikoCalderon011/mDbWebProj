@@ -346,6 +346,17 @@ export const axiosPrivate = axios.create({
    withCredentials: true
 });
 
+export const createMovie = async (data) => {
+   try {
+      const response = await axiosPrivate.post('/movie', data); 
+      console.log('Movie created successfully:', response.data);
+      return response.data; // Return response if needed
+   } 
+   catch (error) {
+      console.error('Error creating movie:', error.response?.data || error.message);
+   }
+};
+
 export const fetchMyData = async (type) => {
    try {
       const response = await axiosPrivate({

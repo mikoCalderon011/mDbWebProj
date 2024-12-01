@@ -5,7 +5,7 @@ import { fetchSearchTVWithCredits } from '../../../api/api'
 // CURRENTLY ONLY ABLE TO SCAN THE TMDB TV CONTENTS
 
 const TvContentCheck = ({ movieDetails }) => {
-  const query = movieDetails?.original_name;
+  const query = movieDetails?.original_title;
   const [duplicateContent, setDuplicateContent] = useState();
 
   const { data, isLoading, isError, isSuccess } = useQuery({

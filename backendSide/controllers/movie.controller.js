@@ -52,7 +52,7 @@ exports.search_movie = asyncHandler(async (query) => {
 
 /* Create a movie */
 exports.create_movie = asyncHandler(async (req, res, next) => {
-   const requiredFields = ["original_title", "overview", "tagline", "runtime", "budget", "revenue"];
+   const requiredFields = ["original_title", "overview"];
    const missingFields = requiredFields.filter(field => !req.body[field]);
 
    if (missingFields.length > 0) {
@@ -60,37 +60,58 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
    }
 
    const movie = new Movie({
-      adult: null,
+      adult: req.body.adult,
       backdrop_path: null,
-      budget: req.body.budget,
+      budget: req.body.budget || 0,
+      credits: {
+         cast: [], // Explicitly set to empty array
+         crew: []  // Explicitly set to empty array
+      },
       genres: [],
-      homepage: null,
+      homepage: req.body.webpage || '',
+      images: { backdrops: [], posters: [], logos: [] },
       _id: new mongoose.Types.ObjectId(),
       imdb_id: null,
+      external_ids: { 
+         imdb_id: null,
+         wikidata_id: null,
+         facebook_id: null,
+         instagram_id: null,
+         twitter_id: null
+      },
+      media_type: 'movie',
       origin_country: [],
       original_language: null,
       original_title: req.body.original_title,
       overview: req.body.overview,
       popularity: null,
-      release_date: req.body.release_date,
-      revenue: req.body.revenue,
-      runtime: req.body.runtime,
+      poster_path: null,
+      release_date: null,
+      release_dates: null,
+      revenue: req.body.revenue || 0,
+      runtime: req.body.runtime || 0,
       status: null,
-      tagline: req.body.tagline,
-      video: null,
-      vote_average: null,
-      vote_count: null
+      tagline: req.body.tagline || '',
+      video: req.body.video || '',
+      videos: [],
+      vote_average: 0,
+      vote_count: 0
    });
-
+   
    try {
+      // Add extensive logging
+      console.log('Movie Object Before Save:', JSON.stringify(movie, null, 2));
+      
       await movie.save();
       return res.status(200).json({
          message: "Movie, " + req.body.original_title + ", has been created",
       });
    }
    catch (error) {
+      console.error('Full Error Object:', JSON.stringify(error, null, 2));
       return res.status(500).json({
-         error: error.message
+         error: error.message,
+         errorDetails: error
       });
    }
 });
