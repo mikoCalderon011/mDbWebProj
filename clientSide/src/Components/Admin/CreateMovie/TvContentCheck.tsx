@@ -43,17 +43,17 @@ const TvContentCheck = ({ movieDetails }) => {
               : 'No duplicate TV content found. You may proceed :)'}
           </span>
         )}
-        <div className='w-full flex flex-wrap mt-[0.5625rem]'>
+        <div className='w-full flex flex-wrap gap-x-[3.75rem] gap-y-[0.5625rem]'>
           {duplicateContent.map((tvContent) => {
             return (
               <div
                 key={tvContent.id}
-                className='w-[23.9375rem] h-[7.5rem] flex items-center gap-[1.5625rem] text-[0.875rem] mb-[1rem]'
+                className='w-[23.9375rem] h-[7.5rem] flex items-center gap-[1.5625rem] text-[0.875rem] mb-[1rem] overflow-auto scrollbar-none'
               >
                 <img
                   className='w-[5rem] h-full'
                   src={`https://image.tmdb.org/t/p/original${tvContent.poster_path}`}
-                  alt=""
+                  alt={tvContent.name}
                 />
                 <div className='flex flex-col gap-[0.75rem]'>
                   <span className='text-[#9C4BFF] font-bold underline'>{tvContent.name}</span>
