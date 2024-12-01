@@ -303,8 +303,8 @@ export const fetchSearchTVWithCredits = async (query) => {
          response.data.results = resultsWithCredits;
       }
 
-      return response.data; 
-   } 
+      return response.data;
+   }
    catch (error) {
       console.log('Error during fetching of data', error);
    }
@@ -332,7 +332,7 @@ export const fetchSearchMovieWithCredits = async (query) => {
          response.data.results = resultsWithCredits;
       }
       return response.data;
-   } 
+   }
    catch (error) {
       console.log('Error during fetching of data', error);
    }
@@ -345,17 +345,6 @@ export const axiosPrivate = axios.create({
    headers: { 'Content-Type': 'application/json' },
    withCredentials: true
 });
-
-export const createMovie = async (data) => {
-   try {
-      const response = await axiosPrivate.post('/movie', data); 
-      console.log('Movie created successfully:', response.data);
-      return response.data; // Return response if needed
-   } 
-   catch (error) {
-      console.error('Error creating movie:', error.response?.data || error.message);
-   }
-};
 
 export const fetchMyData = async (type) => {
    try {
@@ -394,3 +383,25 @@ export const getMyMovieDataApi = async (type, movieId) => {
       console.log('Error during fetching of data', error);
    }
 }
+
+export const createMovie = async (data) => {
+   try {
+      const response = await axiosPrivate.post('/movie', data);
+      console.log('Movie created successfully:', response.data);
+      return response.data; // Return response if needed
+   }
+   catch (error) {
+      console.error('Error creating movie:', error.response?.data || error.message);
+   }
+};
+
+export const deleteMovie = async (id) => {
+   try {
+      const response = await axiosPrivate.delete(`/movie/${id}`);
+      return response.data; 
+   } 
+   catch (error) {
+      console.error('Error deleting movie:', error.response?.data || error.message);
+      throw error;
+   }
+};

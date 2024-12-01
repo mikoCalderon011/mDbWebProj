@@ -50,7 +50,7 @@ exports.search_movie = asyncHandler(async (query) => {
    }
 });
 
-/* Create a movie */
+/* Create a movie | will be revised */
 exports.create_movie = asyncHandler(async (req, res, next) => {
    const requiredFields = ["original_title", "overview"];
    const missingFields = requiredFields.filter(field => !req.body[field]);
@@ -229,6 +229,23 @@ exports.add_video = asyncHandler(async (req, res, next) => {
       const video = await videos_service.add_video(movieId, req.body);
       return res.status(200).json({ message: "Video added successfully", video });
    } 
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
+/* Delete a movie, need more revisions later on */
+exports.delete_movie = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const movie = await Movie.findByIdAndDelete(movieId);
+
+      if (!movie) {
+         return res.status(404).json({ message: "Movie not found" });
+      }
+
+      return res.status(200).json({ message: "Movie has been deleted", movie });
+   }
    catch (error) {
       return res.status(500).json({ message: error.message });
    }

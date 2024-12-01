@@ -3,6 +3,7 @@ const movie_controller = require('../controllers/movie.controller');
 const upload = require('../middleware/imageUpload');
 const router = express.Router();
 
+/* GET request movie */
 router.get('/', movie_controller.get_movies);
 
 router.get('/:movieId', movie_controller.get_movie)
@@ -29,5 +30,8 @@ router.post('/:movieId/posters', upload.single('poster'), movie_controller.add_p
 router.post('/:movieId/logos', upload.single('logo'), movie_controller.add_logo);
 
 router.post('/:movieId/videos', movie_controller.add_video);
+
+/* DELETE request movie */
+router.delete('/:movieId', movie_controller.delete_movie);
 
 module.exports = router;

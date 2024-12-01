@@ -85,7 +85,7 @@ const CreateMovie = () => {
    const handleSubmit = async () => {
       try {
          const createdMovie = await createMovie(state.movieDetails);
-         console.log('Created Movie:', createdMovie);
+         alert('Movie successfully created!');
          navigate('/admin/movie');
       }
       catch (error) {

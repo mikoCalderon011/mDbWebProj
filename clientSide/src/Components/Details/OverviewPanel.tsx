@@ -4,10 +4,9 @@ import DeleteIcon from '../../assets/Icons/Admin/DeleteIcon';
 import StarLIcon from '../../assets/Icons/StarLIcon';
 import Divider from './Divider';
 import { FacebookIcon, HomepageIcon, IMDbIcon, InstagramIcon, TwitterIcon, WikiDataIcon } from '../../assets/Icons/LinkIcons';
+import { deleteMovie } from '../../api/api';
 
-const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible }) => {
-   console.log(data)
-
+const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, movies, setMovies }) => {
    useEffect(() => {
       const handleClickOutside = (event) => {
          if (panelRef.current && !panelRef.current.contains(event.target)) {
@@ -37,6 +36,22 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible }) => {
       return '2rem'; // Default larger font size
    };
 
+   const handleDeleteMovie = async (id) => {
+      const isConfirmed = window.confirm("Are you sure you want to delete this movie?");
+
+      if (isConfirmed) {
+         try {
+            await deleteMovie(id);
+            alert("Movie has been deleted successfully.");
+            setMovies(movies.filter((movie) => movie._id !== id));
+         }
+         catch (error) {
+            console.error("Error deleting the movie:", error);
+            alert("Failed to delete the movie. Please try again.");
+         }
+      }
+   }
+
    return (
       <>
          <div
@@ -58,10 +73,14 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible }) => {
                         <EditIcon />
                         <span>Edit</span>
                      </div>
-                     <div className='flex items-center gap-[0.625rem] text-[#FF3333]'>
+                     <div
+                        onClick={() => handleDeleteMovie(data._id)}
+                        className="flex items-center gap-[0.625rem] text-[#FF3333] cursor-pointer hover:brightness-125 transition"
+                     >
                         <DeleteIcon />
                         <span>Delete</span>
                      </div>
+
                   </div>
                </div>
                <iframe

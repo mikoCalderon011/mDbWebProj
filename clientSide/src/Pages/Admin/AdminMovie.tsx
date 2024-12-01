@@ -169,10 +169,21 @@ const AdminMovie = () => {
                 </div>
               </div>
             ))
-            : null}
+            : (
+              <div className="text-center mt-4">
+                <p className="text-gray-500 text-lg">No movies found. Add one to get started!</p>
+              </div>
+            )}
         </div>
         {selectedMovie && (
-          <OverviewPanel data={selectedMovie} isInfoVisible={isInfoVisible} panelRef={panelRef} setIsInfoVisible={setIsInfoVisible} />
+          <OverviewPanel
+            data={selectedMovie}
+            isInfoVisible={isInfoVisible}
+            panelRef={panelRef}
+            setIsInfoVisible={setIsInfoVisible}
+            movies={movieList}
+            setMovies={setMovieList}
+          />
         )}
       </div>
     );
