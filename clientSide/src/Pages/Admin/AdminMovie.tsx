@@ -10,6 +10,8 @@ import { NavLink } from 'react-router-dom';
 
 const AdminMovie = () => {
   const [movieList, setMovieList] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isInfoVisible, setIsInfoVisible] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const panelRef = useRef(null);
@@ -99,6 +101,7 @@ const AdminMovie = () => {
         console.log(parsedMovies);
 
         setMovieList(parsedMovies);
+        setFilteredMovies(parsedMovies);
       }
       catch (error) {
         console.error('Error fetching media data:', error);
@@ -107,7 +110,6 @@ const AdminMovie = () => {
 
     fetchMovieList();
   }, []);
-
 
   const handleViewInfo = (movie) => {
     setSelectedMovie(movie);
@@ -122,7 +124,12 @@ const AdminMovie = () => {
         <div className="w-full flex gap-[11.71875rem] items-center">
           <div className="flex gap-[2.25rem] items-center">
             <span className="text-[2.5rem] font-bold">Movies</span>
-            <SearchFilter />
+            <SearchFilter
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              movies={movieList}
+              setFilteredMovies={setFilteredMovies}
+            />
           </div>
           <NavLink
             to="create"
@@ -133,8 +140,8 @@ const AdminMovie = () => {
           </NavLink>
         </div>
         <div className='flex gap-[1rem] flex-wrap'>
-          {movieList.length > 0
-            ? movieList.map((card) => (
+          {filteredMovies.length > 0
+            ? filteredMovies.map((card) => (
               <div
                 key={card._id}
                 className="w-[13.1875rem] h-[16.4375rem] flex items-center justify-center rounded-[1rem] bg-cover bg-center relative"
