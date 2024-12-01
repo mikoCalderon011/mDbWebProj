@@ -6,6 +6,7 @@ import { LOCALHOST } from '../../App';
 import TripleDotIcon from '../../assets/Icons/Admin/TripleDotIcon';
 import ViewIcon from '../../assets/Icons/Admin/ViewIcon';
 import OverviewPanel from '../../components/Details/OverviewPanel';
+import { NavLink } from 'react-router-dom';
 
 const AdminMovie = () => {
   const [movieList, setMovieList] = useState([]);
@@ -122,10 +123,13 @@ const AdminMovie = () => {
           <span className="text-[2.5rem] font-bold">Movies</span>
           <SearchFilter />
         </div>
-        <button className="w-[9.25rem] h-[3.0625rem] flex items-center justify-center gap-[0.625rem] bg-[#CC511D] rounded-full">
+        <NavLink 
+          to="create" 
+          className="w-[9.25rem] h-[3.0625rem] flex items-center justify-center gap-[0.625rem] bg-[#CC511D] rounded-full"
+        >
           <AddIcon />
           <span className="text-[0.875rem]">Add Movie</span>
-        </button>
+        </NavLink>
       </div>
       {movieList.length > 0
         ? movieList.map((card) => (
