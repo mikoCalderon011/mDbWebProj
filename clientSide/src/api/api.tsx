@@ -280,6 +280,64 @@ export const fetchMultipleVideosData = async (keys) => {
    }
 };
 
+export const fetchSearchTVWithCredits = async (query) => {
+   try {
+      // Fetch the TV show details first
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/search/tv?query=${query}&include_adult=false&language=en-US&page=1`
+      });
+
+      if (response.data.results && response.data.results.length > 0) {
+         const resultsWithCredits = await Promise.all(
+            response.data.results.map(async (tvShow) => {
+               const tvShowId = tvShow.id; // Extract the tv_show_id
+
+               const creditsResponse = await apiClient({
+                  url: `https://api.themoviedb.org/3/tv/${tvShowId}/credits?language=en-US`
+               });
+
+               tvShow.credits = creditsResponse.data;
+               return tvShow;
+            })
+         );
+         response.data.results = resultsWithCredits;
+      }
+
+      return response.data; 
+   } 
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+};
+
+export const fetchSearchMovieWithCredits = async (query) => {
+   try {
+      const response = await apiClient({
+         url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`
+      });
+
+      if (response.data.results && response.data.results.length > 0) {
+         const resultsWithCredits = await Promise.all(
+            response.data.results.map(async (movie) => {
+               const movieId = movie.id; // Extract the movie_id
+
+               const creditsResponse = await apiClient({
+                  url: `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`
+               });
+
+               movie.credits = creditsResponse.data;
+               return movie;
+            })
+         );
+         response.data.results = resultsWithCredits;
+      }
+      return response.data;
+   } 
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+};
+
 // My API
 
 export const axiosPrivate = axios.create({
@@ -288,7 +346,7 @@ export const axiosPrivate = axios.create({
    withCredentials: true
 });
 
-export const fetchMyData= async (type) =>{
+export const fetchMyData = async (type) => {
    try {
       const response = await axiosPrivate({
          url: `http://localhost:3000/${type}/`
@@ -312,7 +370,7 @@ export const getMyMovieDataApi = async (type, movieId) => {
       })
 
       const allResponseData = {
-         ...response.data, 
+         ...response.data,
          movie: {
             ...response.data.movie,
             recommendations: responseTwo.data.recommendations

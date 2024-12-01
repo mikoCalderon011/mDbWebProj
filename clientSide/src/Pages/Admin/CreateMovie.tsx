@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import langDetect from 'langdetect'
+import LanguageDetect from 'languagedetect';
 import AddMovieDetails from '../../components/Admin/CreateMovie/AddMovieDetails';
 import TranslationCheck from '../../components/Admin/CreateMovie/TranslationCheck';
 import TvContentCheck from '../../components/Admin/CreateMovie/TvContentCheck';
@@ -15,8 +15,8 @@ const initialState = {
       imdb_id: '',
    },
    translation: {
-      detectedLang: '',  
-      isValid: false,    
+      detectedLang: '',
+      isValid: false,
    },
 };
 
@@ -32,6 +32,16 @@ const formReducer = (state, action) => {
             ...state,
             movieDetails: { ...state.movieDetails, ...action.payload },
          };
+      case 'SET_TRANSLATION':
+         return {
+            ...state,
+            translation: { ...state.translation, detectedLang: action.payload },
+         };
+      case 'SET_TRANSLATION_STATUS':
+         return {
+            ...state,
+            translation: { ...state.translation, isValid: action.payload },
+         };
       default:
          throw new Error(`Unhandled action type: ${action.type}`);
    }
@@ -42,20 +52,24 @@ const CreateMovie = () => {
 
    const handleNext = () => {
       if (state.step === 1) {
-         const detectedLang = langDetect.detectOne(state.movieDetails.movie_overview);
+         const lngDetector = new LanguageDetect(); // Initialize the detector
+         const detectedLang = lngDetector.detect(state.movieDetails.movie_overview, 2)[0][0]; // Get the language code
+
+         console.log(detectedLang);
 
          dispatch({ type: 'SET_TRANSLATION', payload: detectedLang });
 
-         if (detectedLang !== 'en') {
+         if (detectedLang !== 'english') {
             dispatch({ type: 'SET_TRANSLATION_STATUS', payload: false });
-            return; 
-         } 
+         }
          else {
+            console.log('wassup');
             dispatch({ type: 'SET_TRANSLATION_STATUS', payload: true });
          }
       }
-      dispatch({ type: 'NEXT_STEP' })
+      dispatch({ type: 'NEXT_STEP' });
    };
+
    const handlePrev = () => dispatch({ type: 'PREV_STEP' });
 
    const handleSubmit = () => {
@@ -73,15 +87,21 @@ const CreateMovie = () => {
             );
          case 2:
             return (
-               <TranslationCheck />
+               <TranslationCheck
+                  translation={state.translation}
+               />
             );
          case 3:
             return (
-               <TvContentCheck />
+               <TvContentCheck 
+                  movieDetails={state.movieDetails}
+               />
             );
          case 4:
             return (
-               <MovieContentCheck />
+               <MovieContentCheck 
+                  movieDetails={state.movieDetails}
+               />
             );
          case 5:
             return (
@@ -110,12 +130,15 @@ const CreateMovie = () => {
             )}
             {state.step < 6 && (
                <button
-                  className='h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem]'
+                  className={`h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem] 
+      ${state.step === 2 && !state.translation.isValid ? 'opacity-50 cursor-not-allowed' : 'opacity-100'}`}
                   onClick={handleNext}
+                  disabled={state.step === 2 && !state.translation.isValid}
                >
                   Next
                </button>
             )}
+
             {state.step === 6 && (
                <button
                   className='h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem]'
