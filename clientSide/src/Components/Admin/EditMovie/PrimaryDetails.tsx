@@ -102,9 +102,13 @@ const PrimaryDetails = ({ movieData }) => {
         </div>
         <div className='w-[51.6875rem] flex gap-[0.75rem]'>
           <OriginalTitle
-
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
           />
-          <TranslatedTitle />
+          <TranslatedTitle
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
         </div>
         <TranslatedOverview />
         <div className='w-[51.6875rem] flex gap-[0.75rem]'>

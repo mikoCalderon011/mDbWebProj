@@ -1,6 +1,6 @@
 const Movie = require('../models/movies.model');
 const asyncHandler = require('express-async-handler');
-const { validate_language } = require('./tmdb.api');
+const { validate_language, validate_country } = require('./tmdb.api');
 
 exports.get_movie = asyncHandler(async (movieId) => {
    const movie = await Movie.findById(movieId).exec();
@@ -17,6 +17,9 @@ exports.edit_primary_details = asyncHandler(async (movieId, body) => {
 
    const primaryDetails = {
       original_language: body.original_language,
+      origin_country: body.origin_country,
+      original_title: body.original_title,
+      title: body.title
    };
 
    await movie.updateOne({ $set: primaryDetails });

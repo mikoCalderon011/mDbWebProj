@@ -1,7 +1,9 @@
 import React from 'react'
 
-const OriginalTitle = () => {
-
+const OriginalTitle = ({ primaryDetails, setPrimaryDetails }) => {
+  const handleChange = (e) => {
+    setPrimaryDetails({ ...primaryDetails, original_title: e.target.value })
+  }
   
   return (
     <div className='w-[25.5rem] flex flex-col gap-[0.5625rem] font-roboto'>
@@ -16,6 +18,8 @@ const OriginalTitle = () => {
             name="original_title"
             placeholder="Enter the original name of the movie..."
             type="text"
+            value={primaryDetails.original_title}
+            onChange={handleChange}
           />
         </div>
       </div>

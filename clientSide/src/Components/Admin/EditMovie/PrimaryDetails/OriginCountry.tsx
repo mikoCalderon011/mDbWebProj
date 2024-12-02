@@ -5,6 +5,7 @@ const OriginCountry = ({ primaryDetails, setPrimaryDetails, countries, filteredC
       const value = e.target.value;
       setInputValue(value);
 
+      // Filter countries based on the input value
       const filtered = countries.filter(country =>
          country.english_name.toLowerCase().includes(value.toLowerCase())
       );
@@ -12,6 +13,7 @@ const OriginCountry = ({ primaryDetails, setPrimaryDetails, countries, filteredC
    };
 
    const handleSelectCountry = (country) => {
+      // Only add the country if it's not already in the selected countries list
       if (!primaryDetails.origin_country.includes(country.iso_3166_1)) {
          setPrimaryDetails({
             ...primaryDetails,
@@ -19,6 +21,7 @@ const OriginCountry = ({ primaryDetails, setPrimaryDetails, countries, filteredC
          });
       }
 
+      // Clear input and filtered countries after selection
       setInputValue('');
       setFilteredCountries([]);
    };
@@ -58,6 +61,7 @@ const OriginCountry = ({ primaryDetails, setPrimaryDetails, countries, filteredC
                   className="flex-grow bg-transparent text-white border-none outline-none px-2 text-[.875rem]"
                />
             </div>
+
             {filteredCountries.length > 0 && (
                <div className="absolute top-[100%] left-0 w-full min-h-[200px] max-h-[300px] overflow-y-auto bg-black text-white border-[1px] border-[#CC511D] rounded-sm z-10">
                   {filteredCountries.map((country) => (

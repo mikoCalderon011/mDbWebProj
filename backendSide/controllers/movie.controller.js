@@ -118,18 +118,6 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
    }
 });
 
-/* Edit a movie's primary details */
-exports.edit_primary_details = asyncHandler(async (req, res, next) => {
-   const { movieId } = req.params;
-   try {
-      const primary_details = await movies_service.edit_primary_details(movieId, req.body);
-      return res.status(200).json({ message: "Primary details edited successfully", primary_details });
-   }
-   catch (error) {
-      return res.status(400).json({ message: error.message });
-   }
-});
-
 /* Add release date */
 exports.add_release_date = asyncHandler(async (req, res, next) => {
    const { movieId } = req.params;
@@ -257,5 +245,17 @@ exports.delete_movie = asyncHandler(async (req, res, next) => {
    }
    catch (error) {
       return res.status(500).json({ message: error.message });
+   }
+});
+
+/* Edit a movie's primary details */
+exports.edit_primary_details = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const primary_details = await movies_service.edit_primary_details(movieId, req.body);
+      return res.status(200).json({ message: "Primary details edited successfully", primary_details });
+   }
+   catch (error) {
+      return res.status(400).json({ message: error.message });
    }
 });
