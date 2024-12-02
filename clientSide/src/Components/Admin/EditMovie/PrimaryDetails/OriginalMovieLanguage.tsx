@@ -7,8 +7,6 @@ const OriginalMovieLanguage = ({ primaryDetails, setPrimaryDetails, languages })
       setPrimaryDetails({ ...primaryDetails, original_language: iso_639_1 });
    };
 
-   console.log(primaryDetails)
-
    return (
       <div className="w-[22rem] flex flex-col gap-[0.5625rem] font-roboto">
          <label htmlFor="original_language" className="text-[.875rem] font-bold">

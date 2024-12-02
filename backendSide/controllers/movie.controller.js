@@ -37,7 +37,6 @@ exports.get_movie = asyncHandler(async (req, res, next) => {
 
 /* Search for a specific movie */
 exports.search_movie = asyncHandler(async (query) => {
-
    try {
       const movies = await Movie.find({
          original_title: new RegExp(query, 'i')
@@ -119,9 +118,16 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
    }
 });
 
-/* Edit a movie */
-exports.edit_movie = asyncHandler(async (req, res, next) => {
-
+/* Edit a movie's primary details */
+exports.edit_primary_details = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const primary_details = await movies_service.edit_primary_details(movieId, req.body);
+      return res.status(200).json({ message: "Primary details edited successfully", primary_details });
+   }
+   catch (error) {
+      return res.status(400).json({ message: error.message });
+   }
 });
 
 /* Add release date */

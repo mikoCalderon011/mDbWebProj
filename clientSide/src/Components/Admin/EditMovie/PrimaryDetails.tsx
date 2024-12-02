@@ -32,7 +32,6 @@ const PrimaryDetails = ({ movieData }) => {
   }));
 
   useEffect(() => {
-    // Update primaryDetails when movieData changes
     if (movieData) {
       setPrimaryDetails({
         original_language: movieData.original_language || '',
@@ -63,14 +62,25 @@ const PrimaryDetails = ({ movieData }) => {
     fetchCountryList();
   }, []);
 
-  // Conditionally render only if movieData exists
+  // const handleSubmit = async () => {
+  //   try {
+  //     const createdMovie = await createMovie(state.movieDetails);
+  //     console.log(createdMovie);
+  //     alert('Movie successfully created!');
+  //     navigate('/admin/movie');
+  //   }
+  //   catch (error) {
+  //     console.error('Failed to create movie:', error);
+  //   }
+  // };
+
   if (!movieData) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      <div className='flex flex-col gap-[1.25rem]'>
+      <div className='flex flex-col gap-[1.25rem] pb-[5rem]'>
         <div className="w-[51.6875rem] flex gap-[0.75rem]">
           <OriginalMovieLanguage
             primaryDetails={primaryDetails}
@@ -108,6 +118,13 @@ const PrimaryDetails = ({ movieData }) => {
         </div>
         <Homepage />
         <SpokenLanguage />
+        <div className='w-[51.6875rem] flex gap-[.75rem] justify-end'>
+          <button
+            className='h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem]'
+          >
+            Save
+          </button>
+        </div>
       </div>
     </>
   );
