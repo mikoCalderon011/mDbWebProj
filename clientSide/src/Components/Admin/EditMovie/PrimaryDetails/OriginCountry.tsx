@@ -1,31 +1,36 @@
 import React from 'react'
 
-const OriginCountry = ({ countries, filteredCountries, setFilteredCountries, selectedCountries, setSelectedCountries, inputValue, setInputValue }) => {
+const OriginCountry = ({ primaryDetails, setPrimaryDetails, countries, filteredCountries, setFilteredCountries, inputValue, setInputValue }) => {
    const handleCountryInputChange = (e) => {
       const value = e.target.value;
       setInputValue(value);
-  
-      // Filter countries based on the input value
+
       const filtered = countries.filter(country =>
-        country.english_name.toLowerCase().includes(value.toLowerCase())
+         country.english_name.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCountries(filtered);
-    };
-  
-    const handleSelectCountry = (country) => {
-      // Only add the country if it's not already in the selected countries list
-      if (!selectedCountries.includes(country.english_name)) {
-        setSelectedCountries([...selectedCountries, country.english_name]);
+   };
+
+   const handleSelectCountry = (country) => {
+      if (!primaryDetails.origin_country.includes(country.iso_3166_1)) {
+         setPrimaryDetails({
+            ...primaryDetails,
+            origin_country: [...primaryDetails.origin_country, country.iso_3166_1]
+         });
       }
-  
-      // Clear input and filtered countries after selection
+
       setInputValue('');
       setFilteredCountries([]);
-    };
-  
-    const handleRemoveCountry = (countryToRemove) => {
-      setSelectedCountries(selectedCountries.filter(country => country !== countryToRemove));
-    };
+   };
+
+   const handleRemoveCountry = (countryToRemove) => {
+      setPrimaryDetails({
+         ...primaryDetails,
+         origin_country: primaryDetails.origin_country.filter(country => country !== countryToRemove)
+      });
+   };
+
+   console.log(primaryDetails);
 
    return (
       <div className="w-[28.9375rem] flex flex-col gap-[0.5625rem] font-roboto">
@@ -33,16 +38,15 @@ const OriginCountry = ({ countries, filteredCountries, setFilteredCountries, sel
             Origin Country
          </label>
          <div className="w-full h-full flex bg-transparent border-solid border-[1px] border-white rounded-sm relative">
-            {/* Display selected countries inside the same div */}
-            <div className="flex items-center gap-2 flex-wrap">
-               {selectedCountries.map((country) => (
+            <div className="flex items-center gap-2 flex-wrap p-1">
+               {primaryDetails.origin_country.map((country) => (
                   <div
                      key={country}
-                     className=" bg-[#CC511D] text-white text-[.75rem] py-1 px-2 rounded-[.25rem] cursor-pointer text-wrap"
+                     className="bg-[#CC511D] text-white text-[.75rem] py-1 px-2 rounded-[.25rem] cursor-pointer text-wrap flex items-center"
                      onClick={() => handleRemoveCountry(country)}
                   >
                      {country}
-                     <span className="ml-1">X</span>
+                     <span className="ml-1 font-bold">×</span>
                   </div>
                ))}
                <input
@@ -51,12 +55,11 @@ const OriginCountry = ({ countries, filteredCountries, setFilteredCountries, sel
                   value={inputValue}
                   placeholder='Search...'
                   onChange={handleCountryInputChange}
-                  className=" bg-transparent text-white border-none outline-none px-2 text-[.875rem]"
+                  className="flex-grow bg-transparent text-white border-none outline-none px-2 text-[.875rem]"
                />
             </div>
-
             {filteredCountries.length > 0 && (
-               <div className="absolute top-[100%] left-0 w-full min-h-[200px] overflow-y-auto bg-black text-white border-[1px] border-[#CC511D] rounded-sm">
+               <div className="absolute top-[100%] left-0 w-full min-h-[200px] max-h-[300px] overflow-y-auto bg-black text-white border-[1px] border-[#CC511D] rounded-sm z-10">
                   {filteredCountries.map((country) => (
                      <div
                         key={country.iso_3166_1}

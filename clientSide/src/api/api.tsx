@@ -405,3 +405,14 @@ export const deleteMovie = async (id) => {
       throw error;
    }
 };
+
+export const editPrimaryDetails = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/primary-details`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('Error modifying the movie data:', error.response?.data || error.message);
+      throw error;
+   }
+}

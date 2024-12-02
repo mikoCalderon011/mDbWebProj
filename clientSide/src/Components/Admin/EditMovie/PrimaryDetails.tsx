@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { countryListApi, originalLanguageList } from '../../../api/api';
+import { countryListApi, editPrimaryDetails, originalLanguageList } from '../../../api/api';
 import OriginalMovieLanguage from './PrimaryDetails/OriginalMovieLanguage';
 import OriginCountry from './PrimaryDetails/OriginCountry';
 import OriginalTitle from './PrimaryDetails/OriginalTitle';
@@ -13,6 +13,7 @@ import Revenue from './PrimaryDetails/Revenue';
 import Budget from './PrimaryDetails/Budget';
 import Homepage from './PrimaryDetails/Homepage';
 import SpokenLanguage from './PrimaryDetails/SpokenLanguage';
+import { useParams } from 'react-router-dom';
 
 const PrimaryDetails = ({ movieData }) => {
   const [languages, setLanguages] = useState([]);
@@ -62,17 +63,19 @@ const PrimaryDetails = ({ movieData }) => {
     fetchCountryList();
   }, []);
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     const createdMovie = await createMovie(state.movieDetails);
-  //     console.log(createdMovie);
-  //     alert('Movie successfully created!');
-  //     navigate('/admin/movie');
-  //   }
-  //   catch (error) {
-  //     console.error('Failed to create movie:', error);
-  //   }
-  // };
+  const { movieId } = useParams();
+
+  const handleSubmit = async () => {
+    try {
+      const response = await editPrimaryDetails(movieId, primaryDetails);
+      console.log(response);
+      alert('Primary details have been successfully modified!');
+      navigate('/admin/movie');
+    }
+    catch (error) {
+      console.error('Failed to create movie:', error);
+    }
+  };
 
   if (!movieData) {
     return <div>Loading...</div>;
@@ -88,11 +91,11 @@ const PrimaryDetails = ({ movieData }) => {
             languages={languages}
           />
           <OriginCountry
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
             countries={countries}
             filteredCountries={filteredCountries}
             setFilteredCountries={setFilteredCountries}
-            selectedCountries={selectedCountries}
-            setSelectedCountries={setSelectedCountries}
             inputValue={inputValue}
             setInputValue={setInputValue}
           />
@@ -121,6 +124,7 @@ const PrimaryDetails = ({ movieData }) => {
         <div className='w-[51.6875rem] flex gap-[.75rem] justify-end'>
           <button
             className='h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem]'
+            onClick={handleSubmit}
           >
             Save
           </button>
