@@ -19,7 +19,15 @@ exports.edit_primary_details = asyncHandler(async (movieId, body) => {
       original_language: body.original_language,
       origin_country: body.origin_country,
       original_title: body.original_title,
-      title: body.title
+      title: body.title,
+      overview: body.overview,
+      status: body.status,
+      adult: body.adult,
+      video: body.video,
+      runtime: body.runtime,
+      revenue: body.revenue,
+      budget: body.budget,
+      homepage: body.homepage
    };
 
    await movie.updateOne({ $set: primaryDetails });

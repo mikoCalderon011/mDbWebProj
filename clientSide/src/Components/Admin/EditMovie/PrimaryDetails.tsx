@@ -70,7 +70,6 @@ const PrimaryDetails = ({ movieData }) => {
       const response = await editPrimaryDetails(movieId, primaryDetails);
       console.log(response);
       alert('Primary details have been successfully modified!');
-      navigate('/admin/movie');
     }
     catch (error) {
       console.error('Failed to create movie:', error);
@@ -110,21 +109,48 @@ const PrimaryDetails = ({ movieData }) => {
             setPrimaryDetails={setPrimaryDetails}
           />
         </div>
-        <TranslatedOverview />
+        <TranslatedOverview
+          primaryDetails={primaryDetails}
+          setPrimaryDetails={setPrimaryDetails}
+        />
         <div className='w-[51.6875rem] flex gap-[0.75rem]'>
-          <MovieStatus />
-          <AdultMovie />
+          <MovieStatus
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
+          <AdultMovie
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
         </div>
         <div className='w-[51.6875rem] flex gap-[0.75rem]'>
-          <Video />
-          <Runtime />
+          <Video
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
+          <Runtime
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
         </div>
         <div className='w-[51.6875rem] flex gap-[0.75rem]'>
-          <Revenue />
-          <Budget />
+          <Revenue
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
+          <Budget
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
+          />
         </div>
-        <Homepage />
-        <SpokenLanguage />
+        <Homepage
+          primaryDetails={primaryDetails}
+          setPrimaryDetails={setPrimaryDetails}
+        />
+        {/* <SpokenLanguage
+          primaryDetails={primaryDetails}
+          setPrimaryDetails={setPrimaryDetails}
+        /> */}
         <div className='w-[51.6875rem] flex gap-[.75rem] justify-end'>
           <button
             className='h-[2.125rem] px-[1.5625rem] bg-[#CC511D] text-[0.875rem] font-bold rounded-[.625rem]'

@@ -1,6 +1,10 @@
 import React from 'react'
 
-const TranslatedOverview = () => {
+const TranslatedOverview = ({ primaryDetails, setPrimaryDetails }) => {
+  const handleChange = (e) => {
+    setPrimaryDetails({ ...primaryDetails, overview: e.target.value })
+  }
+
   return (
     <div className="w-[51.6875rem] flex flex-col gap-2 font-roboto">
       <label htmlFor="overview" className="text-[.875rem] font-bold">
@@ -14,6 +18,8 @@ const TranslatedOverview = () => {
             name="overview"
             placeholder="Enter movie overview..."
             minLength={10}
+            value={primaryDetails.overview}
+            onChange={handleChange}
           />
         </div>
       </div>
