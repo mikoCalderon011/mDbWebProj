@@ -15,8 +15,8 @@ const initialState = {
       original_title: '',
       overview: '',
       imdb_id: '',
-      adult: 'No',
-      video: 'No',
+      adult: false,
+      video: false,
       tagline: '',
       runtime: '',
       budget: '',
@@ -85,6 +85,7 @@ const CreateMovie = () => {
    const handleSubmit = async () => {
       try {
          const createdMovie = await createMovie(state.movieDetails);
+         console.log(createdMovie);
          alert('Movie successfully created!');
          navigate('/admin/movie');
       }
@@ -139,7 +140,7 @@ const CreateMovie = () => {
    };
 
    return (
-      <div className='w-[51.6875rem] flex flex-col gap-[1.8125rem]'>
+      <div className='w-[51.6875rem] flex flex-col gap-[1.8125rem] pb-[5rem]'>
          {renderStep()}
          <div className='w-full flex gap-[.75rem] justify-end'>
             {state.step > 1 && (

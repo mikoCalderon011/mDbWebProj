@@ -5,7 +5,9 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
     const { name, value } = e.target;
     dispatch({
       type: 'SET_MOVIE_DETAILS',
-      payload: { [name]: value },
+      payload: {
+        [name]: value === "true" ? true : value === "false" ? false : value,
+      },
     });
   };
 
@@ -25,8 +27,8 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
               value={movieDetails.adult}
               onChange={handleChange}
             >
-              <option className='text-black' value="Yes">Yes</option>
-              <option className='text-black' value="No">No</option>
+              <option className='text-black' value="true">Yes</option>
+              <option className='text-black' value="false">No</option>
             </select>
           </div>
         </div>
@@ -44,8 +46,8 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
               value={movieDetails.video}
               onChange={handleChange}
             >
-              <option className='text-black bg-transparent' value="Yes">Yes</option>
-              <option className='text-black bg-transparent' value="No">No</option>
+              <option className='text-black bg-transparent' value="true">Yes</option>
+              <option className='text-black bg-transparent' value="false">No</option>
             </select>
           </div>
         </div>

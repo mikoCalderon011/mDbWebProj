@@ -59,6 +59,9 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
       return res.status(400).json({ message: `Missing fields: ${missingFields.join(", ")}` });
    }
 
+   console.log(typeof(req.body.adult));
+   console.log(typeof(req.body.video));
+
    const movie = new Movie({
       adult: req.body.adult,
       backdrop_path: null,
@@ -92,7 +95,7 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
       runtime: req.body.runtime || 0,
       status: null,
       tagline: req.body.tagline || '',
-      video: req.body.video || '',
+      video: req.body.video,
       videos: [],
       vote_average: 0,
       vote_count: 0

@@ -11,7 +11,7 @@ const videoSchema = require('./videos.model');
 const videosSchema = require('./videos.model');
 
 const movieSchema = new Schema({
-   adult: { type: String },
+   adult: { type: Boolean, default: false },
    backdrop_path: { type: String, default: null },
    budget: { type: Number },
    credits: { 
@@ -44,7 +44,7 @@ const movieSchema = new Schema({
    status: { type: String },
    tagline: { type: String },
    title: { type: String },
-   video: { type: String },
+   video: { type: Boolean, default: false },
    videos: [videosSchema],
    vote_average: { type: Number, default: 0 },
    vote_count: { type: Number, default: 0 },

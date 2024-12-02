@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 import PrimaryDetails from '../../components/Admin/EditMovie/PrimaryDetails';
 import AlternativeTitles from '../../components/Admin/EditMovie/AlternativeTitles';
@@ -11,12 +11,17 @@ import ProductionInformation from '../../components/Admin/EditMovie/ProductionIn
 import ReleaseInformation from '../../components/Admin/EditMovie/ReleaseInformation';
 import Taglines from '../../components/Admin/EditMovie/Taglines';
 import Videos from '../../components/Admin/EditMovie/Videos';
+import { useParams } from 'react-router-dom';
+import { getMyMovieDataApi } from '../../api/api';
 
 const EditMovie = () => {
    const scrollRef = useHorizontalScroll();
    const [selectedTab, setSelectedTab] = useState('Primary Details');
-   const [activeIndex, setActiveIndex] = useState(0); // To manage animation direction
-   
+   const [activeIndex, setActiveIndex] = useState(0);
+
+   const { movieId } = useParams();
+   const [movieData, setMovieData] = useState({});
+
    const tabContent = [
       { name: 'Primary Details', component: <PrimaryDetails /> },
       { name: 'Alternative Titles', component: <AlternativeTitles /> },
@@ -36,6 +41,24 @@ const EditMovie = () => {
       setSelectedTab(tab.name);
    };
 
+   useEffect(() => {
+      const fetchCountryList = async () => {
+         try {
+            const movieDataResponse = await getMyMovieDataApi('movie', movieId)
+
+            setMovieData(movieDataResponse);
+            setLanguages(languagesResponse || []);
+            setCountries(countriesResponse.results || []);
+         } catch (error) {
+            console.log('Error fetching data:', error);
+         }
+      };
+
+      fetchCountryList();
+   }, [movieId]);
+
+   console.log(movieData);
+
    return (
       <div className="w-[66.1875rem] flex flex-col gap-[1.25rem]">
          <span className="text-[1.5rem] font-bold">
@@ -49,9 +72,8 @@ const EditMovie = () => {
                {tabContent.map((tab, index) => (
                   <div
                      key={tab.name}
-                     className={`h-full flex items-center justify-center px-[1.75rem] rounded-full cursor-pointer ${
-                        selectedTab === tab.name ? 'bg-[#CC511D] text-white' : 'bg-transparent text-white'
-                     }`}
+                     className={`h-full flex items-center justify-center px-[1.75rem] rounded-full cursor-pointer ${selectedTab === tab.name ? 'bg-[#CC511D] text-white' : 'bg-transparent text-white'
+                        }`}
                      onClick={() => handleTabClick(tab, index)}
                   >
                      <span>{tab.name}</span>
