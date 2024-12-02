@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AlternativeTitle = () => {
+const AlternativeTitles = () => {
   return (
     <div>
       AlternativeTitle
@@ -8,4 +8,4 @@ const AlternativeTitle = () => {
   )
 }
 
-export default AlternativeTitle
+export default AlternativeTitles
