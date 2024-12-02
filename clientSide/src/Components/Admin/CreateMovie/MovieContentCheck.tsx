@@ -33,7 +33,7 @@ const MovieContentCheck = ({ movieDetails }) => {
   if (duplicateContent) {
     return (
       <div className='w-full flex flex-col gap-[1.125rem]'>
-        <span className='text-[1.25rem] font-bold'>
+        <span className='text-[1.5rem] font-bold'>
           Movie Content Duplication Alert
         </span>
         {isSuccess && (

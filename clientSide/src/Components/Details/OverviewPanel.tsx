@@ -5,8 +5,9 @@ import StarLIcon from '../../assets/Icons/StarLIcon';
 import Divider from './Divider';
 import { FacebookIcon, HomepageIcon, IMDbIcon, InstagramIcon, TwitterIcon, WikiDataIcon } from '../../assets/Icons/LinkIcons';
 import { deleteMovie } from '../../api/api';
+import { NavLink } from 'react-router-dom';
 
-const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, movies, setMovies }) => {
+const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, filteredMovies, setFilteredMovies }) => {
    useEffect(() => {
       const handleClickOutside = (event) => {
          if (panelRef.current && !panelRef.current.contains(event.target)) {
@@ -43,7 +44,7 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, movies
          try {
             await deleteMovie(id);
             alert("Movie has been deleted successfully.");
-            setMovies(movies.filter((movie) => movie._id !== id));
+            setFilteredMovies(filteredMovies.filter((movie) => movie._id !== id));
          }
          catch (error) {
             console.error("Error deleting the movie:", error);
@@ -69,10 +70,13 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, movies
                <div className="w-full flex justify-between">
                   <span className="text-[#7066FF] underline">View Full Details</span>
                   <div className='flex gap-[1.4375rem]'>
-                     <div className='flex items-center gap-[0.625rem]'>
+                     <NavLink 
+                        to={`${data._id}/edit`} 
+                        className='flex items-center gap-[0.625rem] cursor-pointer hover:brightness-125 transition'
+                     >
                         <EditIcon />
                         <span>Edit</span>
-                     </div>
+                     </NavLink>
                      <div
                         onClick={() => handleDeleteMovie(data._id)}
                         className="flex items-center gap-[0.625rem] text-[#FF3333] cursor-pointer hover:brightness-125 transition"

@@ -188,8 +188,8 @@ const AdminMovie = () => {
             isInfoVisible={isInfoVisible}
             panelRef={panelRef}
             setIsInfoVisible={setIsInfoVisible}
-            movies={movieList}
-            setMovies={setMovieList}
+            filteredMovies={filteredMovies}
+            setFilteredMovies={setFilteredMovies}
           />
         )}
       </div>
