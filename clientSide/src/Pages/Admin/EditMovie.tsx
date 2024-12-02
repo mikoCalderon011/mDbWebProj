@@ -21,9 +21,9 @@ const EditMovie = () => {
 
    const { movieId } = useParams();
    const [movieData, setMovieData] = useState({});
-
+   
    const tabContent = [
-      { name: 'Primary Details', component: <PrimaryDetails /> },
+      { name: 'Primary Details', component: <PrimaryDetails movieData={movieData} setMovieData={setMovieData} /> },
       { name: 'Alternative Titles', component: <AlternativeTitles /> },
       { name: 'Cast', component: <Cast /> },
       { name: 'Crew', component: <Crew /> },
@@ -44,11 +44,9 @@ const EditMovie = () => {
    useEffect(() => {
       const fetchCountryList = async () => {
          try {
-            const movieDataResponse = await getMyMovieDataApi('movie', movieId)
+            const movieDataResponse = await getMyMovieDataApi('movie', movieId);
 
-            setMovieData(movieDataResponse);
-            setLanguages(languagesResponse || []);
-            setCountries(countriesResponse.results || []);
+            setMovieData(movieDataResponse.movie);
          } catch (error) {
             console.log('Error fetching data:', error);
          }
@@ -57,7 +55,7 @@ const EditMovie = () => {
       fetchCountryList();
    }, [movieId]);
 
-   console.log(movieData);
+   // console.log(movieData);
 
    return (
       <div className="w-[66.1875rem] flex flex-col gap-[1.25rem]">

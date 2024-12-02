@@ -1,9 +1,13 @@
 import React from 'react'
 
-const OriginalMovieLanguage = ({ languages, selectedLanguage, setSelectedLanguage }) => {
+const OriginalMovieLanguage = ({ primaryDetails, setPrimaryDetails, languages }) => {
+
    const handleLanguageChange = (event) => {
-      setSelectedLanguage(event.target.value);
-    };
+      const iso_639_1 = languages.find(lang => lang.english_name === event.target.value)?.iso_639_1;
+      setPrimaryDetails({ ...primaryDetails, original_language: iso_639_1 });
+   };
+
+   console.log(primaryDetails)
 
    return (
       <div className="w-[22rem] flex flex-col gap-[0.5625rem] font-roboto">
@@ -14,7 +18,9 @@ const OriginalMovieLanguage = ({ languages, selectedLanguage, setSelectedLanguag
             <select
                id="original_language"
                className="w-full h-full bg-transparent text-[.875rem] border-none outline-none px-2 bg-black text-white border-[1px] border-[#CC511D] rounded-sm"
-               value={selectedLanguage}
+               value={
+                  languages.find(lang => lang.iso_639_1 === primaryDetails?.original_language)?.english_name || ''
+               }
                onChange={handleLanguageChange}
             >
                <option className='bg-black text-white border-solid border-[1px] border-[#CC511D] rounded-sm' value="" disabled>Select a language</option>

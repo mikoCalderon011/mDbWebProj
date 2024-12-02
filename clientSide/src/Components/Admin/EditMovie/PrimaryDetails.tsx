@@ -14,24 +14,38 @@ import Budget from './PrimaryDetails/Budget';
 import Homepage from './PrimaryDetails/Homepage';
 import SpokenLanguage from './PrimaryDetails/SpokenLanguage';
 
-const PrimaryDetails = () => {
+const PrimaryDetails = ({ movieData }) => {
   const [languages, setLanguages] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState('');
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [PrimaryDetails, setPrimaryDetails] = useState({
-    original_language: '',
-    origin_country: [],
-    original_title: '',
-    title: '',
-    overview: '',
-    status: '',
-    adult: false,
-    video: false
-  })
+  const [primaryDetails, setPrimaryDetails] = useState(() => ({
+    original_language: movieData?.original_language || '',
+    origin_country: movieData?.origin_country || [],
+    original_title: movieData?.original_title || '',
+    title: movieData?.title || '',
+    overview: movieData?.overview || '',
+    status: movieData?.status || '',
+    adult: movieData?.adult || false,
+    video: movieData?.video || false
+  }));
 
+  useEffect(() => {
+    // Update primaryDetails when movieData changes
+    if (movieData) {
+      setPrimaryDetails({
+        original_language: movieData.original_language || '',
+        origin_country: movieData.origin_country || [],
+        original_title: movieData.original_title || '',
+        title: movieData.title || '',
+        overview: movieData.overview || '',
+        status: movieData.status || '',
+        adult: movieData.adult || false,
+        video: movieData.video || false
+      });
+    }
+  }, [movieData]);
 
   useEffect(() => {
     const fetchCountryList = async () => {
@@ -42,21 +56,26 @@ const PrimaryDetails = () => {
         setLanguages(languagesResponse || []);
         setCountries(countriesResponse.results || []);
       } catch (error) {
-        console.log('Error fetching data:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
     fetchCountryList();
   }, []);
 
+  // Conditionally render only if movieData exists
+  if (!movieData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className='flex flex-col gap-[1.25rem]'>
         <div className="w-[51.6875rem] flex gap-[0.75rem]">
           <OriginalMovieLanguage
+            primaryDetails={primaryDetails}
+            setPrimaryDetails={setPrimaryDetails}
             languages={languages}
-            selectedLanguage={selectedLanguage}
-            setSelectedLanguage={setSelectedLanguage}
           />
           <OriginCountry
             countries={countries}

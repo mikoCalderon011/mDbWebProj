@@ -49,7 +49,6 @@ const movieSchema = new Schema({
    vote_average: { type: Number, default: 0 },
    vote_count: { type: Number, default: 0 },
 }, { 
-   // Add this to ensure no unexpected fields are saved
    strict: true 
 });
 
