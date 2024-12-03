@@ -21,19 +21,19 @@ const EditMovie = () => {
 
    const { movieId } = useParams();
    const [movieData, setMovieData] = useState({});
-   
+
    const tabContent = [
       { name: 'Primary Details', component: <PrimaryDetails movieData={movieData} setMovieData={setMovieData} /> },
-      { name: 'Alternative Titles', component: <AlternativeTitles /> },
-      { name: 'Cast', component: <Cast /> },
-      { name: 'Crew', component: <Crew /> },
-      { name: 'External Ids', component: <ExternalIds /> },
-      { name: 'Genres', component: <Genres /> },
-      { name: 'Keywords', component: <Keywords /> },
-      { name: 'Production Information', component: <ProductionInformation /> },
-      { name: 'Release Information', component: <ReleaseInformation /> },
-      { name: 'Taglines', component: <Taglines /> },
-      { name: 'Videos', component: <Videos /> },
+      // { name: 'Alternative Titles', component: <AlternativeTitles movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Cast', component: <Cast movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Crew', component: <Crew movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'External Ids', component: <ExternalIds movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Genres', component: <Genres movieData={movieData} setMovieData={setMovieData} /> },
+      // { name: 'Keywords', component: <Keywords movieData={movieData} setMovieData={setMovieData} /> },
+      // { name: 'Production Information', component: <ProductionInformation movieData={movieData} setMovieData={setMovieData} /> },
+      // { name: 'Release Information', component: <ReleaseInformation movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Taglines', component: <Taglines movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Videos', component: <Videos movieData={movieData} setMovieData={setMovieData} /> },
    ];
 
    const handleTabClick = (tab, index) => {
@@ -60,7 +60,7 @@ const EditMovie = () => {
    return (
       <div className="w-[66.1875rem] flex flex-col gap-[1.25rem]">
          <span className="text-[1.5rem] font-bold">
-            Edit Some Movie Title (2024)
+            {movieData.title || movieData.original_title}
          </span>
          <div
             className="w-[51.6875rem] h-[2.375rem] flex items-center border-solid border-[1px] border-[#CC511D] rounded-full text-[.75rem] overflow-x-auto scrollbar-none"

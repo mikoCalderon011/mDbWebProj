@@ -3,7 +3,7 @@ import React from 'react'
 const Taglines = () => {
   return (
     <div>
-      Taglines
+      Taglines 
     </div>
   )
 }

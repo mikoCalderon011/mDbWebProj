@@ -416,3 +416,25 @@ export const editPrimaryDetails = async (id, data) => {
       throw error;
    }
 }
+
+export const addCastMember = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/cast`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('Error adding the cast member:', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const deleteCastMemeber = async (id, castId) => {
+   try {
+      const response = await axiosPrivate.delete(`/movie/${id}/cast/${castId}`);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('Error deleting the cast member:', error.response?.data || error.message);
+      throw error;
+   }
+}

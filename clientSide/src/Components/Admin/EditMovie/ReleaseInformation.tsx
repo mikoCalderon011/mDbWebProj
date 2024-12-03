@@ -3,7 +3,7 @@ import React from 'react'
 const ReleaseInformation = () => {
   return (
     <div>
-      ReleaseInformation
+      ReleaseInformation (Next tym ka nalang)
     </div>
   )
 }

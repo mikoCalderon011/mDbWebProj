@@ -37,4 +37,6 @@ router.patch('/:movieId/primary-details', movie_controller.edit_primary_details)
 /* DELETE request movie */
 router.delete('/:movieId', movie_controller.delete_movie);
 
+router.delete('/:movieId/cast/:castId', movie_controller.delete_cast);
+
 module.exports = router;

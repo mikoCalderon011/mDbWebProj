@@ -3,7 +3,7 @@ import React from 'react'
 const AlternativeTitles = () => {
   return (
     <div>
-      AlternativeTitle
+      AlternativeTitle (Next tym ka nalang)
     </div>
   )
 }

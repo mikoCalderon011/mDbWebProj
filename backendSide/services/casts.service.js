@@ -10,7 +10,7 @@ exports.add_cast = asyncHandler(async (movieId, body) => {
 
    if (!body.character) throw new Error("The 'character' field is empty");
 
-   if (movie.casts?.cast?.some(existingCast => existingCast.id === castData.id && existingCast.character === body.character)) {
+   if (movie.credits?.cast?.some(existingCast => existingCast.id === castData.id && existingCast.character === body.character)) {
       throw new Error("Cast member with this character already exists for this movie.");
    }
 
@@ -28,11 +28,26 @@ exports.add_cast = asyncHandler(async (movieId, body) => {
       order: body.order
    };
 
-   if (!movie.casts) movie.casts = {};
-   if (!movie.casts.cast) movie.casts.cast = [];
+   console.log(cast);
 
-   movie.casts.cast.push(cast);
+   if (!movie.credits) movie.credits = {};
+   if (!movie.credits.cast) movie.credits.cast = [];
+
+   movie.credits.cast.push(cast);
    await movie.save();
 
    return cast;
+});
+
+exports.delete_cast = asyncHandler(async (movieId, castId) => {
+   const movie = await Movie.findById(movieId);
+   if (!movie) throw new Error("Movie not found");
+
+   const castIdInt = parseInt(castId, 10);
+
+   movie.credits.cast = movie.credits.cast.filter(cast => cast.id !== castIdInt);
+
+   await movie.save();
+
+   return movie.credits.cast;
 });

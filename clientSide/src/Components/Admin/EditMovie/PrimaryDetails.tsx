@@ -42,7 +42,11 @@ const PrimaryDetails = ({ movieData }) => {
         overview: movieData.overview || '',
         status: movieData.status || '',
         adult: movieData.adult || false,
-        video: movieData.video || false
+        video: movieData.video || false,
+        runtime: movieData.runtime || '',
+        revenue: movieData.revenue || '',
+        budget: movieData.budget || '',
+        homepage: movieData.homepage || ''
       });
     }
   }, [movieData]);

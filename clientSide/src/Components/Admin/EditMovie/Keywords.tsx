@@ -3,7 +3,7 @@ import React from 'react'
 const Keywords = () => {
   return (
     <div>
-      Keywords
+      Keywords (Next tym ka nalang)
     </div>
   )
 }

@@ -20,9 +20,9 @@ exports.get_movies = asyncHandler(async (req, res, next) => {
          success: true,
          data: movies,
       });
-   } 
+   }
    catch (error) {
-      throw new Error('Unexpected error precedented: ' + error.message); 
+      throw new Error('Unexpected error precedented: ' + error.message);
    }
 });
 
@@ -58,8 +58,8 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
       return res.status(400).json({ message: `Missing fields: ${missingFields.join(", ")}` });
    }
 
-   console.log(typeof(req.body.adult));
-   console.log(typeof(req.body.video));
+   console.log(typeof (req.body.adult));
+   console.log(typeof (req.body.video));
 
    const movie = new Movie({
       adult: req.body.adult,
@@ -74,7 +74,7 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
       images: { backdrops: [], posters: [], logos: [] },
       _id: new mongoose.Types.ObjectId(),
       imdb_id: null,
-      external_ids: { 
+      external_ids: {
          imdb_id: null,
          wikidata_id: null,
          facebook_id: null,
@@ -99,11 +99,11 @@ exports.create_movie = asyncHandler(async (req, res, next) => {
       vote_average: 0,
       vote_count: 0
    });
-   
+
    try {
       // Add extensive logging
       console.log('Movie Object Before Save:', JSON.stringify(movie, null, 2));
-      
+
       await movie.save();
       return res.status(200).json({
          message: "Movie, " + req.body.original_title + ", has been created",
@@ -181,7 +181,7 @@ exports.get_recommendations = asyncHandler(async (req, res, next) => {
    try {
       const recommendations = await recommendations_service.get_recommendations(movieId);
       return res.status(200).json({ message: "Recommendations loaded successfully", recommendations });
-   } 
+   }
    catch (error) {
       return res.status(500).json({ message: error.message });
    }
@@ -192,7 +192,7 @@ exports.add_backdrop = asyncHandler(async (req, res, next) => {
    try {
       const backdrop = await images_service.add_image(movieId, req.file, 'backdrop');
       return res.status(200).json({ message: "Backdrop added successfully", backdrop });
-   } 
+   }
    catch (error) {
       return res.status(500).json({ message: error.message });
    }
@@ -203,7 +203,7 @@ exports.add_poster = asyncHandler(async (req, res, next) => {
    try {
       const poster = await images_service.add_image(movieId, req.file, 'poster');
       return res.status(200).json({ message: "Poster added successfully", poster });
-   } 
+   }
    catch (error) {
       return res.status(500).json({ message: error.message });
    }
@@ -214,7 +214,7 @@ exports.add_logo = asyncHandler(async (req, res, next) => {
    try {
       const logo = await images_service.add_image(movieId, req.file, 'logo');
       return res.status(200).json({ message: "Logo added successfully", logo });
-   } 
+   }
    catch (error) {
       return res.status(500).json({ message: error.message });
    }
@@ -225,7 +225,7 @@ exports.add_video = asyncHandler(async (req, res, next) => {
    try {
       const video = await videos_service.add_video(movieId, req.body);
       return res.status(200).json({ message: "Video added successfully", video });
-   } 
+   }
    catch (error) {
       return res.status(500).json({ message: error.message });
    }
@@ -242,6 +242,18 @@ exports.delete_movie = asyncHandler(async (req, res, next) => {
       }
 
       return res.status(200).json({ message: "Movie has been deleted", movie });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
+exports.delete_cast = asyncHandler(async (req, res, next) => {
+   const { movieId, castId } = req.params;
+
+   try {
+      const delete_cast = await casts_service.delete_cast(movieId, castId);
+      return res.status(200).json({ message: "Cast member has been deleted", delete_cast });
    }
    catch (error) {
       return res.status(500).json({ message: error.message });
