@@ -460,3 +460,15 @@ export const deleteCrewMemeber = async (id, castId) => {
       throw error;
    }
 }
+
+export const changeExternalIds = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/external-ids`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('Error changing the external ids:', error.response?.data || error.message);
+      throw error;
+   }
+}
+

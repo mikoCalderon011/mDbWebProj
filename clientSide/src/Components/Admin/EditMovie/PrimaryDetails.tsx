@@ -71,8 +71,7 @@ const PrimaryDetails = ({ movieData }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await editPrimaryDetails(movieId, primaryDetails);
-      console.log(response);
+      await editPrimaryDetails(movieId, primaryDetails);
       alert('Primary details have been successfully modified!');
     }
     catch (error) {
