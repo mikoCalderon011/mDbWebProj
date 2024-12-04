@@ -260,6 +260,18 @@ exports.delete_cast = asyncHandler(async (req, res, next) => {
    }
 });
 
+exports.delete_crew = asyncHandler(async (req, res, next) => {
+   const { movieId, crewId } = req.params;
+
+   try {
+      const delete_crew = await crews_service.delete_crew(movieId, crewId);
+      return res.status(200).json({ message: "Crew member has been deleted", delete_crew });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
 /* Edit a movie's primary details */
 exports.edit_primary_details = asyncHandler(async (req, res, next) => {
    const { movieId } = req.params;

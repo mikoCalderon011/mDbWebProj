@@ -71,7 +71,6 @@ const Cast = ({ movieData, setMovieData }) => {
     }
   };
 
-
   console.log(castData)
 
   if (castData) {
@@ -137,7 +136,7 @@ const Cast = ({ movieData, setMovieData }) => {
                 </button>
               </div>
               <div className="space-y-4">
-                <SearchBar selectedPerson={selectedPerson} setSelectedPerson={setSelectedPerson} />
+                <SearchBar selectedPerson={selectedPerson} setSelectedPerson={setSelectedPerson} type={'cast'} />
                 <div>
                   <label className="block text-sm font-medium mb-2">Character Name</label>
                   <input

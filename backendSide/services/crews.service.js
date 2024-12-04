@@ -32,11 +32,24 @@ exports.add_crew = asyncHandler(async (movieId, body) => {
 
    console.log(crew)
 
-   if (!movie.casts) movie.casts = {};
-   if (!movie.casts.crew) movie.casts.crew = [];
+   if (!movie.credits) movie.credits = {};
+   if (!movie.credits.crew) movie.credits.crew = [];
 
-   movie.casts.crew.push(crew);
+   movie.credits.crew.push(crew);
    await movie.save();
 
    return crew;
+});
+
+exports.delete_crew = asyncHandler(async (movieId, crewId) => {
+   const movie = await Movie.findById(movieId);
+   if (!movie) throw new Error("Movie not found");
+
+   const crewIdInt = parseInt(crewId, 10);
+
+   movie.credits.crew = movie.credits.crew.filter(crew => crew.id !== crewIdInt);
+
+   await movie.save();
+
+   return movie.credits.crew;
 });

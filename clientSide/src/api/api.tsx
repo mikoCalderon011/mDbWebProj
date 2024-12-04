@@ -438,3 +438,25 @@ export const deleteCastMemeber = async (id, castId) => {
       throw error;
    }
 }
+
+export const addCrewMember = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/crew`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('Error adding the crew member:', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const deleteCrewMemeber = async (id, castId) => {
+   try {
+      const response = await axiosPrivate.delete(`/movie/${id}/crew/${castId}`);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('Error deleting the crew member:', error.response?.data || error.message);
+      throw error;
+   }
+}
