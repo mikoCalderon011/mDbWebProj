@@ -273,7 +273,7 @@ export const fetchMultipleVideosData = async (keys) => {
    try {
       const response = await youtubeApi.get(`?part=snippet,statistics,contentDetails&id=${keys.join(',')}&key=${import.meta.env.VITE_YT_API_ACCESS_KEY}`);
 
-      return response.data.items; // Adjust based on your API response structure
+      return response.data.items; 
    } catch (error) {
       console.error('Error during fetching multiple videos data:', error);
       return [];
@@ -519,6 +519,17 @@ export const setPosterPath = async (id, data) => {
 export const setBackdropPath = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/backdrop-path`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const addVideo = async (id, data) => {
+   try {
+      const response = await axiosPrivate.post(`/movie/${id}/videos`, data);
       return response.data; 
    }
    catch (error) {

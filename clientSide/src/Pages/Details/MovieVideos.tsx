@@ -32,7 +32,7 @@ const MovieVideos = () => {
           return acc;
         }, {});
 
-        // console.log(videoTypeGroup)
+        console.log(videoTypeGroup)
 
         setVideos({
           id: response.id,

@@ -62,7 +62,7 @@ const EditMovie = () => {
    return (
       <div className="w-[66.1875rem] relative flex flex-col gap-[1.25rem]">
          <span className="text-[1.5rem] font-bold">
-            {movieData.title || movieData.original_title}
+            Edit {movieData.title || movieData.original_title}
          </span>
          <div
             className="w-[51.6875rem] h-[2.375rem] flex items-center border-solid border-[1px] border-[#CC511D] rounded-full text-[.75rem] overflow-x-auto scrollbar-none"

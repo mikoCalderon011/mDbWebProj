@@ -176,7 +176,7 @@ const Images = ({ movieData, setMovieData }) => {
               <img
                 src={`http://localhost:3000/images/${image.file_path}`}
                 alt={`${selectedImageType} ${index + 1}`}
-                className={`object-cover`}
+                className={`w-full h-full object-cover`}
               />
             </div>
           )) : `No ${selectedImageType}s has been added. Start adding now!`}

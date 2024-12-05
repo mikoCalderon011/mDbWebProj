@@ -11,7 +11,6 @@ const Cast = ({ movieData, setMovieData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleAddCastMemberModal = () => {
-    console.log(isModalOpen)
     setIsModalOpen(!isModalOpen);
   };
 

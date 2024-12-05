@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ImageIcon from '../../../assets/Icons/Admin/ImageIcon';
 
-const ImageUploadModal = ({ 
-  isModalOpen, 
-  setIsModalOpen, 
-  selectedImageType, 
-  onImageUpload 
+const ImageUploadModal = ({
+  isModalOpen,
+  setIsModalOpen,
+  selectedImageType,
+  onImageUpload
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
@@ -49,7 +49,7 @@ const ImageUploadModal = ({
     setError(null);
 
     if (file && !['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      setError('Invalid file type. Please use JPEG, PNG, or WEBP.');
+      setError('Invalid file type. Please use JPEG or PNG,.');
       return;
     }
 
@@ -61,8 +61,8 @@ const ImageUploadModal = ({
 
       if (selectedImageType !== 'logos') {
         const req = sizeRequirements[selectedImageType];
-        if (width < req.minWidth || height < req.minHeight || 
-            width > req.maxWidth || height > req.maxHeight) {
+        if (width < req.minWidth || height < req.minHeight ||
+          width > req.maxWidth || height > req.maxHeight) {
           setError(`Image dimensions must be between ${req.minWidth}x${req.minHeight} and ${req.maxWidth}x${req.maxHeight}.`);
         }
       }
@@ -114,7 +114,7 @@ const ImageUploadModal = ({
                   ✕
                 </button>
               </div>
-              
+
               <div className="space-y-4">
                 {error && (
                   <div className="bg-red-600 bg-opacity-20 border border-red-600 text-red-300 p-3 rounded-md">
@@ -122,15 +122,15 @@ const ImageUploadModal = ({
                   </div>
                 )}
                 <div className="border-2 border-dashed border-[#444444] rounded-lg p-6 text-center">
-                  <input 
-                    type="file" 
+                  <input
+                    type="file"
                     id="imageUpload"
                     accept="image/jpeg,image/png"
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <label 
-                    htmlFor="imageUpload" 
+                  <label
+                    htmlFor="imageUpload"
                     className="cursor-pointer block"
                   >
                     {selectedFile ? (
@@ -141,9 +141,9 @@ const ImageUploadModal = ({
                             Dimensions: {imageDimensions.width}x{imageDimensions.height} pixels
                           </p>
                         )}
-                        <img 
-                          src={URL.createObjectURL(selectedFile)} 
-                          alt="Preview" 
+                        <img
+                          src={URL.createObjectURL(selectedFile)}
+                          alt="Preview"
                           className="max-h-[200px] mx-auto mt-4 rounded-lg"
                         />
                       </div>
@@ -165,11 +165,10 @@ const ImageUploadModal = ({
                     Cancel
                   </button>
                   <button
-                    className={`px-4 py-2 text-white rounded-md transition duration-200 ${
-                      selectedFile && !error
-                        ? 'bg-[#CC511D] hover:bg-[#FF7031]' 
+                    className={`px-4 py-2 text-white rounded-md transition duration-200 ${selectedFile && !error
+                        ? 'bg-[#CC511D] hover:bg-[#FF7031]'
                         : 'bg-[#666666] cursor-not-allowed'
-                    }`}
+                      }`}
                     onClick={handleUpload}
                     disabled={!selectedFile || !!error}
                   >
