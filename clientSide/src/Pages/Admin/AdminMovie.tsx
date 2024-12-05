@@ -151,7 +151,7 @@ const AdminMovie = () => {
                     : `url(https://placehold.co/211x263/png)`,
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF] to-black rounded-[1rem] opacity-70"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black rounded-[1rem] opacity-70"></div>
                 <div className="w-[10.9375rem] h-[14.1875rem] flex flex-col justify-between relative">
                   <div className="w-[1.75rem] h-[1.75rem] rounded-full bg-[#D9D9D9] flex items-center justify-center ml-auto">
                     <TripleDotIcon />

@@ -504,3 +504,25 @@ export const addLogo = async (id, data) => {
       throw error;
    }
 }
+
+export const setPosterPath = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/poster-path`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const setBackdropPath = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/backdrop-path`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}

@@ -32,5 +32,29 @@ exports.edit_primary_details = asyncHandler(async (movieId, body) => {
 
    await movie.updateOne({ $set: primaryDetails });
 
-   return movie;  
+   return movie;
+});
+
+exports.edit_poster_path = asyncHandler(async (movieId, body) => {
+   const movie = await Movie.findById(movieId).exec();
+
+   if (!movie) throw new Error("Movie not found.");
+
+   const poster_path = body.poster_path;
+
+   await movie.updateOne({ $set: { poster_path: poster_path } });
+
+   return poster_path;
+});
+
+exports.edit_backdrop_path = asyncHandler(async (movieId, body) => {
+   const movie = await Movie.findById(movieId).exec();
+
+   if (!movie) throw new Error("Movie not found.");
+
+   const backdrop_path = body.backdrop_path;
+
+   await movie.updateOne({ $set: { backdrop_path: backdrop_path } });
+
+   return backdrop_path;
 });

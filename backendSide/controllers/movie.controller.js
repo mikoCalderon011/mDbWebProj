@@ -231,6 +231,28 @@ exports.add_video = asyncHandler(async (req, res, next) => {
    }
 });
 
+exports.edit_poster_path = asyncHandler(async (req, res,next) => {
+   const { movieId } = req.params;
+   try {
+      const poster_path = await movies_service.edit_poster_path(movieId, req.body);
+      return res.status(200).json({ message: "Poster path changed successfully", poster_path });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+})
+
+exports.edit_backdrop_path = asyncHandler(async (req, res,next) => {
+   const { movieId } = req.params;
+   try {
+      const backdrop_path = await movies_service.edit_backdrop_path(movieId, req.body);
+      return res.status(200).json({ message: "Backdrop path changed successfully", backdrop_path });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+})
+
 /* Delete a movie, need more revisions later on */
 exports.delete_movie = asyncHandler(async (req, res, next) => {
    const { movieId } = req.params;

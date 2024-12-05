@@ -34,6 +34,10 @@ router.patch('/:movieId/crew', movie_controller.add_crew);
 
 router.patch('/:movieId/primary-details', movie_controller.edit_primary_details);
 
+router.patch('/:movieId/poster-path', movie_controller.edit_poster_path);
+
+router.patch('/:movieId/backdrop-path', movie_controller.edit_backdrop_path);
+
 /* DELETE request movie */
 router.delete('/:movieId', movie_controller.delete_movie);
 
