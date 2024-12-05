@@ -99,7 +99,7 @@ const ImageUploadModal = ({
 
   return (
     isModalOpen && (
-      <div className="absolute inset-0 z-[200] overflow-y-auto">
+      <div className="absolute top-0 left-1/2 z-[200] overflow-y-auto">
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="inline-block align-bottom bg-[#1E1E1E] rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div className="bg-[#1E1E1E] px-6 pt-6 pb-4">

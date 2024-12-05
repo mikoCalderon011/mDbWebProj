@@ -28,8 +28,6 @@ const Cast = ({ movieData, setMovieData }) => {
         order: castData.length
       }
 
-      console.log(data);
-
       await addCastMember(movieId, data);
 
       setMovieData((prevData) => ({
@@ -119,7 +117,7 @@ const Cast = ({ movieData, setMovieData }) => {
           </table>
         </div>
         {isModalOpen && (
-          <div className="absolute inset-0 z-[100]">
+          <div className="absolute top-0 left-1/2 z-[100]">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/2 bg-[#1E1E1E] text-white p-6 rounded-lg w-[43.75rem] shadow-2xl border border-[#CC511D]">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold text-[#CC511D]">Add Cast Member</h2>

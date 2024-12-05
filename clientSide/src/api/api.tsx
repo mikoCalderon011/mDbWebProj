@@ -273,7 +273,7 @@ export const fetchMultipleVideosData = async (keys) => {
    try {
       const response = await youtubeApi.get(`?part=snippet,statistics,contentDetails&id=${keys.join(',')}&key=${import.meta.env.VITE_YT_API_ACCESS_KEY}`);
 
-      return response.data.items; 
+      return response.data.items;
    } catch (error) {
       console.error('Error during fetching multiple videos data:', error);
       return [];
@@ -338,6 +338,19 @@ export const fetchSearchMovieWithCredits = async (query) => {
    }
 };
 
+export const fetchGenreList = async () => {
+   try {
+      const response = await apiClient({
+         url: 'https://api.themoviedb.org/3/genre/movie/list?language=en'
+
+      });
+      return response.data;
+   }
+   catch (error) {
+      console.log('Error during fetching of data', error);
+   }
+}
+
 // My API
 
 export const axiosPrivate = axios.create({
@@ -397,8 +410,8 @@ export const createMovie = async (data) => {
 export const deleteMovie = async (id) => {
    try {
       const response = await axiosPrivate.delete(`/movie/${id}`);
-      return response.data; 
-   } 
+      return response.data;
+   }
    catch (error) {
       console.error('Error deleting movie:', error.response?.data || error.message);
       throw error;
@@ -408,7 +421,7 @@ export const deleteMovie = async (id) => {
 export const editPrimaryDetails = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/primary-details`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('Error modifying the movie data:', error.response?.data || error.message);
@@ -419,7 +432,7 @@ export const editPrimaryDetails = async (id, data) => {
 export const addCastMember = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/cast`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('Error adding the cast member:', error.response?.data || error.message);
@@ -430,7 +443,7 @@ export const addCastMember = async (id, data) => {
 export const deleteCastMemeber = async (id, castId) => {
    try {
       const response = await axiosPrivate.delete(`/movie/${id}/cast/${castId}`);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('Error deleting the cast member:', error.response?.data || error.message);
@@ -441,7 +454,7 @@ export const deleteCastMemeber = async (id, castId) => {
 export const addCrewMember = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/crew`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('Error adding the crew member:', error.response?.data || error.message);
@@ -452,7 +465,7 @@ export const addCrewMember = async (id, data) => {
 export const deleteCrewMemeber = async (id, castId) => {
    try {
       const response = await axiosPrivate.delete(`/movie/${id}/crew/${castId}`);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('Error deleting the crew member:', error.response?.data || error.message);
@@ -463,7 +476,7 @@ export const deleteCrewMemeber = async (id, castId) => {
 export const changeExternalIds = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/external-ids`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('Error changing the external ids:', error.response?.data || error.message);
@@ -475,7 +488,7 @@ export const addPoster = async (id, data) => {
    try {
       console.log(data);
       const response = await axiosPrivate.post(`/movie/${id}/posters`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('An error occured during the process:', error.response?.data || error.message);
@@ -486,7 +499,7 @@ export const addPoster = async (id, data) => {
 export const addBackdrop = async (id, data) => {
    try {
       const response = await axiosPrivate.post(`/movie/${id}/backdrops`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('An error occured during the process', error.response?.data || error.message);
@@ -497,7 +510,7 @@ export const addBackdrop = async (id, data) => {
 export const addLogo = async (id, data) => {
    try {
       const response = await axiosPrivate.post(`/movie/${id}/logos`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('An error occured during the process', error.response?.data || error.message);
@@ -508,7 +521,7 @@ export const addLogo = async (id, data) => {
 export const setPosterPath = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/poster-path`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('An error occured during the process', error.response?.data || error.message);
@@ -519,7 +532,7 @@ export const setPosterPath = async (id, data) => {
 export const setBackdropPath = async (id, data) => {
    try {
       const response = await axiosPrivate.patch(`/movie/${id}/backdrop-path`, data);
-      return response.data; 
+      return response.data;
    }
    catch (error) {
       console.error('An error occured during the process', error.response?.data || error.message);
@@ -530,7 +543,33 @@ export const setBackdropPath = async (id, data) => {
 export const addVideo = async (id, data) => {
    try {
       const response = await axiosPrivate.post(`/movie/${id}/videos`, data);
-      return response.data; 
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const addGenre = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/genre`, data);
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const deleteGenre = async (id, data) => {
+   try {
+      console.log(data);
+      const response = await axiosPrivate.delete(`/movie/${id}/genre`, {
+         headers: { 'Content-Type': 'application/json' },
+         data: { genre: data },
+      });
+      return response.data;
    }
    catch (error) {
       console.error('An error occured during the process', error.response?.data || error.message);

@@ -294,6 +294,23 @@ exports.delete_crew = asyncHandler(async (req, res, next) => {
    }
 });
 
+exports.delete_genre = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+
+   try {
+      console.log('Backend Received:', {
+         body: req.body, 
+         params: req.params,
+         rawHeaders: req.rawHeaders
+       });
+      const delete_genre = await genre_service.delete_genre(movieId, req.body);
+      return res.status(200).json({ message: "The selected genre has been deleted", delete_genre });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+});
+
 /* Edit a movie's primary details */
 exports.edit_primary_details = asyncHandler(async (req, res, next) => {
    const { movieId } = req.params;

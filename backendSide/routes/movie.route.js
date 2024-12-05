@@ -45,4 +45,6 @@ router.delete('/:movieId/cast/:castId', movie_controller.delete_cast);
 
 router.delete('/:movieId/crew/:crewId', movie_controller.delete_crew);
 
+router.delete('/:movieId/genre', movie_controller.delete_genre);
+
 module.exports = router;

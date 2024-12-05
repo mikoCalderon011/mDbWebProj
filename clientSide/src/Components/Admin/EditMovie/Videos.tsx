@@ -35,7 +35,6 @@ const Videos = ({ movieData, setMovieData }) => {
         ],
       }));
 
-
       alert(`Video has been added successfully!`);
     }
     catch (error) {
@@ -44,7 +43,14 @@ const Videos = ({ movieData, setMovieData }) => {
     }
   }
 
-  console.log(movieData)
+  const handleEditVideoDetails = () => {
+    alert('This function is not yet available!')
+  }
+
+  const handleDeleteVideoDetails = () => {
+    alert('This function is not yet available!')
+  }
+
 
   useEffect(() => {
     const fetchVideoData = async () => {
@@ -75,8 +81,6 @@ const Videos = ({ movieData, setMovieData }) => {
     fetchVideoData();
   }, [movieData]);
 
-  console.log(videos)
-
   return (
     <div className="relative">
       <div className="flex items-center justify-end mb-4">
@@ -102,7 +106,7 @@ const Videos = ({ movieData, setMovieData }) => {
           <tbody>
             {Object.entries(videos || {}).map(([type, typeVideos]) => (
               typeVideos.map((video, index) => (
-                <tr key={index}>
+                <tr key={index} className="border-b border-[#444444] hover:bg-[#222222]">
                   <td className="px-4 py-2">{type}</td>
                   <td className="px-4 py-2">{video.size}p</td>
                   <td className="px-4 py-2">{video.key}</td>
@@ -110,12 +114,13 @@ const Videos = ({ movieData, setMovieData }) => {
                   <td className="px-4 py-3 flex gap-2">
                     <button
                       className="w-[1.5625rem] h-[1.5625rem] bg-[#CC511D] flex items-center justify-center rounded-full hover:bg-[#FF7031] transition duration-200"
+                      onClick={handleEditVideoDetails}
                     >
                       <EditIcon />
                     </button>
                     <button
                       className="w-[1.5625rem] h-[1.5625rem] bg-[#FF3333] flex items-center justify-center rounded-full hover:bg-[#e50000] transition duration-200"
-                    // onClick={() => handleDeleteCast(castMember.id)}
+                      onClick={handleDeleteVideoDetails}
                     >
                       <DeleteIconWhite />
                     </button>

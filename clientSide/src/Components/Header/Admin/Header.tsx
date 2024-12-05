@@ -18,7 +18,7 @@ const Header = () => {
                      <span className='text-white font-roboto font-medium'>7 users</span>
                   </div>
                </div>
-               <div className='w-[12rem] flex gap-[1rem] text-white font-roboto'>
+               <div className='w-[12rem] flex justify-end gap-[1rem] text-white font-roboto'>
                   <div className='flex flex-col items-end'>
                      <span>Calderon, Miko</span>
                      <span className='text-[#CC511D]'>Admin</span>

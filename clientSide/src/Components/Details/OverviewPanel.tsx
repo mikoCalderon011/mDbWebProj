@@ -70,8 +70,8 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, filter
                <div className="w-full flex justify-between">
                   <span className="text-[#7066FF] underline">View Full Details</span>
                   <div className='flex gap-[1.4375rem]'>
-                     <NavLink 
-                        to={`${data._id}/edit`} 
+                     <NavLink
+                        to={`${data._id}/edit`}
                         className='flex items-center gap-[0.625rem] cursor-pointer hover:brightness-125 transition'
                      >
                         <EditIcon />
@@ -98,16 +98,18 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, filter
                   allowFullScreen
                />
                <div className=' w-full flex flex-col gap-[1rem] items-center'>
-                  {data?.genres?.length > 0 ? (
-                     data.genres.map((genre, index) => {
-                        return (
-                           <div key={index} className='py-[0.25rem] px-[0.71875rem] flex items-center justify-center gap-[0.4375rem] bg-[#909090] text-[0.625rem] rounded-full'>
-                              <div className='w-[0.3125rem] h-[0.3125rem] bg-[#111111] rounded-full'></div>
-                              <span>{genre}</span>
-                           </div>
-                        )
-                     })
-                  ) : null}
+                  <div className='flex gap-[.5rem]'>
+                     {data?.genres?.length > 0 ? (
+                        data.genres.map((genre, index) => {
+                           return (
+                              <div key={index} className='py-[0.25rem] px-[0.71875rem] flex items-center justify-center gap-[0.4375rem] bg-[#909090] text-[0.625rem] rounded-full'>
+                                 <div className='w-[0.3125rem] h-[0.3125rem] bg-[#111111] rounded-full'></div>
+                                 <span>{genre}</span>
+                              </div>
+                           )
+                        })
+                     ) : null}
+                  </div>
                   <span className='font-bold text-center' style={{ fontSize: getDynamicFontSize(data.title) }}>{data.title}</span>
                   <div className='flex gap-[1.3125rem]'>
                      <span className='border border-white border-solid px-[5px] py-[2px]'>{data.certifications}</span>
