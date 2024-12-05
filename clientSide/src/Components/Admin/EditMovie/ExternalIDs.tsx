@@ -22,7 +22,7 @@ const ExternalIdInput = ({ label, Icon, name, value, onChange }) => (
   </div>
 );
 
-const ExternalIDs = ({ movieData, setMovieData }) => {
+const ExternalIDs = ({ movieData }) => {
   const [externalIds, setExternalIds] = useState({
     facebook_id: movieData.external_ids?.facebook_id || '',
     twitter_id: movieData.external_ids?.twitter_id || '',

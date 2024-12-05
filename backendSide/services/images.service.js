@@ -9,6 +9,8 @@ exports.add_image = asyncHandler(async (movieId, file, type) => {
    const movie = await Movie.findById(movieId);
    if (!movie) throw new Error("Movie not found");
 
+   console.log('file', file);
+
    if (!file) throw new Error("No image provided");
 
    const allowedFormats = ['image/jpeg', 'image/png'];

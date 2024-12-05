@@ -13,6 +13,7 @@ import Taglines from '../../components/Admin/EditMovie/Taglines';
 import Videos from '../../components/Admin/EditMovie/Videos';
 import { useParams } from 'react-router-dom';
 import { getMyMovieDataApi } from '../../api/api';
+import Images from '../../components/Admin/EditMovie/Images';
 
 const EditMovie = () => {
    const scrollRef = useHorizontalScroll();
@@ -30,6 +31,7 @@ const EditMovie = () => {
       { name: 'External Ids', component: <ExternalIds movieData={movieData} setMovieData={setMovieData} /> },
       { name: 'Genres', component: <Genres movieData={movieData} setMovieData={setMovieData} /> },
       // { name: 'Keywords', component: <Keywords movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Images', component: <Images movieData={movieData} setMovieData={setMovieData} /> },
       // { name: 'Production Information', component: <ProductionInformation movieData={movieData} setMovieData={setMovieData} /> },
       // { name: 'Release Information', component: <ReleaseInformation movieData={movieData} setMovieData={setMovieData} /> },
       { name: 'Taglines', component: <Taglines movieData={movieData} setMovieData={setMovieData} /> },
@@ -58,7 +60,7 @@ const EditMovie = () => {
    // console.log(movieData);
 
    return (
-      <div className="w-[66.1875rem] flex flex-col gap-[1.25rem]">
+      <div className="w-[66.1875rem] relative flex flex-col gap-[1.25rem]">
          <span className="text-[1.5rem] font-bold">
             {movieData.title || movieData.original_title}
          </span>

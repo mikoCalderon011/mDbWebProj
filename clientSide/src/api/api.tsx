@@ -342,7 +342,6 @@ export const fetchSearchMovieWithCredits = async (query) => {
 
 export const axiosPrivate = axios.create({
    baseURL: 'http://localhost:3000/',
-   headers: { 'Content-Type': 'application/json' },
    withCredentials: true
 });
 
@@ -472,3 +471,36 @@ export const changeExternalIds = async (id, data) => {
    }
 }
 
+export const addPoster = async (id, data) => {
+   try {
+      console.log(data);
+      const response = await axiosPrivate.post(`/movie/${id}/posters`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('An error occured during the process:', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const addBackdrop = async (id, data) => {
+   try {
+      const response = await axiosPrivate.post(`/movie/${id}/backdrops`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const addLogo = async (id, data) => {
+   try {
+      const response = await axiosPrivate.post(`/movie/${id}/logos`, data);
+      return response.data; 
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}

@@ -22,13 +22,13 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           <div className='w-[49.5625rem]'>
             <select
               id='adult'
-              className='w-full h-full bg-transparent text-white border-none outline-none text-[0.875rem]'
+              className='w-full h-full bg-transparent text-white border-none outline-none text-[0.875rem] '
               name='adult'
               value={movieDetails.adult}
               onChange={handleChange}
             >
-              <option className='text-black' value="true">Yes</option>
-              <option className='text-black' value="false">No</option>
+              <option className='text-white bg-[#111111]' value="true">Yes</option>
+              <option className='text-white bg-[#111111]' value="false">No</option>
             </select>
           </div>
         </div>
@@ -46,8 +46,8 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
               value={movieDetails.video}
               onChange={handleChange}
             >
-              <option className='text-black bg-transparent' value="true">Yes</option>
-              <option className='text-black bg-transparent' value="false">No</option>
+              <option className='text-white bg-[#111111]' value="true">Yes</option>
+              <option className='text-white bg-[#111111]' value="false">No</option>
             </select>
           </div>
         </div>
