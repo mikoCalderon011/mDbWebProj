@@ -38,6 +38,8 @@ router.patch('/:movieId/poster-path', movie_controller.edit_poster_path);
 
 router.patch('/:movieId/backdrop-path', movie_controller.edit_backdrop_path);
 
+router.post('/:movieId/tagline', movie_controller.add_tagline);
+
 /* DELETE request movie */
 router.delete('/:movieId', movie_controller.delete_movie);
 
@@ -46,5 +48,7 @@ router.delete('/:movieId/cast/:castId', movie_controller.delete_cast);
 router.delete('/:movieId/crew/:crewId', movie_controller.delete_crew);
 
 router.delete('/:movieId/genre', movie_controller.delete_genre);
+
+router.delete('/:movieId/tagline', movie_controller.delete_tagline);
 
 module.exports = router;

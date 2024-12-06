@@ -10,6 +10,7 @@ const crews_service = require('../services/crews.service');
 const recommendations_service = require('../services/recommendation.service');
 const images_service = require('../services/images.service');
 const videos_service = require('../services/videos.service');
+const taglines_service = require('../services/taglines_service');
 
 /* Display all movies */
 exports.get_movies = asyncHandler(async (req, res, next) => {
@@ -247,6 +248,28 @@ exports.edit_backdrop_path = asyncHandler(async (req, res,next) => {
    try {
       const backdrop_path = await movies_service.edit_backdrop_path(movieId, req.body);
       return res.status(200).json({ message: "Backdrop path changed successfully", backdrop_path });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+})
+
+exports.add_tagline = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const add_tagline = await taglines_service.add_tagline(movieId, req.body);
+      return res.status(200).json({ message: "Tagline was added successfully", add_tagline });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message });
+   }
+})
+
+exports.delete_tagline = asyncHandler(async (req, res, next) => {
+   const { movieId } = req.params;
+   try {
+      const delete_tagline = await taglines_service.delete_tagline(movieId, req.body);
+      return res.status(200).json({ message: "Tagline was removed successfully", delete_tagline });
    }
    catch (error) {
       return res.status(500).json({ message: error.message });

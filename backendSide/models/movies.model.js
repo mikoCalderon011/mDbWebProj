@@ -34,6 +34,7 @@ const movieSchema = new Schema({
    runtime: { type: Number },
    status: { type: String },
    tagline: { type: String },
+   taglines: { type: [String] },
    title: { type: String },
    video: { type: Boolean, default: false },
    videos: [videosSchema],
