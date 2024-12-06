@@ -30,7 +30,7 @@ const AdminMovie = () => {
               video.name.toLowerCase().includes('official') &&
               video.name.toLowerCase().includes('trailer')
           );
-          
+
           if (officialTrailer) {
             return `https://www.youtube.com/embed/${officialTrailer.key}?si=8l7P2cs2GNCdH2-L`;
           }
@@ -144,7 +144,8 @@ const AdminMovie = () => {
         <div className='flex gap-[1rem] flex-wrap'>
           {filteredMovies.length > 0
             ? filteredMovies.map((card) => (
-              <div
+              <NavLink
+                to={card._id}
                 key={card._id}
                 className="w-[13.1875rem] h-[16.4375rem] flex items-center justify-center rounded-[1rem] bg-cover bg-center relative"
                 style={{
@@ -168,15 +169,19 @@ const AdminMovie = () => {
                         {card.overview}
                       </span>
                       <button
-                        onClick={() => handleViewInfo(card)}
-                        className="w-[3rem] h-[3rem] flex items-center justify-center rounded-full bg-[#D9D9D9]"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleViewInfo(card);
+                        }}
+                        className="w-[3rem] h-[3rem] flex items-center justify-center rounded-full bg-[#D9D9D9] hover:bg-[#BFBFBF] hover:scale-110 transition-transform duration-200 shadow-md hover:shadow-lg"
                       >
                         <ViewIcon />
                       </button>
+
                     </div>
                   </div>
                 </div>
-              </div>
+              </NavLink>
             ))
             : (
               <div className="text-center mt-4">

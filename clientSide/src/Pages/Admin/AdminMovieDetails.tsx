@@ -11,6 +11,7 @@ import { FacebookIcon, HomepageIcon, IMDbIcon, InstagramIcon, TwitterIcon, WikiD
 import Divider from '../../components/ShowsList/Divider';
 import DividerTwo from '../../components/Details/DividerTwo';
 import Images from '../../components/Admin/MovieDetails/Images';
+import Recommendations from '../../components/Admin/MovieDetails/Recommendations';
 
 const fetchMovieData = async (movieId) => {
 	const response = await getMyMovieDataApi('movie', movieId);
@@ -116,8 +117,8 @@ const AdminMovieDetails = () => {
 						alt={data.original_title || data.title}
 					/>
 					<NavLink
-						to={'edit'}
-						className='h-[3.0625rem] absolute top-0 right-0 mt-[1.8125rem] mr-[1.8125rem] px-[1.375rem] flex items-center justify-center gap-[0.625rem] rounded-full bg-[#CC511D]'
+						to="edit"
+						className="h-[3.0625rem] absolute top-0 right-0 mt-[1.8125rem] mr-[1.8125rem] px-[1.375rem] flex items-center justify-center gap-[0.625rem] rounded-full bg-[#CC511D] text-white font-medium shadow-md hover:bg-[#FF6B35] hover:scale-105 transition-transform duration-200 hover:shadow-lg"
 					>
 						<EditIcon />
 						<span>Edit Movie</span>
@@ -375,7 +376,9 @@ const AdminMovieDetails = () => {
 			<Images
 				movieData={data}
 			/>
-
+			<Recommendations 
+				movieData={data}
+			/>
 		</div>
 	)
 }
