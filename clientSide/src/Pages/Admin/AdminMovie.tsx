@@ -61,6 +61,7 @@ const AdminMovie = () => {
           return {
             _id: movie._id,
             title: movie.title || movie.original_title,
+            tagline: movie.tagline,
             overview: movie.overview,
             trailer: getTrailerUrl(movie?.videos),
             genres: movie.genres.map((genre) => genre.name).slice(0, 3),

@@ -576,3 +576,28 @@ export const deleteGenre = async (id, data) => {
       throw error;
    }
 }
+
+export const addTagline = async (id, tagline) => {
+   try {
+      const response = await axiosPrivate.post(`/movie/${id}/tagline`, tagline);
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const deleteTagline = async (id, tagline) => {
+   try {
+      const response = await axiosPrivate.delete(`/movie/${id}/tagline`, {
+         headers: { 'Content-Type': 'application/json' },
+         data: { tagline: tagline },
+      });
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
