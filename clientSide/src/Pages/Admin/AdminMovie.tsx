@@ -30,6 +30,7 @@ const AdminMovie = () => {
               video.name.toLowerCase().includes('official') &&
               video.name.toLowerCase().includes('trailer')
           );
+          
           if (officialTrailer) {
             return `https://www.youtube.com/embed/${officialTrailer.key}?si=8l7P2cs2GNCdH2-L`;
           }

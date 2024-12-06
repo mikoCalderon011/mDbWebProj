@@ -68,7 +68,12 @@ const OverviewPanel = ({ data, isInfoVisible, panelRef, setIsInfoVisible, filter
          >
             <div className="w-[20.9375rem] pt-[3.25rem] pb-[2rem] flex flex-col gap-[1rem] overflow-y-auto scrollbar-none">
                <div className="w-full flex justify-between">
-                  <span className="text-[#7066FF] underline">View Full Details</span>
+                  <NavLink
+                     to={`${data._id}`}
+                     className='cursor-pointer hover:brightness-125 transition'
+                  >
+                     <span className="text-[#7066FF] underline">View Full Details</span>
+                  </NavLink>
                   <div className='flex gap-[1.4375rem]'>
                      <NavLink
                         to={`${data._id}/edit`}

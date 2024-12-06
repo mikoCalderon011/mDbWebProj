@@ -3,7 +3,6 @@ import { axiosPrivate } from '../api/api';
 import { jwtDecode } from 'jwt-decode';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 
 const userRole = Number(import.meta.env.VITE_YT_ROLE_USER);
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
@@ -20,8 +19,7 @@ const SignIn = () => {
   useEffect(() => {
     if (user?.accessToken) {
       if (user.roles.includes(adminRole)) {
-        console.log('admin', user)
-        navigate('/admin');
+        navigate('/admin/movie');
       } else if (user.roles.includes(userRole)) {
         console.log('user', user)
         navigate('/');
@@ -51,7 +49,7 @@ const SignIn = () => {
       console.log('Login successful:', response);
 
       if (roles.includes(adminRole)) {
-        navigate('/admin');
+        navigate('/admin/movie');
       } else if (roles.includes(userRole)) {
         navigate('/');
       } else {

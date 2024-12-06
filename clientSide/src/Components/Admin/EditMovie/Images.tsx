@@ -142,7 +142,7 @@ const Images = ({ movieData, setMovieData }) => {
             </div>
           </div>
         </div>
-        <div className='w-[47.9375rem] h-[20rem] flex flex-wrap gap-[1.0625rem]'>
+        <div className='w-[47.9375rem] h-full flex flex-wrap gap-[1.0625rem]'>
           {filteredImages.length > 0 ? filteredImages.map((image, index) => (
             <div key={index} className={`${mediaDimensions[selectedImageType].width} ${mediaDimensions[selectedImageType].height} relative`}>
               {selectedImageType !== 'logo' ?

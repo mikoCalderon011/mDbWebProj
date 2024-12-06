@@ -33,6 +33,7 @@ import PersistLogin from './pages/PersistLogin'
 import AdminMovie from './pages/Admin/AdminMovie'
 import CreateMovie from './pages/Admin/CreateMovie'
 import EditMovie from './pages/Admin/EditMovie'
+import AdminMovieDetails from './pages/Admin/AdminMovieDetails'
 
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
 export const LOCALHOST = 'http://localhost:3000';
@@ -111,6 +112,7 @@ const router = createBrowserRouter([
           { path: '', element: <AdminPage /> },
           { path: 'movie', element: <AdminMovie /> },
           { path: 'movie/create', element: <CreateMovie /> },
+          { path: 'movie/:movieId', element: <AdminMovieDetails /> },
           { path: 'movie/:movieId/edit', element: <EditMovie /> },
         ]
       }
