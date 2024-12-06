@@ -12,6 +12,7 @@ import Divider from '../../components/ShowsList/Divider';
 import DividerTwo from '../../components/Details/DividerTwo';
 import Images from '../../components/Admin/MovieDetails/Images';
 import Recommendations from '../../components/Admin/MovieDetails/Recommendations';
+import Videos from '../../components/Admin/MovieDetails/Videos';
 
 const fetchMovieData = async (movieId) => {
 	const response = await getMyMovieDataApi('movie', movieId);
@@ -190,6 +191,13 @@ const AdminMovieDetails = () => {
 					allowFullScreen
 				/>
 				<div className='w-[30.0625rem] h-auto flex flex-col overflow-y-auto scrollbar-none'>
+					<DividerTwo />
+					<div className='flex flex-col gap-[0.9375rem] py-[0.9375rem]'>
+						<div className='flex gap-[1.4375rem]'>
+							<span className='font-bold'>Original Title</span>
+							<span>{data.original_title}</span>
+						</div>
+					</div>
 					<DividerTwo />
 					<div className='flex gap-[1.4375rem] py-[0.9375rem]'>
 						<span className='font-bold'>Director</span>
@@ -376,7 +384,10 @@ const AdminMovieDetails = () => {
 			<Images
 				movieData={data}
 			/>
-			<Recommendations 
+			<Videos 
+				movieData={data}
+			/>
+			<Recommendations
 				movieData={data}
 			/>
 		</div>
