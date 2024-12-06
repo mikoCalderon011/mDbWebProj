@@ -34,6 +34,7 @@ import AdminMovie from './pages/Admin/AdminMovie'
 import CreateMovie from './pages/Admin/CreateMovie'
 import EditMovie from './pages/Admin/EditMovie'
 import AdminMovieDetails from './pages/Admin/AdminMovieDetails'
+import Register from './pages/Register'
 
 const adminRole = Number(import.meta.env.VITE_YT_ROLE_ADMIN);
 export const LOCALHOST = 'http://localhost:3000';
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path: '/signin',
         element: <SignIn />
+      },
+      {
+        path: '/signup',
+        element: <Register />
       }
     ]
   },

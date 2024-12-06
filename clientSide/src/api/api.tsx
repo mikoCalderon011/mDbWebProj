@@ -612,3 +612,25 @@ export const addReleaseDate = async (id, data) => {
       throw error;
    }
 }
+
+export const registerUser = async (data) => {
+   try {
+      const response = await axiosPrivate.post(`/users/register`, data);
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
+
+export const userLogout = async () => {
+   try {
+      const response = await axiosPrivate.get(`/logout`);
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}
