@@ -26,9 +26,6 @@ const fetchMovieData = async (movieId) => {
 
     return { ...response, ...responseImage };
   }
-  // 
-  // console.log(...response, responseImage );
-  // console.log(myResponse?.data.movie);
 };
 
 const MovieDetails = () => {
