@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom';
-import { getMyMovieDataApi } from '../../api/api';
+import { getMyMovieDataApi, languages } from '../../api/api';
 import EditIcon from '../../assets/Icons/Admin/EditIcon';
 import StarLIcon from '../../assets/Icons/StarLIcon';
 import StarOutlineLIcon from '../../assets/Icons/StarOutlineLIcon';
@@ -10,6 +10,7 @@ import HeartIcon from '../../assets/Icons/HeartIcon';
 import { FacebookIcon, HomepageIcon, IMDbIcon, InstagramIcon, TwitterIcon, WikiDataIcon } from '../../assets/Icons/LinkIcons';
 import Divider from '../../components/ShowsList/Divider';
 import DividerTwo from '../../components/Details/DividerTwo';
+import Images from '../../components/Admin/MovieDetails/Images';
 
 const fetchMovieData = async (movieId) => {
 	const response = await getMyMovieDataApi('movie', movieId);
@@ -50,6 +51,16 @@ const fetchMovieData = async (movieId) => {
 	const hours = response.movie.runtime ? Math.floor(response.movie.runtime / 60) : 0;
 	const minutes = response.movie.runtime ? response.movie.runtime % 60 : 0;
 
+	const crewCount = response.movie.credits.crew.length;
+
+	const groupedCrew = response.movie.credits.crew.reduce((acc, member) => {
+		if (!acc[member.department]) acc[member.department] = [];
+
+		acc[member.department].push(member);
+
+		return acc;
+	}, {})
+
 	return {
 		...response.movie,
 		trailer: trailer,
@@ -73,6 +84,11 @@ const fetchMovieData = async (movieId) => {
 		vote_count: ((response.movie.vote_count / 1000).toFixed(1) + 'k'),
 		genres: response.movie.genres.map((genre) => genre.name).slice(0, 3),
 		release_date: new Date(response.movie.release_date).toLocaleDateString('en-PH'),
+		credits: {
+			cast: response.movie.credits.cast,
+			crew: groupedCrew
+		},
+		crew_count: crewCount
 	};
 };
 
@@ -293,6 +309,73 @@ const AdminMovieDetails = () => {
 					<DividerTwo />
 				</div>
 			</div>
+			<div className='w-full h-[35.5625rem] flex gap-[1.5rem]'>
+				<div className='w-[32.3125rem] h-full flex flex-col gap-[2rem] overflow-auto scrollbar-none'>
+					<div className='w-full h-[2.1875rem] flex items-center gap-[1rem]'>
+						<span className='text-[1.875rem] font-bold'>Cast</span>
+						<span className='text-[#B1B1B1] text-[.875rem]'>{data.credits.cast.length}</span>
+						<div className='w-[25rem]'>
+							<DividerTwo />
+						</div>
+					</div>
+					<ul className='h-full flex flex-col gap-[2rem] overflow-auto scrollbar-none'>
+						{data.credits.cast.map((member, index) => {
+							return (
+								<li key={index} className='flex gap-[1.1875rem]'>
+									<img
+										className='w-[4.125rem] h-[4.125rem] rounded-full object-cover'
+										src={member.profile_path
+											? `https://image.tmdb.org/t/p/original${member.profile_path}`
+											: 'https://placehold.co/66x66'}
+										alt={member.name}
+									/>
+									<div className='flex flex-col justify-center'>
+										<span className='font-bold'>{member.name}</span>
+										<span className='text-[#8E8E8E]'>{member.character}</span>
+									</div>
+								</li>
+							)
+						})}
+					</ul>
+				</div>
+				<div className='w-[32.3125rem] h-[35.5625rem] flex flex-col gap-[2rem]'>
+					<div className='w-full h-[2.1875rem] flex items-center gap-[1rem]'>
+						<span className='text-[1.875rem] font-bold'>Crew</span>
+						<span className='text-[#B1B1B1] text-[.875rem]'>{data.crew_count}</span>
+						<div className='w-[25rem]'>
+							<DividerTwo />
+						</div>
+					</div>
+					<div className='h-full flex flex-col gap-[2rem] overflow-auto scrollbar-none'>
+						{Object.entries(data.credits.crew).map(([department, members]) => (
+							<div key={department} className='flex flex-col gap-[.875rem]'>
+								<h2 className='text-[1rem] text-[#9E9E9E] font-bold'>{department}</h2>
+								<ul className='flex flex-col gap-[0.5625rem]'>
+									{members.map((member, index) => (
+										<li key={index} className='flex gap-[1.1875rem]'>
+											<img
+												className='w-[4.125rem] h-[4.125rem] rounded-full object-cover'
+												src={member.profile_path
+													? `https://image.tmdb.org/t/p/original${member.profile_path}`
+													: 'https://placehold.co/66x66'}
+												alt={member.name}
+											/>
+											<div className='flex flex-col justify-center'>
+												<span className='font-bold'>{member.name}</span>
+												<span className='text-[#8E8E8E]'>{member.job}</span>
+											</div>
+										</li>
+									))}
+								</ul>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+			<Images
+				movieData={data}
+			/>
+
 		</div>
 	)
 }

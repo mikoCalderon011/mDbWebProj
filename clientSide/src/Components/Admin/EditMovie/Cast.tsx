@@ -41,7 +41,8 @@ const Cast = ({ movieData, setMovieData }) => {
       alert('Cast have been added successfuly!');
     }
     catch (error) {
-      console.error('Failed to add cast memeber:', error);
+      alert('Failed to add the cast member. This member might already be on the list.');
+      console.error('Failed to add cast member:', error);
     }
   }
 
