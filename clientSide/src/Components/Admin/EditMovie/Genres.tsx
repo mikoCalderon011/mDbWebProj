@@ -19,6 +19,12 @@ const Genres = ({ movieData, setMovieData }) => {
 
   const handleAddGenre = async () => {
     try {
+      const isDuplicate = movieData.genres.some((g) => g.name === genre);
+      if (isDuplicate) {
+        alert('This genre already exists.');
+        return;
+      }
+
       const newGenre = { id: Date.now(), name: genre };
       await addGenre(movieId, { genre: genre })
 
@@ -79,7 +85,7 @@ const Genres = ({ movieData, setMovieData }) => {
           <tbody>
             {genreData?.map((genre) => (
               <tr
-                key={genre.id}
+                key={`${genre.id}-${genre.name}`}
                 className="border-b border-[#444444] hover:bg-[#222222] flex justify-between"
               >
                 <td className="px-4 py-2">{genre.name}</td>

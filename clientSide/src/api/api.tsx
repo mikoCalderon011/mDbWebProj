@@ -601,3 +601,14 @@ export const deleteTagline = async (id, tagline) => {
       throw error;
    }
 }
+
+export const addReleaseDate = async (id, data) => {
+   try {
+      const response = await axiosPrivate.patch(`/movie/${id}/release-date`, data);
+      return response.data;
+   }
+   catch (error) {
+      console.error('An error occured during the process', error.response?.data || error.message);
+      throw error;
+   }
+}

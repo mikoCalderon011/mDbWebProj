@@ -40,7 +40,7 @@ exports.get_movie = asyncHandler(async (req, res, next) => {
 exports.search_movie = asyncHandler(async (query) => {
    try {
       const movies = await Movie.find({
-         original_title: new RegExp(query, 'i')
+         title: new RegExp(query, 'i')
       });
 
       return movies;

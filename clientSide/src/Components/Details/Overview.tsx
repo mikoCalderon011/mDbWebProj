@@ -17,7 +17,7 @@ const Overview = ({ data }) => {
             <span className='text-[2.25rem] font-bold leading-tight break-words'>{data.title || data.name}</span>
             <article className='flex text-[1rem] gap-[0.875rem]'>
               <span className='border border-white border-solid px-[5px] py-[2px]'>{data.certifications || "NR"}</span>
-              <span>{data.release_date !== "Invalid Date" ? data.release_date : "No Date Given"}</span>
+              <span>{data.release_date ? data.release_date : "No Date Given"}</span>
               <div>
                 {data.genres.map((genre, index) => (
                   <span key={index}>

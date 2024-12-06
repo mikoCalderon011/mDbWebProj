@@ -21,14 +21,13 @@ exports.add_release_date = asyncHandler(async (movieId, body) => {
       iso_639_1: iso_639_1 || "",
       note: body.note || "",
       release_date: new Date(body.release_date),
-      type: certification.order,
+      type: body.type,
    };
 
    if (!movie.release_dates) {
       movie.release_dates = { results: [] };
    }
 
-   // Check if there is already an existing release date
    const existingReleaseDate = movie.release_dates.results.find(release =>
       release.iso_3166_1 === iso_3166_1 &&
       release.release_dates.some(rd => rd.release_date.toISOString() === releaseDate.release_date.toISOString())
@@ -51,6 +50,8 @@ exports.add_release_date = asyncHandler(async (movieId, body) => {
       };
       movie.release_dates.results.push(countryReleaseEntry);
    }
+
+   if (!movie.release_date) movie.release_date = new Date(body.release_date);
 
    await movie.save();
 

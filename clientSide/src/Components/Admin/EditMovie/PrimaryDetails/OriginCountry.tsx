@@ -33,8 +33,6 @@ const OriginCountry = ({ primaryDetails, setPrimaryDetails, countries, filteredC
       });
    };
 
-   console.log(primaryDetails);
-
    return (
       <div className="w-[28.9375rem] flex flex-col gap-[0.5625rem] font-roboto">
          <label htmlFor="origin_country" className="text-[.875rem] font-bold">

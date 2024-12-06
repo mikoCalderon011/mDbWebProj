@@ -109,8 +109,6 @@ const Images = ({ movieData, setMovieData }) => {
     alert('This function is not available yet!')
   };
 
-  console.log(filteredImages)
-
   return (
     <>
       <div className='w-[66.1875rem] h-full relative flex gap-[1.5625rem] pb-[1.375rem]'>

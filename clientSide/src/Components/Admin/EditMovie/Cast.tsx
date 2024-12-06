@@ -68,8 +68,6 @@ const Cast = ({ movieData, setMovieData }) => {
     }
   };
 
-  console.log(castData)
-
   if (castData) {
     return (
       <div className="relative">

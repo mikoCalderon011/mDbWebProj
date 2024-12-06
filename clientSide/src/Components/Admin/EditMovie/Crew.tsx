@@ -22,8 +22,6 @@ const Crew = ({ movieData, setMovieData }) => {
     department: ''
   });
 
-  console.log(selectedPerson);
-
   const { movieId } = useParams();
 
   const handleAddCrew = async () => {
@@ -35,9 +33,7 @@ const Crew = ({ movieData, setMovieData }) => {
         department: jobOccupation.department,
         job: jobOccupation.job
       }
-
-      console.log(data);
-
+      
       await addCrewMember(movieId, data);
 
       setMovieData((prevData) => ({

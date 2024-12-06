@@ -60,8 +60,6 @@ const MovieDetails = () => {
       video => video.name.toLowerCase().includes('official') && video.name.toLowerCase().includes('trailer')
     ) : 0); // this is still can have an issue, will fix later ig
 
-  console.log(officialTrailer)
-
   const trailer = officialTrailer.length > 0
     ? `https://www.youtube.com/embed/${officialTrailer[0].key}?si=8l7P2cs2GNCdH2-L`
     : response.videos?.results
@@ -71,9 +69,7 @@ const MovieDetails = () => {
       })()
       : response.videos
         ? (() => {
-          console.log(response.videos)
           const foundVideo = response.videos.find(video => video.type === 'Trailer' && video.site === 'Youtube');
-          console.log(foundVideo)
           return foundVideo ? `https://www.youtube.com/embed/${foundVideo.key}?si=8l7P2cs2GNCdH2-L` : null;
         })()
         : null;
@@ -130,7 +126,7 @@ const MovieDetails = () => {
   };
 
   // Get Overview data
-  const certifications = response.release_dates.results.filter((country) =>
+  const certifications = response.release_dates?.results.filter((country) =>
     [response.origin_country[0], "US"].includes(country.iso_3166_1)
   );
 

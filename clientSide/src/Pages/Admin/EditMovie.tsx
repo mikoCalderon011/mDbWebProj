@@ -33,7 +33,7 @@ const EditMovie = () => {
       // { name: 'Keywords', component: <Keywords movieData={movieData} setMovieData={setMovieData} /> },
       { name: 'Images', component: <Images movieData={movieData} setMovieData={setMovieData} /> },
       // { name: 'Production Information', component: <ProductionInformation movieData={movieData} setMovieData={setMovieData} /> },
-      // { name: 'Release Information', component: <ReleaseInformation movieData={movieData} setMovieData={setMovieData} /> },
+      { name: 'Release Information', component: <ReleaseInformation movieData={movieData} setMovieData={setMovieData} /> },
       { name: 'Taglines', component: <Taglines movieData={movieData} setMovieData={setMovieData} /> },
       { name: 'Videos', component: <Videos movieData={movieData} setMovieData={setMovieData} /> },
    ];

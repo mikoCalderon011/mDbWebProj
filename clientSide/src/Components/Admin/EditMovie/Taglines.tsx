@@ -55,8 +55,6 @@ const Taglines = ({ movieData, setMovieData }) => {
     }
   }
 
-  console.log(movieData)
-
   return (
     <div className="relative">
       <div className="flex items-center justify-end mb-4">
