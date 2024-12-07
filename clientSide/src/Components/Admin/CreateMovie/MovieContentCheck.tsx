@@ -25,7 +25,7 @@ const MovieContentCheck = ({ movieDetails }) => {
   }
 
   if (isError) {
-    return <span className="text-red-500">Error fetching movie content data.</span>;
+    return <span className="error-message">Error fetching movie content data.</span>;
   }
 
   if (duplicateContent) {
@@ -35,7 +35,7 @@ const MovieContentCheck = ({ movieDetails }) => {
           Movie Content Duplication Alert
         </span>
         {isSuccess && (
-          <span className="error-message">
+          <span>
             {data.results && data.results.length > 0
               ? 'The title you provided matches an existing movie. Please verify the content type before proceeding. If this is not a duplicate, you may proceed.'
               : 'No duplicate movie content found. You may proceed :)'}

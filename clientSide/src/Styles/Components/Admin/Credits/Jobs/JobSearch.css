@@ -1,0 +1,15 @@
+.job--input-field {
+  width: 100%;
+  background-color: #2C2C2C;
+  border: 1px solid #444444;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  outline: none;
+}
+.job--input-field:focus {
+  box-shadow: 0 0 0 2px #CC511D;
+}
+.job--input-field::placeholder {
+  color: #b0b0b0; /* Adjust placeholder color as needed */
+}/*# sourceMappingURL=JobSearch.css.map */

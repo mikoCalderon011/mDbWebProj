@@ -6,16 +6,16 @@ const OriginalTitle = ({ primaryDetails, setPrimaryDetails }) => {
   }
   
   return (
-    <div className='w-[25.5rem] flex flex-col gap-[0.5625rem] font-roboto'>
-      <label htmlFor="original_title" className='text-[.875rem] font-bold'>
+    <div className='original-title--container'>
+      <label htmlFor="original_title">
         Original Name
       </label>
-      <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-        <div className='w-[23.85rem]'>
+      <div className='input--container'>
+        <div className='input--wrapper'>
           <input
             id="original_title"
-            className='w-full text-[0.875rem] bg-transparent outline-none'
             name="original_title"
+            className='input'
             placeholder="Enter the original name of the movie..."
             type="text"
             value={primaryDetails.original_title}

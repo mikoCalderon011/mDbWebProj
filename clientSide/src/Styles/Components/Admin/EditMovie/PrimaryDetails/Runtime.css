@@ -1,0 +1,34 @@
+.runtime--container {
+  width: 25.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5625rem;
+  font-family: "Roboto", sans-serif;
+}
+.runtime--container label {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+.runtime--container .input--container {
+  width: 100%;
+  height: 2.3125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 0.125rem;
+}
+.runtime--container .input--container .input--wrapper {
+  width: 23.85rem;
+}
+.runtime--container .input--container .input--wrapper input {
+  width: 100%;
+  font-size: 0.875rem;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+.runtime--container .input--container .input--wrapper input::placeholder {
+  color: gray;
+}/*# sourceMappingURL=Runtime.css.map */

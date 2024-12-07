@@ -1,0 +1,22 @@
+.verify-and-save {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+.verify-and-save .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.verify-and-save .details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.verify-and-save .details .detail {
+  font-weight: bold;
+  color: #939393;
+}
+.verify-and-save .details .detail .value {
+  font-weight: normal;
+  color: white;
+}/*# sourceMappingURL=VerifyAndSave.css.map */

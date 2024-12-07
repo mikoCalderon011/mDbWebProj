@@ -1,0 +1,27 @@
+.verify-and-save {
+   display: flex;
+   flex-direction: column;
+   gap: 1.125rem;
+ 
+   .title {
+     font-size: 1.5rem;
+     font-weight: bold;
+   }
+ 
+   .details {
+     display: flex;
+     flex-direction: column;
+     gap: 0.5rem;
+ 
+     .detail {
+       font-weight: bold;
+       color: #939393;
+ 
+       .value {
+         font-weight: normal;
+         color: white;
+       }
+     }
+   }
+ }
+ 

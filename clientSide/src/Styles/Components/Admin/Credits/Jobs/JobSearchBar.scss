@@ -1,0 +1,43 @@
+.job-search-bar {
+   position: relative;
+ 
+   .label {
+     display: block;
+     font-size: 0.875rem; 
+     font-weight: 500; 
+     margin-bottom: 0.5rem;
+   }
+ 
+   .job-search-results {
+     position: absolute;
+     width: 100%;
+     height: 25rem;
+     overflow-y: auto;
+     background-color: #2C2C2C;
+ 
+     .result-item {
+       padding: 0.5rem;
+       border-bottom: 1px solid #4B4B4B; 
+       
+       .job-item {
+         padding: 0.5rem;
+         background-color: #2C2C2C;
+         cursor: pointer;
+         transition: background-color 0.3s;
+ 
+         &:hover {
+           background-color: #3C3C3C;
+         }
+ 
+         .job-name {
+           font-weight: 600; 
+         }
+ 
+         .department-name {
+           color: #A1A1A1; 
+         }
+       }
+     }
+   }
+ }
+ 

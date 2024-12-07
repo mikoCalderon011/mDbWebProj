@@ -6,15 +6,15 @@ const Homepage = ({ primaryDetails, setPrimaryDetails }) => {
   }
 
   return (
-    <div className='w-[51.6875rem] flex flex-col gap-[0.5625rem] font-roboto'>
-      <label htmlFor="homepage" className='text-[.875rem] font-bold'>
+    <div className='homepage--container'>
+      <label htmlFor="homepage">
         Homepage 
       </label>
-      <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-        <div className='w-[50rem]'>
+      <div className='input--container'>
+        <div className='input--wrapper'>
           <input
             id="homepage"
-            className='w-full text-[0.875rem] bg-transparent outline-none'
+            className='input'
             name="homepage"
             placeholder="Enter movie's webpage..."
             type="url"

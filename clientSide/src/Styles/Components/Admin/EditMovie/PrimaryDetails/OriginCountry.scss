@@ -1,0 +1,84 @@
+.origin-country--container {
+   width: 28.9375rem;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5625rem;
+   font-family: 'Roboto', sans-serif;
+ 
+   label {
+     font-size: 0.875rem;
+     font-weight: bold;
+   }
+ 
+   .input--wrapper {
+     width: 100%;
+     display: flex;
+     background-color: transparent;
+     border: 1px solid white;
+     border-radius: 0.125rem;
+     position: relative;
+ 
+     .selected-countries {
+       display: flex;
+       flex-wrap: wrap;
+       gap: 0.5rem;
+       padding: 0.25rem;
+ 
+       .country-chip {
+         background-color: #CC511D;
+         color: white;
+         font-size: 0.75rem;
+         padding: 0.25rem 0.5rem;
+         border-radius: 0.25rem;
+         display: flex;
+         align-items: center;
+         cursor: pointer;
+ 
+         .remove-icon {
+           margin-left: 0.25rem;
+           font-weight: bold;
+         }
+       }
+ 
+       input {
+         flex-grow: 1;
+         background-color: transparent;
+         color: white;
+         border: none;
+         outline: none;
+         font-size: 0.875rem;
+         padding: 0 0.5rem;
+ 
+         &::placeholder {
+           color: gray;
+         }
+       }
+     }
+ 
+     .dropdown {
+       position: absolute;
+       top: 100%;
+       left: 0;
+       width: 100%;
+       min-height: 200px;
+       max-height: 300px;
+       overflow-y: auto;
+       background-color: black;
+       color: white;
+       border: 1px solid #CC511D;
+       border-radius: 0.125rem;
+       z-index: 10;
+ 
+       .dropdown--item {
+         padding: 0.5rem;
+         cursor: pointer;
+ 
+         &:hover {
+           background-color: #CC511D;
+           color: white;
+         }
+       }
+     }
+   }
+ }
+ 

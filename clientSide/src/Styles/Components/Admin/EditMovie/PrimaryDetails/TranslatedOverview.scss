@@ -1,0 +1,42 @@
+.translated-overview--container {
+   width: 51.6875rem;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   font-family: 'Roboto', sans-serif;
+ 
+   label {
+     font-size: 0.875rem;
+     font-weight: bold;
+   }
+ 
+   .textarea--container {
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: transparent;
+     border: 1px solid white;
+     border-radius: 0.125rem;
+ 
+     .textarea--wrapper {
+       width: 50rem;
+       height: auto;
+ 
+       textarea {
+         width: 100%;
+         font-size: 0.875rem;
+         padding-top: 0.6875rem;
+         background-color: transparent;
+         outline: none;
+         border: none;
+         resize: none;
+ 
+         &::placeholder {
+           color: gray;
+         }
+       }
+     }
+   }
+ }
+ 

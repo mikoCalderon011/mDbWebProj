@@ -1,0 +1,36 @@
+.translated-overview--container {
+  width: 51.6875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "Roboto", sans-serif;
+}
+.translated-overview--container label {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+.translated-overview--container .textarea--container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 0.125rem;
+}
+.translated-overview--container .textarea--container .textarea--wrapper {
+  width: 50rem;
+  height: auto;
+}
+.translated-overview--container .textarea--container .textarea--wrapper textarea {
+  width: 100%;
+  font-size: 0.875rem;
+  padding-top: 0.6875rem;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  resize: none;
+}
+.translated-overview--container .textarea--container .textarea--wrapper textarea::placeholder {
+  color: gray;
+}/*# sourceMappingURL=TranslatedOverview.css.map */
