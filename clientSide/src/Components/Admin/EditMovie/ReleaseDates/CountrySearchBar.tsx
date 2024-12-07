@@ -5,8 +5,8 @@ const CountrySearchBar = ({ releaseDate, setReleaseDate }) => {
    const [results, setResults] = useState([]);
 
    return (
-      <div className="relative">
-         <label className="block text-sm font-medium mb-2">Country</label>
+      <div className="country-search-bar">
+         <label className="search-label">Country</label>
          <div>
             <CountrySearch
                setResults={setResults}
@@ -15,11 +15,11 @@ const CountrySearchBar = ({ releaseDate, setReleaseDate }) => {
             />
          </div>
          {results.length > 0 && (
-            <div className="absolute z-10 w-full mt-1 bg-[#2C2C2C] border border-[#444444] rounded-md shadow-lg max-h-60 overflow-y-auto">
+            <div className="results--container">
                {results.map((country) => (
                   <div
                      key={country.iso_3166_1}
-                     className="px-3 py-2 hover:bg-[#444444] cursor-pointer"
+                     className="result-item"
                      onClick={() => {
                         setReleaseDate({
                            ...releaseDate,
