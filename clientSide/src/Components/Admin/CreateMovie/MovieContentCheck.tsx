@@ -28,38 +28,35 @@ const MovieContentCheck = ({ movieDetails }) => {
     return <span className="text-red-500">Error fetching movie content data.</span>;
   }
 
-  console.log(duplicateContent);
-
   if (duplicateContent) {
     return (
-      <div className='w-full flex flex-col gap-[1.125rem]'>
-        <span className='text-[1.5rem] font-bold'>
+      <div className='movie-content-check'>
+        <span className='title'>
           Movie Content Duplication Alert
         </span>
         {isSuccess && (
-          <span>
+          <span className="error-message">
             {data.results && data.results.length > 0
               ? 'The title you provided matches an existing movie. Please verify the content type before proceeding. If this is not a duplicate, you may proceed.'
               : 'No duplicate movie content found. You may proceed :)'}
           </span>
         )}
-        <div className='w-full flex flex-wrap gap-x-[3.75rem] gap-y-[0.5625rem]'>
+        <div className='content-wrapper'>
           {duplicateContent.map((movieContent) => {
             return (
               <div
                 key={movieContent.id}
-                className='w-[23.9375rem] h-[7.5rem] flex items-center gap-[1.5625rem] text-[0.875rem] mb-[1rem] overflow-auto scrollbar-none'
+                className='content-item scrollbar-none'
               >
                 <img
-                  className='w-[5rem] h-full'
-                  src={movieContent.poster_path 
-                    ? `https://image.tmdb.org/t/p/original${movieContent.poster_path}` 
+                  src={movieContent.poster_path
+                    ? `https://image.tmdb.org/t/p/original${movieContent.poster_path}`
                     : 'https://placehold.co/80x120'}
                   alt={movieContent.title}
                 />
-                <div className='flex flex-col gap-[0.75rem]'>
-                  <span className='text-[#9C4BFF] font-bold underline'>{movieContent.title}</span>
-                  <span className='text-[#8D8D8D]'>
+                <div className='content-details'>
+                  <span className='movie-title'>{movieContent.title}</span>
+                  <span className='cast'>
                     {movieContent.credits?.cast?.slice(0, 3).map((actor, index) => (
                       <>
                         {actor.name}

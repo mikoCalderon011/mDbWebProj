@@ -1,0 +1,52 @@
+.movie-content-check {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+.movie-content-check .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.movie-content-check .error-message {
+  color: #ff4141;
+}
+.movie-content-check .alert-message {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.movie-content-check .content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.75rem;
+  row-gap: 0.5625rem;
+}
+.movie-content-check .content-item {
+  width: 23.9375rem;
+  height: 7.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5625rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+.movie-content-check .content-item img {
+  width: 5rem;
+  height: 100%;
+}
+.movie-content-check .content-item .content-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.movie-content-check .content-item .content-details .movie-title {
+  color: #9C4BFF;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.movie-content-check .content-item .content-details .cast {
+  color: #8D8D8D;
+  font-size: 0.875rem;
+}/*# sourceMappingURL=MovieContentCheck.css.map */

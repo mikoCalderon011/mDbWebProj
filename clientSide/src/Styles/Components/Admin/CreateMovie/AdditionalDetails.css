@@ -1,0 +1,43 @@
+.additional-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+.additional-details--heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.additional-details--section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5625rem;
+  font-family: "Roboto";
+}
+.additional-details--section--label {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.additional-details--section .input--container {
+  width: 100%;
+  height: 2.3125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: solid 1px white;
+  border-radius: 0.125rem;
+}
+.additional-details--section .input--container .input--wrapper {
+  width: 49.5625rem;
+}
+.additional-details--section .input--container .input--wrapper .input {
+  width: 100%;
+  font-size: 0.875rem;
+  background-color: transparent;
+  outline: none;
+}
+.additional-details--section .input--container .input--wrapper .input option {
+  color: white;
+  background-color: #111111;
+}/*# sourceMappingURL=AdditionalDetails.css.map */

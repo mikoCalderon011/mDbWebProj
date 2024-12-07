@@ -12,17 +12,17 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
   };
 
   return (
-    <div className='flex flex-col gap-[1.125rem]'>
-      <span className='text-[1.5rem] font-bold'>Additional Details</span>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="adult" className='text-[1.25rem] font-bold'>
+    <div className='additional-details'>
+      <span className='additional-details--heading'>Additional Details</span>
+      <div className='additional-details--section'>
+        <label htmlFor="adult" className='additional-details--section--label'>
           Adult Movie?
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <select
               id='adult'
-              className='w-full h-full bg-transparent text-white border-none outline-none text-[0.875rem] '
+              className='input'
               name='adult'
               value={movieDetails.adult}
               onChange={handleChange}
@@ -33,15 +33,15 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="video" className='text-[1.25rem] font-bold'>
+      <div className='additional-details--section'>
+        <label htmlFor="video" className='additional-details--section--label'>
           Video?
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <select
               id='video'
-              className='w-full h-full bg-transparent text-white border-none outline-none'
+              className='input'
               name='video'
               value={movieDetails.video}
               onChange={handleChange}
@@ -52,15 +52,15 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="tagline" className='text-[1.25rem] font-bold'>
+      <div className='additional-details--section'>
+        <label htmlFor="tagline" className='additional-details--section--label'>
           Tagline <span className='text-[#939393] text-[1rem]'>(English)</span>
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <input
               id="tagline"
-              className='w-full text-[0.875rem] bg-transparent outline-none'
+              className='input'
               name="tagline"
               placeholder="Enter movie's tagline..."
               type="text"
@@ -70,15 +70,15 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="runtime" className='text-[1.25rem] font-bold'>
+      <div className='additional-details--section'>
+        <label htmlFor="runtime" className='additional-details--section--label'>
           Runtime <span className='text-[#939393] text-[1rem]'>(English)</span>
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <input
               id="runtime"
-              className='w-full text-[0.875rem] bg-transparent outline-none'
+              className='input'
               name="runtime"
               placeholder="Enter movie's runtime..."
               type="number"
@@ -89,15 +89,15 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="budget" className='text-[1.25rem] font-bold'>
+      <div className='additional-details--section'>
+        <label htmlFor="budget" className='additional-details--section--label'>
           Budget <span className='text-[#939393] text-[1rem]'>(in U.S dollars)</span>
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <input
               id="budget"
-              className='w-full text-[0.875rem] bg-transparent outline-none'
+              className='input'
               name="budget"
               placeholder="Enter movie's budget..."
               type="number"
@@ -107,15 +107,15 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="revenue" className='text-[1.25rem] font-bold'>
+      <div className='additional-details--section'>
+        <label htmlFor="revenue" className='additional-details--section--label'>
           Revenue <span className='text-[#939393] text-[1rem]'>(in U.S dollars)</span>
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <input
               id="revenue"
-              className='w-full text-[0.875rem] bg-transparent outline-none'
+              className='input'
               name="revenue"
               placeholder="Enter movie's revenue..."
               type="number"
@@ -125,15 +125,15 @@ const AdditionalDetails = ({ movieDetails, dispatch }) => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-[0.5625rem] font-roboto'>
-        <label htmlFor="webpage" className='text-[1.25rem] font-bold'>
+      <div className='additional-details--section'>
+        <label htmlFor="webpage" className='additional-details--section--label'>
           Webpage <span className='text-[#939393] text-[1rem]'>(http://www.domain.com/)</span>
         </label>
-        <div className='w-full h-[2.3125rem] flex justify-center items-center bg-transparent border-solid border-[1px] border-white rounded-sm'>
-          <div className='w-[49.5625rem]'>
+        <div className='input--container'>
+          <div className='input--wrapper'>
             <input
               id="webpage"
-              className='w-full text-[0.875rem] bg-transparent outline-none'
+              className='input'
               name="webpage"
               placeholder="Enter movie's webpage..."
               type="url"
