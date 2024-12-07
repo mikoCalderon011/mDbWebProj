@@ -3,7 +3,6 @@ import AddIcon from '../../../assets/Icons/Admin/AddIcon'
 import AddGenreModal from '../Modals/AddGenreModal';
 import { addGenre, deleteGenre } from '../../../api/api';
 import { useParams } from 'react-router-dom';
-import EditIcon from '../../../assets/Icons/Admin/EditIcon';
 import DeleteIconWhite from '../../../assets/Icons/Admin/DeleteIconWhite';
 
 const Genres = ({ movieData, setMovieData }) => {
@@ -64,34 +63,33 @@ const Genres = ({ movieData, setMovieData }) => {
   }
 
   return (
-    <div className="relative">
-      <div className="flex items-center justify-end mb-4">
+    <div className="genres">
+      <div className="genres-header">
         <button
           onClick={toggleAddGenreModal}
-          className="flex items-center justify-center gap-[.5rem] px-4 py-3 bg-[#CC511D] text-white rounded-md hover:bg-[#FF7031] transition duration-200"
+          className="add-genre-button"
         >
           <AddIcon />
-          <span className='text-[.75rem] font-semibold'>Add Genre</span>
+          <span>Add Genre</span>
         </button>
       </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full table-auto bg-[#111111] text-white rounded-lg">
+      <div className="genres-table">
+        <table>
           <thead>
-            <tr className="flex justify-between border-b border-[#444444]">
-              <th className="px-4 py-2 text-left">Genres</th>
-              <th className="px-4 py-2 text-left">Action</th>
+            <tr>
+              <th>Genres</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {genreData?.map((genre) => (
               <tr
                 key={`${genre.id}-${genre.name}`}
-                className="border-b border-[#444444] hover:bg-[#222222] flex justify-between"
               >
-                <td className="px-4 py-2">{genre.name}</td>
-                <td className="px-4 py-3 flex gap-2">
+                <td>{genre.name}</td>
+                <td>
                   <button
-                    className="w-[1.5625rem] h-[1.5625rem] bg-[#FF3333] flex items-center justify-center rounded-full hover:bg-[#e50000] transition duration-200"
+                    className="delete-button"
                     onClick={() => handleDeleteGenre(genre.name)}
                   >
                     <DeleteIconWhite />

@@ -1,0 +1,149 @@
+.admin-images--container {
+   width: 66.1875rem;
+   height: 100%;
+   position: relative;
+   display: flex;
+   gap: 1.5625rem;
+   padding-bottom: 1.375rem;
+
+   .select-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.875rem;
+    }
+    
+    .select-wrapper {
+      width: 16.6875rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #1A1A1A;
+      border-radius: 0.5rem;
+    }
+    
+    .select-box {
+      width: 15.5rem;
+    }
+    
+    .select-input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      color: white;
+      border: none;
+      outline: none;
+    }
+    
+    .select-option {
+      color: white;
+      background: #111111;
+    }
+    
+    .button-container {
+      width: 16.6875rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4375rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #1A1A1A;
+      border-radius: 0.5rem;
+    }
+    
+    .button-wrapper {
+      width: 13.25rem;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 1.375rem;
+    }
+    
+    .add-button {
+      width: 1.6875rem;
+      height: 1.6875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid white;
+      border-radius: 50%;
+    }
+    
+    .filter-text {
+      width: 13.25rem;
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 1.375rem;
+    }
+    
+    .image-container {
+      width: 47.9375rem;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.0625rem;
+    }
+    
+    .image-wrapper {
+      position: relative;
+      &.poster {
+        width: 11.1875rem;
+        height: 16.78125rem;
+      }
+      &.logo,
+      &.backdrop {
+        width: 23.4375rem;
+        height: 13.5rem;
+      }
+    }
+    
+    .dropdown-button {
+      width: 1.75rem;
+      height: 1.75rem;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #D9D9D9;
+      border: 1px solid black;
+      border-radius: 50%;
+    }
+    
+    .dropdown-button-backdrop {
+      top: 1rem;
+      right: 1rem;
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 2rem;
+      margin-top: 0.5rem;
+      right: 0.5rem;
+      background: white;
+      border: 1px solid #d1d1d1;
+      border-radius: 0.375rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 150px;
+      padding: 0.5rem;
+    }
+    
+    .dropdown-item {
+      color: black;
+      font-size: 0.75rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      &:hover {
+        background: #f2f2f2;
+      }
+    }
+    
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+ }
+ 
+ 

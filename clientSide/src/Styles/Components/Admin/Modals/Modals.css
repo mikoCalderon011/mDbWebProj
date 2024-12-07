@@ -1,0 +1,38 @@
+.edit-movie--modal {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 100;
+}
+.edit-movie--modal--container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0%);
+  background-color: #1E1E1E;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 43.75rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  border: 1px solid #CC511D;
+}
+.edit-movie--modal--container .menu--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.edit-movie--modal--container .menu--container h2 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: bold;
+  color: #CC511D;
+}
+.edit-movie--modal--container .menu--container button {
+  color: white;
+  transition: all 0.2s ease;
+}
+.edit-movie--modal--container .menu--container button:hover {
+  color: #CC511D;
+}/*# sourceMappingURL=Modals.css.map */

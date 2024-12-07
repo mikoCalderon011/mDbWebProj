@@ -76,40 +76,40 @@ const Crew = ({ movieData, setMovieData }) => {
 
   if (crewData) {
     return (
-      <div className="relative">
-        <div className="flex items-center justify-end mb-4">
+      <div className="crew">
+        <div className="crew-header">
           <button
             onClick={toggleAddCastMemberModal}
-            className="flex items-center justify-center gap-[.5rem] px-4 py-3 bg-[#CC511D] text-white rounded-md hover:bg-[#FF7031] transition duration-200"
+            className="add-crew-button"
           >
             <AddIcon />
-            <span className='text-[.75rem] font-semibold'>Add New Cast Member</span>
+            <span>Add New Cast Member</span>
           </button>
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto bg-[#111111] text-white rounded-lg">
+        <div className="crew-table">
+          <table>
             <thead>
-              <tr className="border-b border-[#444444]">
-                <th className="px-4 py-2 text-left">Person</th>
-                <th className="px-4 py-2 text-left">Job</th>
-                <th className="px-4 py-2 text-left">Action</th>
+              <tr>
+                <th>Person</th>
+                <th>Job</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {crewData.map((crewMember, index) => (
-                <tr key={index} className="border-b border-[#444444] hover:bg-[#222222]">
-                  <td className="px-4 py-3 flex items-center gap-2">
+                <tr key={index}>
+                  <td>
                     <span>{crewMember.name || crewMember.original_name}</span>
                   </td>
-                  <td className="px-4 py-3">{crewMember.job}</td>
-                  <td className="px-4 py-3 flex gap-2">
+                  <td>{crewMember.job}</td>
+                  <td className="action-buttons">
                     <button
-                      className="w-[1.5625rem] h-[1.5625rem] bg-[#CC511D] flex items-center justify-center rounded-full hover:bg-[#FF7031] transition duration-200"
+                      className="edit-button"
                     >
                       <EditIcon />
                     </button>
                     <button
-                      className="w-[1.5625rem] h-[1.5625rem] bg-[#FF3333] flex items-center justify-center rounded-full hover:bg-[#e50000] transition duration-200"
+                      className="delete-button"
                       onClick={() => handleDeleteCrew(crewMember.id)}
                     >
                       <DeleteIconWhite />

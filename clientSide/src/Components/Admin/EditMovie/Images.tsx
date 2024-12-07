@@ -14,18 +14,9 @@ const Images = ({ movieData, setMovieData }) => {
   const filteredImages = images?.[selectedImageType + 's'] || [];
 
   const mediaDimensions = {
-    logo: {
-      width: 'w-[23.4375rem]',
-      height: 'h-[13.5rem]',
-    },
-    poster: {
-      width: 'w-[11.1875rem]',
-      height: 'h-[16.78125rem]',
-    },
-    backdrop: {
-      width: 'w-[23.4375rem]',
-      height: 'h-[13.5rem]',
-    }
+    logo: 'logo',
+    poster: 'poster',
+    backdrop: 'backdrop'
   }
 
   const { movieId } = useParams();
@@ -111,44 +102,44 @@ const Images = ({ movieData, setMovieData }) => {
 
   return (
     <>
-      <div className='w-[66.1875rem] h-full relative flex gap-[1.5625rem] pb-[1.375rem]'>
-        <div className='flex flex-col gap-[1.875rem]'>
-          <div className='w-[16.6875rem] h-[2rem] flex items-center justify-center border-solid border-[1px] border-[#1A1A1A] rounded-[.5rem]'>
-            <div className='w-[15.5rem]'>
+      <div className='admin-images--container'>
+        <div className='select-container'>
+          <div className='select-wrapper '>
+            <div className='select-box'>
               <select
-                className='w-full h-full bg-transparent text-white border-none outline-none'
+                className='select-input'
                 name="images"
                 id="images"
                 onChange={handleImageTypeChange}
               >
-                <option value={'poster'} className='text-white bg-[#111111]'>Posters</option>
-                <option value={'backdrop'} className='text-white bg-[#111111]'>Backdrops</option>
-                <option value={'logo'} className='text-white bg-[#111111]'>Logos</option>
+                <option value={'poster'} className='select-option'>Posters</option>
+                <option value={'backdrop'} className='select-option'>Backdrops</option>
+                <option value={'logo'} className='select-option'>Logos</option>
               </select>
             </div>
           </div>
           <div 
-            className='w-[16.6875rem] flex flex-col gap-[1.4375rem] items-center justify-center border-solid border-[1px] border-[#1A1A1A] rounded-[.5rem]'>
-            <div className='w-[13.25rem] flex justify-end pt-[1.375rem]'>
+            className='button-container'>
+            <div className='button-wrapper'>
               <button
-                className='w-[1.6875rem] h-[1.6875rem] flex items-center justify-center border-solid border-[1px] border-white rounded-full'
+                className='add-button'
                 onClick={() => setIsModalOpen(true)}
               >
                 <AddIconSmall />
               </button>
             </div>
-            <div className='w-[13.25rem] flex justify-end pb-[1.375rem]'>
+            <div className='filter-text'>
               Filtering by country code is not available yet...
             </div>
           </div>
         </div>
-        <div className='w-[47.9375rem] h-full flex flex-wrap gap-[1.0625rem]'>
+        <div className='image-container'>
           {filteredImages.length > 0 ? filteredImages.map((image, index) => (
-            <div key={index} className={`${mediaDimensions[selectedImageType].width} ${mediaDimensions[selectedImageType].height} relative`}>
+            <div key={index} className={`${mediaDimensions[selectedImageType]} ${mediaDimensions[selectedImageType]} image-wrapper `}>
               {selectedImageType !== 'logo' ?
                 <button
                   onClick={() => handleDropdownToggle(index)}
-                  className={`w-[1.75rem] h-[1.75rem] absolute ${selectedImageType === 'poster' ? 'top-[.5rem] right-[.5rem]' : 'top-[1rem] right-[1rem]'}  flex items-center justify-center bg-[#D9D9D9] rounded-full border-black border-solid border-[1px]`}
+                  className={`${selectedImageType === 'poster' ? 'dropdown-button' : 'dropdown-button dropdown-button-backdrop'}`}
                 >
                   <TripleDotIcon />
                 </button>
